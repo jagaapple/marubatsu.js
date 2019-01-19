@@ -16,8 +16,7 @@
   // ---------------------------------------------------------------------------------------------------------------------------
   // Configure glob patterns for excluding files and folders.
   "files.exclude": {
-    "node_modules": true,
-    ".cache": true
+    "node_modules": true
   },
 
   // Configure glob patterns of file paths to exclude from file watching.
@@ -26,8 +25,7 @@
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/node_modules/**": true,
-    ".cache/**": true,
-    "dist/**": true
+    ".dist/**": true
   },
 
   // Specifies the folder path containing the tsserver and lib*.d.ts files to use.

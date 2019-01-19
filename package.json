@@ -20,10 +20,22 @@
     "type": "git",
     "url": "https://github.com/jagaapple/marubatsu.git"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "tsc -p .",
+    "lint": "tsc --noEmit && tslint --project ./tsconfig.json --format verbose \"./src/**/*.ts\"",
+    "fix": "tslint --project ./tsconfig.json --format verbose --fix \"./src/**/*.ts\"",
+    "clean": "rm -rf ./.dist"
+  },
   "config": {},
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier": "^1.15.3",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-consistent-codestyle": "^1.15.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.2.4"
+  },
   "peerDependencies": {},
   "engines": {},
   "engineStrict": false,
