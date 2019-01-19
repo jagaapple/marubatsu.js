@@ -1,0 +1,32 @@
+{
+  "name": "marubatsu",
+  "version": "0.0.1",
+  "description": "Chainable validation library for Node.js and browsers.",
+  "keywords": [
+    "validation",
+    "universal",
+    "typescript"
+  ],
+  "homepage": "https://github.com/jagaapple/marubatsu",
+  "bugs": "https://github.com/jagaapple/marubatsu/issues",
+  "license": "MIT",
+  "author": "Jaga Apple",
+  "contributors": [],
+  "files": [],
+  "main": "dist/index.js",
+  "bin": "",
+  "man": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jagaapple/marubatsu.git"
+  },
+  "scripts": {},
+  "config": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {},
+  "engines": {},
+  "engineStrict": false,
+  "preferGlobal": false,
+  "private": true
+}
