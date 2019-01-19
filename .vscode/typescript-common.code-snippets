@@ -3,5 +3,61 @@
     "prefix": "export statement",
     "scope": "typescript",
     "body": ["export { $2 } from \"${1:module}\";"]
+  },
+  "Insert variables comment": {
+    "prefix": "comment variables",
+    "scope": "typescript",
+    "body": [
+      "  // ---------------------------------------------------------------------------------------------------------------------------",
+      "  // Variables",
+      "  // ---------------------------------------------------------------------------------------------------------------------------"
+    ]
+  },
+  "Insert public variables comment": {
+    "prefix": "comment public variables",
+    "scope": "typescript",
+    "body": [
+      "  // Public Variables"
+    ]
+  },
+  "Insert private variables comment": {
+    "prefix": "comment private variables",
+    "scope": "typescript",
+    "body": [
+      "  // Private Variables"
+    ]
+  },
+  "Insert functions comment": {
+    "prefix": "comment functions",
+    "scope": "typescript",
+    "body": [
+      "  // ---------------------------------------------------------------------------------------------------------------------------",
+      "  // Functions",
+      "  // ---------------------------------------------------------------------------------------------------------------------------"
+    ]
+  },
+  "Insert constructors comment": {
+    "prefix": "comment constructors",
+    "scope": "typescript",
+    "body": [
+      "  // Constructors",
+      "  // ---------------------------------------------------------------------------------------------------------------------------"
+    ]
+  },
+  "Insert public functions comment": {
+    "prefix": "comment public functions",
+    "scope": "typescript",
+    "body": [
+      "  // Public Functions",
+      "  // ---------------------------------------------------------------------------------------------------------------------------"
+    ]
+  },
+  "Insert private functions comment": {
+    "prefix": "comment private functions",
+    "scope": "typescript",
+    "body": [
+      "  // Private Functions",
+      "  // ---------------------------------------------------------------------------------------------------------------------------"
+    ]
   }
 }
