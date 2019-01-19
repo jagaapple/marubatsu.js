@@ -1,0 +1,24 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2015",
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./.dist",
+    "paths": {},
+    "rootDir": "./src",
+    "removeComments": true,
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2015"
+  }
+}

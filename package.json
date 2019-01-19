@@ -1,0 +1,44 @@
+{
+  "name": "marubatsu",
+  "version": "0.0.1",
+  "description": "Chainable validation library for Node.js and browsers.",
+  "keywords": [
+    "validation",
+    "universal",
+    "typescript"
+  ],
+  "homepage": "https://github.com/jagaapple/marubatsu",
+  "bugs": "https://github.com/jagaapple/marubatsu/issues",
+  "license": "MIT",
+  "author": "Jaga Apple",
+  "contributors": [],
+  "files": [],
+  "main": "dist/index.js",
+  "bin": "",
+  "man": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jagaapple/marubatsu.git"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "lint": "tsc --noEmit && tslint --project ./tsconfig.json --format verbose \"./src/**/*.ts\"",
+    "fix": "tslint --project ./tsconfig.json --format verbose --fix \"./src/**/*.ts\"",
+    "clean": "rm -rf ./.dist"
+  },
+  "config": {},
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^1.15.3",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-consistent-codestyle": "^1.15.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.2.4"
+  },
+  "peerDependencies": {},
+  "engines": {},
+  "engineStrict": false,
+  "preferGlobal": false,
+  "private": true
+}
