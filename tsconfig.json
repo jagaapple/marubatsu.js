@@ -25,5 +25,8 @@
     "strict": true,
     "target": "es2015"
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*",
+    "./spec/**/*.spec.ts"
+  ],
 }
