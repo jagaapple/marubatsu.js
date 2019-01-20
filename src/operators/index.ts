@@ -8,6 +8,7 @@ import { empty } from "./empty";
 import { length } from "./length";
 import { nullary } from "./nullary";
 import { present } from "./present";
+import { startsWith } from "./starts-with";
 
 export const builtInRules = {
   blank,
@@ -15,4 +16,5 @@ export const builtInRules = {
   length,
   nullary,
   present,
+  startsWith,
 };
