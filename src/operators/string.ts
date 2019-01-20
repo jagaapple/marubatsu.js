@@ -14,6 +14,8 @@ import { Validator } from "./shared";
 
 export interface StringOptions {
   length?: number | [number, number];
+  maximumLength?: number;
+  minimumLength?: number;
   startsWith?: number | string;
   endsWith?: number | string;
   includes?: string;
@@ -31,6 +33,16 @@ export const string = (options: StringOptions = {}) => {
     validators.length = Array.isArray(length)
       ? (value: any) => isWithinLengthRange(value, length)
       : (value: any) => isEqualToLength(value, length);
+  }
+
+  const maximumLength = options.maximumLength;
+  if (maximumLength != undefined) {
+    validators.maximumLength = (value: any) => isWithinLengthRange(value, [undefined, maximumLength]);
+  }
+
+  const minimumLength = options.minimumLength;
+  if (minimumLength != undefined) {
+    validators.minimumLength = (value: any) => isWithinLengthRange(value, [minimumLength, undefined]);
   }
 
   const startsWith = options.startsWith;
