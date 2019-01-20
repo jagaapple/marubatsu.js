@@ -1,6 +1,4 @@
 // =============================================================================================================================
-// SRC - CHECKERS - INDEX
+// SRC - CHECKERS - NULLARY CHECKER
 // =============================================================================================================================
-export { isEqualToLength } from "./equal-length-checker";
-export { isNullary } from "./nullary-checker";
-export { isWithinLengthRange } from "./within-length-range-checker";
+export const isNullary = (value: any) => value == undefined;
