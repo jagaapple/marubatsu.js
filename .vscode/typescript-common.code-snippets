@@ -4,6 +4,16 @@
     "scope": "typescript",
     "body": ["export { $2 } from \"${1:module}\";"]
   },
+  "Import modules from @checkers": {
+    "prefix": "import checkers",
+    "scope": "typescript",
+    "body": ["import { $2 } from \"@checkers/${1:index}\";"]
+  },
+  "Import modules from @rules": {
+    "prefix": "import rules",
+    "scope": "typescript",
+    "body": ["import { $2 } from \"@rules/${1:index}\";"]
+  },
   "Insert variables comment": {
     "prefix": "comment variables",
     "scope": "typescript",

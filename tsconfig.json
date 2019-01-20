@@ -14,7 +14,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./.dist",
-    "paths": {},
+    "paths": {
+      "@checkers/*": ["./src/checkers/*"],
+      "@rules/*": ["./src/rules/*"]
+    },
     "rootDir": "./src",
     "removeComments": true,
     "sourceMap": false,
