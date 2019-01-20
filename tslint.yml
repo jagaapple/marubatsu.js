@@ -230,7 +230,10 @@ rules:
   # NG: throw "string"
   no-string-throw: true
   # Disallow importing any submodule.
-  no-submodule-imports: false
+  no-submodule-imports:
+    - true
+    - "@checkers"
+    - "@rules"
   # Disallow falling through case statements.
   no-switch-case-fall-through: true
   # Disallow unnecessary references to `this` like ES5 style.
