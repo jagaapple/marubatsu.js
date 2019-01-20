@@ -4,16 +4,26 @@
 export const endsWith = (value: any, expectedValue: string) => {
   if (value == undefined) return false;
 
+  let stringValue: string = "";
+
   switch (typeof value) {
     case "number":
-      return value.toString().endsWith(expectedValue);
+      stringValue = value.toString();
+
+      break;
     case "string":
-      return value.endsWith(expectedValue);
+      stringValue = value;
+
+      break;
     case "object":
       if (!Array.isArray(value)) return false;
 
-      return (value[value.length - 1] || "").endsWith(value);
+      stringValue = value[value.length - 1] || "";
+
+      break;
     default:
       return false;
   }
+
+  return stringValue.endsWith(expectedValue);
 };

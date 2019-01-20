@@ -4,16 +4,26 @@
 export const startsWith = (value: any, expectedValue: string) => {
   if (value == undefined) return false;
 
+  let stringValue: string = "";
+
   switch (typeof value) {
     case "number":
-      return value.toString().startsWith(expectedValue);
+      stringValue = value.toString();
+
+      break;
     case "string":
-      return value.startsWith(expectedValue);
+      stringValue = value;
+
+      break;
     case "object":
       if (!Array.isArray(value)) return false;
 
-      return (value[0] || "").startsWith(value);
+      stringValue = value[0] || "";
+
+      break;
     default:
       return false;
   }
+
+  return stringValue.startsWith(expectedValue);
 };

@@ -4,12 +4,20 @@
 export const isEmpty = (value: any) => {
   if (value == undefined) return true;
 
+  let valueLength: number = 0;
+
   switch (typeof value) {
     case "string":
-      return value.length === 0;
+      valueLength = value.length;
+
+      break;
     case "object":
-      return Object.keys(value).length === 0;
+      valueLength = Object.keys(value).length;
+
+      break;
     default:
       return false;
   }
+
+  return valueLength === 0;
 };
