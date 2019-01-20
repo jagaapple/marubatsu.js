@@ -6,10 +6,16 @@ import { isEmpty } from "./empty-checker";
 
 export const isBlank = (value: any) => {
   let trimmedValue = value;
-  if (typeof value === "string") {
-    trimmedValue = value.trim();
+
+  switch (typeof value) {
+    case "string":
+      trimmedValue = value.trim();
+
+      break;
+    case "boolean":
+      return value === false;
+    default:
   }
-  if (typeof value === "boolean") return value === false;
 
   return isNullary(trimmedValue) || isEmpty(trimmedValue);
 };

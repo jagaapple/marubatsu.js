@@ -3,6 +3,4 @@
 // =============================================================================================================================
 import { isBlank } from "@checkers/index";
 
-export const present = () => {
-  return (value: any) => !isBlank(value);
-};
+export const present = () => (value: any) => !isBlank(value);
