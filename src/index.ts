@@ -1,14 +1,18 @@
 // =============================================================================================================================
 // SRC - INDEX
 // =============================================================================================================================
-import { builtInRules, Operator, Validator } from "./operators";
+import { builtInOperators, Operator, ValidationExecutor, Validator } from "./operators";
+
+interface ValidatorsByOperatorName {
+  [operatorName: string]: Validator;
+}
 
 class Executor {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // Private Variables
-  private readonly validators: Validator[] = [];
+  private readonly validatorsByOperatorName: ValidatorsByOperatorName = {};
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Functions
@@ -16,32 +20,41 @@ class Executor {
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   test<T>(value: T) {
-    return this.validators.every((validator: Validator) => validator(value));
+    return Object.values(this.validatorsByOperatorName).every((validator: Validator) => {
+      return Object.values(validator).every((executor: ValidationExecutor) => executor(value));
+    });
   }
 
   // Protected Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  protected appendValidator(validator: Validator) {
-    this.validators.push(validator);
+  protected registerValidator(operatorName: string, validator: Validator) {
+    const prevValidator = this.validatorsByOperatorName[operatorName];
+
+    this.validatorsByOperatorName[operatorName] = {
+      ...prevValidator,
+      ...validator,
+    };
   }
 }
 
 type ExecutorWithBuiltInRules = Executor &
-  { [K in keyof typeof builtInRules]: (...parameters: Parameters<(typeof builtInRules)[K]>) => ExecutorWithBuiltInRules };
+  {
+    [K in keyof typeof builtInOperators]: (...parameters: Parameters<(typeof builtInOperators)[K]>) => ExecutorWithBuiltInRules
+  };
 const createProxyExecutor = (executor: Executor) =>
   new Proxy(executor, {
     get: (target: Executor, property: PropertyKey, receiver: any) => {
       if (Reflect.has(target, property)) return Reflect.get(target, property);
 
       // Call built-in operators.
-      if (Reflect.has(builtInRules, property)) {
-        const operator = Reflect.get(builtInRules, property) as Operator;
+      if (Reflect.has(builtInOperators, property)) {
+        const operator = Reflect.get(builtInOperators, property) as Operator;
 
         return (...args: any) => {
           const validator = operator(...args);
 
           // tslint:disable-next-line:no-string-literal
-          target["appendValidator"](validator);
+          target["registerValidator"](property.toString(), validator);
 
           return receiver;
         };
