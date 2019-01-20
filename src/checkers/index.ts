@@ -9,4 +9,5 @@ export { includes } from "./includes-checker";
 export { isNullary } from "./nullary-checker";
 export { isConformingRegExp } from "./regexp-checker";
 export { startsWith } from "./starts-with-checker";
+export { isType } from "./type-checker";
 export { isWithinLengthRange } from "./within-length-range-checker";

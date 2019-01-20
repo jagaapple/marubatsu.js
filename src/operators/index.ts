@@ -3,6 +3,7 @@
 // =============================================================================================================================
 export { Operator, Validator } from "./shared";
 
+import { beArray, beBoolean, beNull, beNumber, beObject, beString, beUndefined } from "./be-types";
 import { blank } from "./blank";
 import { empty } from "./empty";
 import { endsWith } from "./ends-with";
@@ -14,6 +15,13 @@ import { present } from "./present";
 import { startsWith } from "./starts-with";
 
 export const builtInRules = {
+  beArray,
+  beBoolean,
+  beNull,
+  beNumber,
+  beObject,
+  beString,
+  beUndefined,
   blank,
   empty,
   endsWith,
