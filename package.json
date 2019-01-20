@@ -21,7 +21,8 @@
     "url": "https://github.com/jagaapple/marubatsu.git"
   },
   "scripts": {
-    "build": "tsc -p .",
+    "prebuild": "npm run clean",
+    "build": "webpack",
     "lint": "tsc --noEmit && tslint --project ./tsconfig.json --format verbose \"./src/**/*.ts\"",
     "fix": "tslint --project ./tsconfig.json --format verbose --fix \"./src/**/*.ts\"",
     "clean": "rm -rf ./.dist"
@@ -30,11 +31,16 @@
   "dependencies": {},
   "devDependencies": {
     "prettier": "^1.15.3",
+    "ts-loader": "^5.3.3",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
     "tslint-consistent-codestyle": "^1.15.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.2.4"
+    "typescript": "^3.2.4",
+    "uglify-save-license": "^0.4.1",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
   },
   "peerDependencies": {},
   "engines": {},

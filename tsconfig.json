@@ -3,12 +3,13 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [
-      "es2015",
+      "es2018",
+      "dom",
     ],
     "module": "commonjs",
     "moduleResolution": "node",
@@ -20,5 +21,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2015"
-  }
+  },
+  "include": ["./src/**/*"]
 }
