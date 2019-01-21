@@ -25,6 +25,8 @@
     "build": "webpack",
     "pretest": "npm run clean && tsc -p ./tsconfig.spec.json && ef-tspm --tsconfig ./tsconfig.spec.json",
     "test": "nyc --reporter=html --reporter=text mocha \"./.dist/**/*.spec.js\" -R dot",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && npm run codecov",
+    "codecov": "codecov",
     "lint": "tsc --noEmit && tslint --project ./tsconfig.json --format verbose \"./src/**/*.ts\"",
     "fix": "tslint --project ./tsconfig.json --format verbose --fix \"./src/**/*.ts\"",
     "clean": "rm -rf ./.dist ./.tmp ./.nyc_output coverage"
@@ -36,6 +38,7 @@
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
     "chai": "^4.2.0",
+    "codecov": "^3.1.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
