@@ -7,8 +7,8 @@
     "universal",
     "typescript"
   ],
-  "homepage": "https://github.com/jagaapple/marubatsu",
-  "bugs": "https://github.com/jagaapple/marubatsu/issues",
+  "homepage": "https://github.com/jagaapple/marubatsu.js",
+  "bugs": "https://github.com/jagaapple/marubatsu.js/issues",
   "license": "MIT",
   "author": "Jaga Apple",
   "contributors": [],
@@ -18,7 +18,7 @@
   "man": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jagaapple/marubatsu.git"
+    "url": "https://github.com/jagaapple/marubatsu.js.git"
   },
   "scripts": {
     "prebuild": "npm run clean",
