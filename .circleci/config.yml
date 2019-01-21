@@ -5,7 +5,7 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details.
 version: 2.1
 jobs:
-  node-v10.15:
+  node-v10:
     working_directory: "~/repository"
     docker:
       - image: "node:10.15"
@@ -23,7 +23,7 @@ jobs:
       - run:
           name: "Exec tests"
           command: "npm test && npm run coverage"
-  node-v8.15:
+  node-v8:
     working_directory: "~/repository"
     docker:
       - image: "node:8.15"
@@ -41,7 +41,7 @@ jobs:
       - run:
           name: "Exec tests"
           command: "npm test && npm run coverage"
-  node-v6.16:
+  node-v6:
     working_directory: "~/repository"
     docker:
       - image: "node:6.16"
@@ -63,6 +63,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - "node-v10.15"
-      - "node-v8.15"
-      - "node-v6.16"
+      - "node-v10"
+      - "node-v8"
+      - "node-v6"
