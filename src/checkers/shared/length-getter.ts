@@ -15,17 +15,10 @@ export const getLength = (value: any) => {
       lengthOfValue = value.length;
 
       break;
-    case "symbol":
-      lengthOfValue = value.toString().length;
-
-      break;
     case "object":
       lengthOfValue = Object.keys(value).length;
 
       break;
-    case "boolean":
-    case "function":
-      return;
     default:
       return;
   }

@@ -15,12 +15,16 @@ export const startsWith = (value: any, expectedValue: string) => {
       stringValue = value;
 
       break;
-    case "object":
+    case "object": {
       if (!Array.isArray(value)) return false;
 
-      stringValue = value[0] || "";
+      const firstElement = value[0];
+      if (typeof firstElement !== "number" && typeof firstElement !== "string") return false;
+
+      stringValue = firstElement.toString();
 
       break;
+    }
     default:
       return false;
   }

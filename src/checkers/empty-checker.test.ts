@@ -6,15 +6,15 @@ import { expect } from "chai";
 import { isEmpty } from "./empty-checker";
 
 describe("[ Empty Checker ]", function() {
-  context("when calling with null,", function() {
-    it("should return false", function() {
-      expect(isEmpty(null)).to.be.false;
-    });
-  });
-
   context("when calling with undefined,", function() {
     it("should return false", function() {
       expect(isEmpty(undefined)).to.be.false;
+    });
+  });
+
+  context("when calling with null,", function() {
+    it("should return false", function() {
+      expect(isEmpty(null)).to.be.false;
     });
   });
 
@@ -118,11 +118,11 @@ describe("[ Empty Checker ]", function() {
         expect(isEmpty({ a: null, b: null })).to.be.false;
       });
     });
+  });
 
-    context("a function,", function() {
-      it("should return false", function() {
-        expect(isEmpty(() => true)).to.be.false;
-      });
+  context("when calling with function,", function() {
+    it("should return false", function() {
+      expect(isEmpty(() => true)).to.be.false;
     });
   });
 });

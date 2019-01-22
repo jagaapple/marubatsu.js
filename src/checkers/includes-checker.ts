@@ -18,7 +18,12 @@ export const includes = (value: any, expectedValue: string) => {
     case "object":
       if (!Array.isArray(value)) return false;
 
-      checkableValue = value;
+      // Convert all elements in array to string.
+      checkableValue = value.map((element: any) => {
+        if (typeof element !== "number" && typeof element !== "string") return element;
+
+        return element.toString();
+      });
 
       break;
     default:
