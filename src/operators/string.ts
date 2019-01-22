@@ -12,7 +12,16 @@ import {
 } from "@checkers/index";
 import { Validator } from "./shared";
 
-export interface StringOptions {
+const deafultCheckers = {
+  isEqualToLength,
+  isWithinLengthRange,
+  checkToStartsWith,
+  checkToEndsWith,
+  checkToIncludes,
+  isConformingRegExp,
+};
+
+export interface Options {
   length?: number | [number, number];
   maximumLength?: number;
   minimumLength?: number;
@@ -22,48 +31,57 @@ export interface StringOptions {
   pattern?: RegExp;
 }
 
-// tslint:disable-next-line:variable-name
-export const string = (options: StringOptions = {}) => {
-  const validators: Validator = {
-    type: (value: any) => isType(value, "string"),
+type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
+export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
+  // tslint:disable:no-shadowed-variable
+  const { isEqualToLength, isWithinLengthRange, checkToStartsWith, checkToEndsWith, checkToIncludes, isConformingRegExp } = {
+    ...deafultCheckers,
+    ...checkers,
   };
+  // tslint:enable:no-shadowed-variable
 
-  const length = options.length;
-  if (length != undefined) {
-    validators.length = Array.isArray(length)
-      ? (value: any) => isWithinLengthRange(value, length)
-      : (value: any) => isEqualToLength(value, length);
-  }
+  return (options: Options = {}) => {
+    const validators: Validator = {
+      type: (value: any) => isType(value, "string"),
+    };
 
-  const maximumLength = options.maximumLength;
-  if (maximumLength != undefined) {
-    validators.maximumLength = (value: any) => isWithinLengthRange(value, [undefined, maximumLength]);
-  }
+    const length = options.length;
+    if (length != undefined) {
+      validators.length = Array.isArray(length)
+        ? (value: any) => isWithinLengthRange(value, length)
+        : (value: any) => isEqualToLength(value, length);
+    }
 
-  const minimumLength = options.minimumLength;
-  if (minimumLength != undefined) {
-    validators.minimumLength = (value: any) => isWithinLengthRange(value, [minimumLength, undefined]);
-  }
+    const maximumLength = options.maximumLength;
+    if (maximumLength != undefined) {
+      validators.maximumLength = (value: any) => isWithinLengthRange(value, [undefined, maximumLength]);
+    }
 
-  const startsWith = options.startsWith;
-  if (startsWith != undefined) {
-    validators.startsWith = (value: any) => checkToStartsWith(value, startsWith.toString());
-  }
+    const minimumLength = options.minimumLength;
+    if (minimumLength != undefined) {
+      validators.minimumLength = (value: any) => isWithinLengthRange(value, [minimumLength, undefined]);
+    }
 
-  const endsWith = options.endsWith;
-  if (endsWith != undefined) {
-    validators.endsWith = (value: any) => checkToEndsWith(value, endsWith.toString());
-  }
+    const startsWith = options.startsWith;
+    if (startsWith != undefined) {
+      validators.startsWith = (value: any) => checkToStartsWith(value, startsWith.toString());
+    }
 
-  const includes = options.includes;
-  if (includes != undefined) {
-    validators.includes = (value: any) => checkToIncludes(value, includes);
-  }
+    const endsWith = options.endsWith;
+    if (endsWith != undefined) {
+      validators.endsWith = (value: any) => checkToEndsWith(value, endsWith.toString());
+    }
 
-  const pattern = options.pattern;
-  if (pattern != undefined) {
-    validators.pattern = (value: any) => isConformingRegExp(value, pattern);
-  }
+    const includes = options.includes;
+    if (includes != undefined) {
+      validators.includes = (value: any) => checkToIncludes(value, includes);
+    }
 
-  return validators;
+    const pattern = options.pattern;
+    if (pattern != undefined) {
+      validators.pattern = (value: any) => isConformingRegExp(value, pattern);
+    }
+
+    return validators;
+  };
 };

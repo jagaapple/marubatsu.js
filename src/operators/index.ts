@@ -3,16 +3,16 @@
 // =============================================================================================================================
 export { Operator, ValidationExecutor, Validator } from "./shared";
 
-import { blank } from "./blank";
-import { empty } from "./empty";
-import { nullary } from "./nullary";
-import { present } from "./present";
-import { string } from "./string";
+import { createBlankOperator } from "./blank";
+import { createEmptyOperator } from "./empty";
+import { createNullaryOperator } from "./nullary";
+import { createPresentOperator } from "./present";
+import { createStringOperator } from "./string";
 
 export const builtInOperators = {
-  blank,
-  empty,
-  nullary,
-  present,
-  string,
+  blank: createBlankOperator(),
+  empty: createEmptyOperator(),
+  nullary: createNullaryOperator(),
+  present: createPresentOperator(),
+  string: createStringOperator(),
 };
