@@ -41,28 +41,9 @@ jobs:
       - run:
           name: "Exec tests"
           command: "npm test && npm run coverage"
-  node-v6:
-    working_directory: "~/repository"
-    docker:
-      - image: "node:6.16"
-    steps:
-      - "checkout"
-      - restore_cache:
-          key: "v1-node-v6.16-dependencies-{{ checksum \"package.json\" }}"
-      - run:
-          name: "Install npm packages"
-          command: "npm install"
-      - save_cache:
-          key: "v1-node-v6.16-dependencies-{{ checksum \"package.json\" }}"
-          paths:
-            - "node_modules"
-      - run:
-          name: "Exec tests"
-          command: "npm test && npm run coverage"
 workflows:
   version: 2
   build:
     jobs:
       - "node-v10"
       - "node-v8"
-      - "node-v6"
