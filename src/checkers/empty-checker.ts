@@ -2,7 +2,7 @@
 // SRC - CHECKERS - EMPTY CHECKER
 // =============================================================================================================================
 export const isEmpty = (value: any) => {
-  if (value == undefined) return true;
+  if (value == undefined) return false;
 
   let valueLength: number = 0;
 
