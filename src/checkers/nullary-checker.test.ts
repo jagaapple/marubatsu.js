@@ -1,5 +1,5 @@
 // =============================================================================================================================
-// SPEC - CHECKERS - NULLARY CHECKER SPEC
+// SRC - CHECKERS - NULLARY CHECKER TEST
 // =============================================================================================================================
 /* tslint:disable:only-arrow-functions no-unused-expression no-null-keyword */
 import { expect } from "chai";

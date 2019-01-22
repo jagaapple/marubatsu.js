@@ -23,8 +23,8 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "webpack",
-    "pretest": "npm run clean && tsc -p ./tsconfig.spec.json && ef-tspm --tsconfig ./tsconfig.spec.json",
-    "test": "nyc --reporter=html --reporter=text mocha \"./.dist/**/*.spec.js\" -R dot",
+    "pretest": "npm run clean && tsc -p ./tsconfig.test.json && ef-tspm --tsconfig ./tsconfig.test.json",
+    "test": "nyc --reporter=html --reporter=text mocha \"./.dist/**/*.test.js\" -R dot",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && npm run codecov",
     "codecov": "codecov",
     "lint": "tsc --noEmit && tslint --project ./tsconfig.json --format verbose \"./src/**/*.ts\"",
