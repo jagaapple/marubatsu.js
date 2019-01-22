@@ -6,13 +6,13 @@ import { expect } from "chai";
 import { isNullary } from "./nullary-checker";
 
 describe("[ Nullary Checker ]", function() {
-  context("when calling with `null` ,", function() {
+  context("when calling with null,", function() {
     it("should return true", function() {
       expect(isNullary(null)).to.be.true;
     });
   });
 
-  context("when calling with `undefined` ,", function() {
+  context("when calling with undefined,", function() {
     it("should return true", function() {
       expect(isNullary(undefined)).to.be.true;
     });

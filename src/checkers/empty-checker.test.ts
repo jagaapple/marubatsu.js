@@ -6,13 +6,13 @@ import { expect } from "chai";
 import { isEmpty } from "./empty-checker";
 
 describe("[ Empty Checker ]", function() {
-  context("when calling with `null` ,", function() {
+  context("when calling with null,", function() {
     it("should return false", function() {
       expect(isEmpty(null)).to.be.false;
     });
   });
 
-  context("when calling with `undefined` ,", function() {
+  context("when calling with undefined,", function() {
     it("should return false", function() {
       expect(isEmpty(undefined)).to.be.false;
     });
