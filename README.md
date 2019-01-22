@@ -1,8 +1,8 @@
 <!-- ======================================================================================================================= -->
 <!-- README                                                                                                                  -->
 <!-- ======================================================================================================================= -->
-# <div style="text-align: center">marubatsu</div>
-<h4 style="text-align: center">⭕️ Chainable validation library for Node.js and browsers. ❌</h4>
+<h1 align="center">marubatsu</h1>
+<h4 align="center">⭕️ Chainable validation library for Node.js and browsers. ❌</h4>
 
 ```ts
 import marubatsu from "marubatsu";
@@ -15,7 +15,7 @@ const isValidWebsite = marubatsu()
   .test(website); // true
 ```
 
-<div style="text-align: center">
+<div align="center">
 <a href="https://www.npmjs.com/package/marubatsu"><img src="https://img.shields.io/npm/v/marubatsu.svg" alt="npm"></a>
 <a href="https://circleci.com/gh/jagaapple/marubatsu.js"><img src="https://img.shields.io/circleci/token/9d95765537463460e378440c0d3a228a0a553dd2/project/github/jagaapple/marubatsu.js/master.svg" alt="circleci"></a>
 <a href="https://codecov.io/gh/jagaapple/marubatsu.js"><img src="https://img.shields.io/codecov/c/github/jagaapple/marubatsu.js/master.svg" alt="codecov"></a>
@@ -23,8 +23,7 @@ const isValidWebsite = marubatsu()
 <a href="https://twitter.com/jagaapple_tech"><img src="https://img.shields.io/badge/contact-%40jagaapple_tech-blue.svg" alt="@jagaapple_tech"></a>
 </div>
 
-<h4 style="text-align: center">⚠️ THIS IS EXPERIMENTAL NOW ⚠️</h4>
-
+<h4 align="center">⚠️ THIS IS EXPERIMENTAL NOW ⚠️</h4>
 
 ## Table of Contents
 
@@ -62,7 +61,7 @@ const isValidWebsite = marubatsu()
 
 ## Features
 
-<h4 style="text-align: center">⚠️ THIS IS EXPERIMENTAL NOW ⚠️</h4>
+<h4 align="center">⚠️ THIS IS EXPERIMENTAL NOW ⚠️</h4>
 
 | FEATURES                                  | WHAT YOU CAN DO                                       |
 |-------------------------------------------|-------------------------------------------------------|
