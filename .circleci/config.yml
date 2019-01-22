@@ -1,0 +1,49 @@
+# ==============================================================================================================================
+# CIRCLE CI - CONFIG
+# ==============================================================================================================================
+# JavaScript CircleCI 2.0 configuration file.
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details.
+version: 2.1
+jobs:
+  node-v10:
+    working_directory: "~/repository"
+    docker:
+      - image: "node:10.15"
+    steps:
+      - "checkout"
+      - restore_cache:
+          key: "v1-node-v10.15-dependencies-{{ checksum \"package.json\" }}"
+      - run:
+          name: "Install npm packages"
+          command: "npm install"
+      - save_cache:
+          key: "v1-node-v10.15-dependencies-{{ checksum \"package.json\" }}"
+          paths:
+            - "node_modules"
+      - run:
+          name: "Exec tests"
+          command: "npm test && npm run coverage"
+  node-v8:
+    working_directory: "~/repository"
+    docker:
+      - image: "node:8.15"
+    steps:
+      - "checkout"
+      - restore_cache:
+          key: "v1-node-v8.15-dependencies-{{ checksum \"package.json\" }}"
+      - run:
+          name: "Install npm packages"
+          command: "npm install"
+      - save_cache:
+          key: "v1-node-v8.15-dependencies-{{ checksum \"package.json\" }}"
+          paths:
+            - "node_modules"
+      - run:
+          name: "Exec tests"
+          command: "npm test && npm run coverage"
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "node-v10"
+      - "node-v8"

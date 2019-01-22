@@ -32,5 +32,9 @@ node_modules
 npm-debug.log
 yarn-error.log
 
+# Generated files created by tests.
+.nyc_output
+coverage
+
 # Generated files created by bundler.
 .dist

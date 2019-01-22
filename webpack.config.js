@@ -21,7 +21,7 @@ Date: 2019-01-20T00:00Z
 
 module.exports = {
   mode: "production",
-  entry: [path.join(srcDir, "index.ts")],
+  entry: path.join(srcDir, "index.ts"),
   output: {
     path: distDir,
     filename: "marubatsu.min.js",
@@ -32,7 +32,13 @@ module.exports = {
     plugins: [new TsconfigPathsPlugin()],
   },
   module: {
-    rules: [{ test: /\.ts$/, use: "ts-loader" }],
+    rules: [
+      {
+        test: /\.ts$/,
+        loader: "ts-loader",
+        options: { configFile: "tsconfig.build.json" },
+      },
+    ],
   },
   plugins: [new webpack.BannerPlugin(copyright)],
 };
