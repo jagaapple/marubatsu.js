@@ -13,7 +13,7 @@ export const isBlank = (value: any) => {
 
       break;
     case "boolean":
-      return value === false;
+      return !value;
     default:
   }
 
