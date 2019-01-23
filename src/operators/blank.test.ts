@@ -9,10 +9,6 @@ import { createBlankOperator } from "./blank";
 const example = it;
 
 describe("[ Blank ]", function() {
-  let spy: sinon.SinonSpy;
-  before(function() {
-    spy = sinon.spy();
-  });
   afterEach(function() {
     sinon.restore();
   });
@@ -24,6 +20,7 @@ describe("[ Blank ]", function() {
   });
 
   example('"blank" rule should be "isBlank" checker', function() {
+    const spy = sinon.spy();
     const validators = createBlankOperator({ isBlank: spy })();
 
     expect(validators.blank).to.eq(spy);

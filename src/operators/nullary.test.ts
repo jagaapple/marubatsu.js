@@ -9,10 +9,6 @@ import { createNullaryOperator } from "./nullary";
 const example = it;
 
 describe("[ Nullary ]", function() {
-  let spy: sinon.SinonSpy;
-  before(function() {
-    spy = sinon.spy();
-  });
   afterEach(function() {
     sinon.restore();
   });
@@ -24,6 +20,7 @@ describe("[ Nullary ]", function() {
   });
 
   example('"nullary" rule should be "isNullary" checker', function() {
+    const spy = sinon.spy();
     const validators = createNullaryOperator({ isNullary: spy })();
 
     expect(validators.nullary).to.eq(spy);

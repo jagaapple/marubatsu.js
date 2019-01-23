@@ -9,10 +9,6 @@ import { createEmptyOperator } from "./empty";
 const example = it;
 
 describe("[ Empty ]", function() {
-  let spy: sinon.SinonSpy;
-  before(function() {
-    spy = sinon.spy();
-  });
   afterEach(function() {
     sinon.restore();
   });
@@ -24,6 +20,7 @@ describe("[ Empty ]", function() {
   });
 
   example('"empty" rule should be "isEmpty" checker', function() {
+    const spy = sinon.spy();
     const validators = createEmptyOperator({ isEmpty: spy })();
 
     expect(validators.empty).to.eq(spy);
