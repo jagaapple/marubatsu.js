@@ -24,6 +24,7 @@ const isValidWebsite = marubatsu()
 </div>
 
 <h4 align="center">⚠️ THIS IS EXPERIMENTAL NOW ⚠️</h4>
+<div align="center"><i>This is written about marubatsu features, but they may be not implemented yet.</i></div>
 
 ## Table of Contents
 
