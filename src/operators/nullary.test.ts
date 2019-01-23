@@ -27,10 +27,10 @@ describe("[ Nullary ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("NULlARY RULE", function() {
     it('should be "isNullary" checker', function() {
-      const spy = sinon.spy();
-      const validators = createNullaryOperator({ isNullary: spy })();
+      const isNullary = sinon.spy();
+      const validators = createNullaryOperator({ isNullary })();
 
-      expect(validators.nullary).to.eq(spy);
+      expect(validators.nullary).to.eq(isNullary);
     });
   });
 });

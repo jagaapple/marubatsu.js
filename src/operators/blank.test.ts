@@ -27,10 +27,10 @@ describe("[ Blank ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("BLANK RULE", function() {
     it('should be "isBlank" checker', function() {
-      const spy = sinon.spy();
-      const validators = createBlankOperator({ isBlank: spy })();
+      const isBlank = sinon.spy();
+      const validators = createBlankOperator({ isBlank })();
 
-      expect(validators.blank).to.eq(spy);
+      expect(validators.blank).to.eq(isBlank);
     });
   });
 });

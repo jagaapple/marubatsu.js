@@ -27,10 +27,10 @@ describe("[ Empty ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("EMPTY RULE", function() {
     it('should be "isEmpty" checker', function() {
-      const spy = sinon.spy();
-      const validators = createEmptyOperator({ isEmpty: spy })();
+      const isEmpty = sinon.spy();
+      const validators = createEmptyOperator({ isEmpty })();
 
-      expect(validators.empty).to.eq(spy);
+      expect(validators.empty).to.eq(isEmpty);
     });
   });
 });

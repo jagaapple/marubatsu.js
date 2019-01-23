@@ -26,24 +26,24 @@ describe("[ Present ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("PRESENT RULE", function() {
     it('should call "isBlank" checker', function() {
-      const spy = sinon.spy();
-      const validators = createPresentOperator({ isBlank: spy })();
+      const isBlank = sinon.spy();
+      const validators = createPresentOperator({ isBlank })();
 
       const argumentValue = 123;
       validators.present(argumentValue);
 
-      expect(spy.calledOnce).to.be.true;
-      expect(spy.calledWith(argumentValue)).to.be.true;
+      expect(isBlank.calledOnce).to.be.true;
+      expect(isBlank.calledWith(argumentValue)).to.be.true;
     });
 
     it('should return an inverted value returned from "isBlank" checker', function() {
-      const stub = sinon.stub();
-      const validators = createPresentOperator({ isBlank: stub })();
+      const isBlank = sinon.stub();
+      const validators = createPresentOperator({ isBlank })();
 
-      stub.returns(true);
+      isBlank.returns(true);
       expect(validators.present(undefined)).to.be.false;
 
-      stub.returns(false);
+      isBlank.returns(false);
       expect(validators.present(undefined)).to.be.true;
     });
   });
