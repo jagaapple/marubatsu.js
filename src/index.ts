@@ -60,7 +60,7 @@ const createProxyExecutor = (executor: Executor) =>
         };
       }
 
-      return receiver;
+      return;
     },
   }) as ExecutorWithBuiltInRules;
 

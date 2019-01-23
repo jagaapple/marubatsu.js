@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - TYPE CHECKER
 // =============================================================================================================================
-type ValueType = "number" | "string" | "boolean" | "null" | "undefined" | "array" | "object";
+type ValueType = "number" | "string" | "boolean" | "null" | "undefined" | "array" | "object" | "function";
 
 export const isType = (value: any, expectedType: ValueType) => {
   if (value === null) return expectedType === "null";

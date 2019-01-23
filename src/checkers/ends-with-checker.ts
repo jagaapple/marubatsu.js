@@ -15,12 +15,16 @@ export const endsWith = (value: any, expectedValue: string) => {
       stringValue = value;
 
       break;
-    case "object":
+    case "object": {
       if (!Array.isArray(value)) return false;
 
-      stringValue = value[value.length - 1] || "";
+      const lastElement = value[value.length - 1];
+      if (typeof lastElement !== "number" && typeof lastElement !== "string") return false;
+
+      stringValue = lastElement.toString();
 
       break;
+    }
     default:
       return false;
   }

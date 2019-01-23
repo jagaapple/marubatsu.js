@@ -322,7 +322,7 @@ rules:
   # Require any function or method that returns a promise to be marked async.
   promise-function-async: true
   # Require single or double quotes for string literals.
-  quotemark: [true, "double", "jsx-double"]
+  quotemark: [true, "double", "jsx-double", "avoid-escape"]
   # Require the radix parameter to be specified when calling parseInt.
   radix: true
   # When adding two variables, operands must both be of type number or of type string.

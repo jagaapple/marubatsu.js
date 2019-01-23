@@ -4,12 +4,25 @@
 import { isNullary } from "@checkers/index";
 import { Validator } from "./shared";
 
-export const nullary = () => {
-  const validators: Validator = {
-    type: () => true,
+const deafultCheckers = {
+  isNullary,
+};
+
+export interface Options {}
+
+type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
+export const createNullaryOperator = (checkers: Partial<DICheckers> = {}) => {
+  // tslint:disable:no-shadowed-variable
+  const { isNullary } = { ...deafultCheckers, ...checkers };
+  // tslint:enable:no-shadowed-variable
+
+  return (_: Options = {}) => {
+    const validators: Validator = {
+      type: () => true,
+    };
+
+    validators.nullary = isNullary;
+
+    return validators;
   };
-
-  validators.nullary = isNullary;
-
-  return validators;
 };
