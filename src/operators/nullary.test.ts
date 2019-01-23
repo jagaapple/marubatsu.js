@@ -6,23 +6,31 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { createNullaryOperator } from "./nullary";
 
-const example = it;
-
 describe("[ Nullary ]", function() {
   afterEach(function() {
     sinon.restore();
   });
 
-  example("type checking should return true", function() {
-    const validators = createNullaryOperator()();
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Type Checking
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("TYPE CHECKING", function() {
+    it("should return true", function() {
+      const validators = createNullaryOperator()();
 
-    expect(validators.type(undefined)).to.be.true;
+      expect(validators.type(undefined)).to.be.true;
+    });
   });
 
-  example('"nullary" rule should be "isNullary" checker', function() {
-    const spy = sinon.spy();
-    const validators = createNullaryOperator({ isNullary: spy })();
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Nullary Rule
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("NULlARY RULE", function() {
+    it('should be "isNullary" checker', function() {
+      const spy = sinon.spy();
+      const validators = createNullaryOperator({ isNullary: spy })();
 
-    expect(validators.nullary).to.eq(spy);
+      expect(validators.nullary).to.eq(spy);
+    });
   });
 });

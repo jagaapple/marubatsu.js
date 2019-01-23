@@ -6,23 +6,31 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { createBlankOperator } from "./blank";
 
-const example = it;
-
 describe("[ Blank ]", function() {
   afterEach(function() {
     sinon.restore();
   });
 
-  example("type checking should return true", function() {
-    const validators = createBlankOperator()();
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Type Checking
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("TYPE CHECKING", function() {
+    it("should return true", function() {
+      const validators = createBlankOperator()();
 
-    expect(validators.type(undefined)).to.be.true;
+      expect(validators.type(undefined)).to.be.true;
+    });
   });
 
-  example('"blank" rule should be "isBlank" checker', function() {
-    const spy = sinon.spy();
-    const validators = createBlankOperator({ isBlank: spy })();
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Blank Rule
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("BLANK RULE", function() {
+    it('should be "isBlank" checker', function() {
+      const spy = sinon.spy();
+      const validators = createBlankOperator({ isBlank: spy })();
 
-    expect(validators.blank).to.eq(spy);
+      expect(validators.blank).to.eq(spy);
+    });
   });
 });

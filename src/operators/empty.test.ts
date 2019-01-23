@@ -6,23 +6,31 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { createEmptyOperator } from "./empty";
 
-const example = it;
-
 describe("[ Empty ]", function() {
   afterEach(function() {
     sinon.restore();
   });
 
-  example("type checking should return true", function() {
-    const validators = createEmptyOperator()();
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Type Checking
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("TYPE CHECKING", function() {
+    it("should return true", function() {
+      const validators = createEmptyOperator()();
 
-    expect(validators.type(undefined)).to.be.true;
+      expect(validators.type(undefined)).to.be.true;
+    });
   });
 
-  example('"empty" rule should be "isEmpty" checker', function() {
-    const spy = sinon.spy();
-    const validators = createEmptyOperator({ isEmpty: spy })();
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Empty Rule
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("EMPTY RULE", function() {
+    it('should be "isEmpty" checker', function() {
+      const spy = sinon.spy();
+      const validators = createEmptyOperator({ isEmpty: spy })();
 
-    expect(validators.empty).to.eq(spy);
+      expect(validators.empty).to.eq(spy);
+    });
   });
 });
