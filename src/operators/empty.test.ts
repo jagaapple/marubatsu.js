@@ -13,6 +13,9 @@ describe("[ Empty ]", function() {
   before(function() {
     spy = sinon.spy();
   });
+  afterEach(function() {
+    sinon.restore();
+  });
 
   example("type checking should return true", function() {
     const validators = createEmptyOperator()();
