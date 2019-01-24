@@ -1,6 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - INDEX
 // =============================================================================================================================
+export { isAlphanumeric } from "./alphanumeric-checker";
 export { isBlank } from "./blank-checker";
 export { isEmpty } from "./empty-checker";
 export { endsWith } from "./ends-with-checker";
