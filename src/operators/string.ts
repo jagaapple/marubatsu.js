@@ -22,6 +22,7 @@ const deafultCheckers = {
 };
 
 export interface Options {
+  value?: number | string;
   length?: number | [number, number];
   maximumLength?: number;
   minimumLength?: number;
@@ -44,6 +45,11 @@ export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
     const validators: Validator = {
       type: (value: any) => isType(value, "string"),
     };
+
+    const val = options.value;
+    if (val != undefined) {
+      validators.value = (value: any) => val.toString() === value;
+    }
 
     const length = options.length;
     if (length != undefined) {

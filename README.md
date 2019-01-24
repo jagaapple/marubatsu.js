@@ -41,6 +41,7 @@ const isValidWebsite = marubatsu()
   - [`validate(value: any)`](#validatevalue-any)
 - [Operators](#operators)
   - [`string(rules: { [ruleName]: any } = {})`](#stringrules--rulename-any---)
+    - [`value: number | string`](#value-number--string)
     - [`length: number`](#length-number)
     - [`length: [number, number]`](#length-number-number)
     - [`maximumLength: number`](#maximumlength-number)
@@ -229,8 +230,18 @@ validator.test("ok"); // true
 validator.test(123);  // false
 ```
 
+#### `value: number | string`
+Checks the string is equal to a specific number or string. If passing number, it will be converted to string.
+
+```ts
+const validator = marubatsu().string({ value: 123 });
+
+validator.test("123");  // true
+validator.test("1234"); // false
+```
+
 #### `length: number`
-Checks the string length is equal to specific length.
+Checks the string length is equal to a specific length.
 
 ```ts
 const validator = marubatsu().string({ length: 3 });

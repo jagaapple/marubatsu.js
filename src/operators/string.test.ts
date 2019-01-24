@@ -26,6 +26,31 @@ describe("[ String ]", function() {
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
+  // Value Rule
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("VALUE RULE", function() {
+    const value = "123";
+
+    context("when an expected value is number", function() {
+      it("should compare a value with the expected value converted to string", function() {
+        const val = 123;
+        const validators = createStringOperator()({ value: val });
+
+        expect(validators.value(value)).to.be.true;
+      });
+    });
+
+    context("when an expected value is string", function() {
+      it("should compare a value with the expected value", function() {
+        const val = "123";
+        const validators = createStringOperator()({ value: val });
+
+        expect(validators.value(value)).to.be.true;
+      });
+    });
+  });
+
+  // ---------------------------------------------------------------------------------------------------------------------------
   // Length Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("LENGTH RULE", function() {
