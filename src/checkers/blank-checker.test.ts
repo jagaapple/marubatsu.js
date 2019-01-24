@@ -4,7 +4,6 @@
 /* tslint:disable:only-arrow-functions no-unused-expression no-null-keyword */
 import { expect } from "chai";
 import { isBlank } from "./blank-checker";
-import { isEmpty } from "./empty-checker";
 
 describe("[ Blank Checker ]", function() {
   context("when calling with undefined,", function() {
@@ -123,7 +122,7 @@ describe("[ Blank Checker ]", function() {
 
   context("when calling with function,", function() {
     it("should return false", function() {
-      expect(isEmpty(() => true)).to.be.false;
+      expect(isBlank(() => true)).to.be.false;
     });
   });
 });
