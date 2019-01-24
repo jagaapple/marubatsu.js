@@ -185,16 +185,30 @@ describe("[ String ]", function() {
   // Includes Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("INCLUDES RULE", function() {
-    const value = "abcde";
+    const value = "12345";
 
-    it('should call "checkToIncludes" checker', function() {
-      const checkToIncludes = sinon.spy();
-      const includes = "bcd";
-      const validators = createStringOperator({ checkToIncludes })({ includes });
+    context("when an expected value is number", function() {
+      it('should call "checkToIncludes" checker with the expected value converted to string', function() {
+        const checkToIncludes = sinon.spy();
+        const includes = 234;
+        const validators = createStringOperator({ checkToIncludes })({ includes });
 
-      validators.includes(value);
+        validators.includes(value);
 
-      expect(checkToIncludes.calledOnceWith(value, includes)).to.be.true;
+        expect(checkToIncludes.calledOnceWith(value, includes.toString())).to.be.true;
+      });
+    });
+
+    context("when an expected value is string", function() {
+      it('should call "checkToIncludes" checker with the expected value', function() {
+        const checkToIncludes = sinon.spy();
+        const includes = "234";
+        const validators = createStringOperator({ checkToIncludes })({ includes });
+
+        validators.includes(value);
+
+        expect(checkToIncludes.calledOnceWith(value, includes)).to.be.true;
+      });
     });
   });
 

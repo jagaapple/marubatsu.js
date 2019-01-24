@@ -28,7 +28,7 @@ export interface Options {
   minimumLength?: number;
   startsWith?: number | string;
   endsWith?: number | string;
-  includes?: string;
+  includes?: number | string;
   pattern?: RegExp;
 }
 
@@ -80,7 +80,7 @@ export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
 
     const includes = options.includes;
     if (includes != undefined) {
-      validators.includes = (value: any) => checkToIncludes(value, includes);
+      validators.includes = (value: any) => checkToIncludes(value, includes.toString());
     }
 
     const pattern = options.pattern;

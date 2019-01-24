@@ -52,7 +52,7 @@ const isValidWebsite = marubatsu()
     - [`minimumLength: number`](#minimumlength-number)
     - [`startsWith: number | string`](#startswith-number--string)
     - [`endsWith: number | string`](#endswith-number--string)
-    - [`includes: string`](#includes-string)
+    - [`includes: number | string`](#includes-number--string)
     - [`pattern: RegExp`](#pattern-regexp)
 - [Options](#options)
     - [`checkAll: boolean = false`](#checkall-boolean--false)
@@ -348,7 +348,7 @@ validator.test("1234"); // true
 
 
 #### `startsWith: number | string`
-Checks the string is starting with a specific number or string. If passing number, it will be converted to string value.
+Checks the string is starting with a specific number or string. If passing number, it will be converted to string.
 
 ```ts
 const validator = marubatsu().string({ startsWith: 1 });
@@ -359,7 +359,7 @@ validator.test("321"); // false
 ```
 
 #### `endsWith: number | string`
-Checks the string is ending with a specific number or string. If passing number, it will be converted to string value.
+Checks the string is ending with a specific number or string. If passing number, it will be converted to string.
 
 ```ts
 const validator = marubatsu().string({ endsWith: 1 });
@@ -369,8 +369,8 @@ validator.test("231"); // true
 validator.test("321"); // true
 ```
 
-#### `includes: string`
-Checks the string includes a specific number or string.
+#### `includes: number | string`
+Checks the string includes a specific number or string. If passing number, it will be converted to string.
 
 ```ts
 const validator = marubatsu().string({ includes: "am" });
