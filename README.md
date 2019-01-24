@@ -40,6 +40,10 @@ const isValidWebsite = marubatsu()
   - [`test(value: any)`](#testvalue-any)
   - [`validate(value: any)`](#validatevalue-any)
 - [Operators](#operators)
+  - [`nullary()`](#nullary)
+  - [`empty()`](#empty)
+  - [`blank()`](#blank)
+  - [`present()`](#present)
   - [`string(rules: { [ruleName]: any } = {})`](#stringrules--rulename-any---)
     - [`value: number | string`](#value-number--string)
     - [`length: number`](#length-number)
@@ -219,6 +223,62 @@ marubatsu().string({ length: [4, 20], startsWith: "@" }).validate("abc");
 
 ## Operators
 **Operators** is validation to check the value conforms specific rules.
+
+### `nullary()`
+Checks the value is `null` or `undefined` .
+
+```ts
+const validator = marubatsu().nullary();
+
+validator.test(null); // true
+validator.test(undefined); // true
+validator.test(-1); // false
+validator.test(0); // false
+validator.test(""); // false
+validator.test(" "); // false
+validator.test(false); // false
+validator.test([]); // false
+validator.test({}); // false
+```
+
+### `empty()`
+Checks the value is an empty string, an empty array, or an empty object (pure object/hash/dictionary).
+
+```ts
+const validator = marubatsu().nullary();
+
+validator.test(null); // false
+validator.test(undefined); // false
+validator.test(-1); // false
+validator.test(0); // false
+validator.test(""); // true
+validator.test(" "); // false
+validator.test(false); // false
+validator.test([]); // true
+validator.test({}); // true
+```
+
+### `blank()`
+Checks the value is `null` , `undefined` , an empty string, a string including only spaces, an empty array, an empty object
+(pure object/hash/dictionary), or `false` .
+
+```ts
+const validator = marubatsu().nullary();
+
+validator.test(null); // true
+validator.test(undefined); // true
+validator.test(-1); // false
+validator.test(0); // false
+validator.test(""); // true
+validator.test(" "); // true
+validator.test(false); // true
+validator.test([]); // true
+validator.test({}); // true
+```
+
+### `present()`
+Checks the value is NOT `null` , `undefined` , an empty string, a string including only spaces, an empty array, an empty object
+(pure object/hash/dictionary), or `false` . This operator is equal to `not.blank()`
 
 ### `string(rules: { [ruleName]: any } = {})`
 Checks the value is string type and conforms rules related to string.
