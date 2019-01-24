@@ -88,7 +88,7 @@ describe("[ Alphanumeric Checker ]", function() {
     });
   });
 
-  context("when a value is object,", function() {
+  context("when a value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(isAlphanumeric({})).to.be.false;
     });
