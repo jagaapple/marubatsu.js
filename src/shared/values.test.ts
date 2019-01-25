@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - SHARED - VALUES TEST
 // =============================================================================================================================
-/* tslint:disable:only-arrow-functions no-unused-expression no-null-keyword */
+// tslint:disable:no-null-keyword
 export const allTypeValues = [undefined, null, 123, "abc", true, [1, 2, 3], { a: 1, b: 2 }, () => true];
 
 export const allValues = [

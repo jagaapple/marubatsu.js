@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - NULLARY CHECKER TEST
 // =============================================================================================================================
-/* tslint:disable:only-arrow-functions no-unused-expression no-null-keyword */
+// tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import { isNullary } from "./nullary-checker";
 
