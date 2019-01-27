@@ -78,6 +78,7 @@ describe("[ Snake Case Checker ]", function() {
         it("should return true", function() {
           expect(isSnakeCase("0", false)).to.be.true;
           expect(isSnakeCase("0_0", false)).to.be.true;
+          expect(isSnakeCase("short", false)).to.be.true;
           expect(isSnakeCase("lower_snake_case", false)).to.be.true;
           expect(isSnakeCase("_lower_snake_case", false)).to.be.false;
           expect(isSnakeCase("lower_snake_case_", false)).to.be.false;
@@ -90,6 +91,7 @@ describe("[ Snake Case Checker ]", function() {
         it("should return false", function() {
           expect(isSnakeCase("0", true)).to.be.true;
           expect(isSnakeCase("0_0", true)).to.be.true;
+          expect(isSnakeCase("short", true)).to.be.false;
           expect(isSnakeCase("lower_snake_case", true)).to.be.false;
           expect(isSnakeCase("_lower_snake_case", true)).to.be.false;
           expect(isSnakeCase("lower_snake_case_", true)).to.be.false;
@@ -102,6 +104,7 @@ describe("[ Snake Case Checker ]", function() {
     context("an upper snake case,", function() {
       context('"isUpper" is false,', function() {
         it("should return false", function() {
+          expect(isSnakeCase("Short", false)).to.be.false;
           expect(isSnakeCase("Upper_Snake_Case", false)).to.be.false;
           expect(isSnakeCase("_Upper_Snake_Case", false)).to.be.false;
           expect(isSnakeCase("Upper_Snake_Case_", false)).to.be.false;
@@ -112,6 +115,7 @@ describe("[ Snake Case Checker ]", function() {
 
       context('"isUpper" is true,', function() {
         it("should return true", function() {
+          expect(isSnakeCase("Short", true)).to.be.true;
           expect(isSnakeCase("Upper_Snake_Case", true)).to.be.true;
           expect(isSnakeCase("_Upper_Snake_Case", true)).to.be.false;
           expect(isSnakeCase("Upper_Snake_Case_", true)).to.be.false;
