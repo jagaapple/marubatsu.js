@@ -4,8 +4,14 @@
 import {
   endsWith as checkToEndsWith,
   includes as checkToIncludes,
+  isAlphanumeric,
+  isCamelCase,
   isConformingRegExp,
+  isDotCase,
   isEqualToLength,
+  isKebabCase,
+  isSnakeCase,
+  isSpaceCase,
   isType,
   isWithinLengthRange,
   startsWith as checkToStartsWith,
@@ -13,13 +19,31 @@ import {
 import { Validator } from "./shared";
 
 const deafultCheckers = {
+  isAlphanumeric,
+  isCamelCase,
+  isDotCase,
   isEqualToLength,
+  isKebabCase,
+  isSnakeCase,
+  isSpaceCase,
   isWithinLengthRange,
   checkToStartsWith,
   checkToEndsWith,
   checkToIncludes,
   isConformingRegExp,
 };
+
+export type AlphanumericOptionCaseType =
+  | "lower-camel"
+  | "upper-camel"
+  | "lower-snake"
+  | "upper-snake"
+  | "lower-kebab"
+  | "upper-kebab"
+  | "lower-space"
+  | "upper-space"
+  | "lower-dot"
+  | "upper-dot";
 
 export interface Options {
   value?: number | string;
@@ -28,6 +52,7 @@ export interface Options {
   minimumLength?: number;
   startsWith?: number | string;
   endsWith?: number | string;
+  alphanumeric?: boolean | AlphanumericOptionCaseType;
   includes?: number | string;
   pattern?: RegExp;
 }
@@ -35,7 +60,20 @@ export interface Options {
 type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
 export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
   // tslint:disable:no-shadowed-variable
-  const { isEqualToLength, isWithinLengthRange, checkToStartsWith, checkToEndsWith, checkToIncludes, isConformingRegExp } = {
+  const {
+    isAlphanumeric,
+    isCamelCase,
+    isDotCase,
+    isEqualToLength,
+    isKebabCase,
+    isSnakeCase,
+    isSpaceCase,
+    isWithinLengthRange,
+    checkToStartsWith,
+    checkToEndsWith,
+    checkToIncludes,
+    isConformingRegExp,
+  } = {
     ...deafultCheckers,
     ...checkers,
   };
@@ -76,6 +114,42 @@ export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
     const endsWith = options.endsWith;
     if (endsWith != undefined) {
       validators.endsWith = (value: any) => checkToEndsWith(value, endsWith.toString());
+    }
+
+    const alphanumeric = options.alphanumeric;
+    if (alphanumeric != undefined) {
+      if (alphanumeric === true) {
+        validators.alphanumeric = isAlphanumeric;
+      } else {
+        switch (alphanumeric) {
+          case "lower-camel":
+          case "upper-camel":
+            validators.alphanumeric = (value: any) => isCamelCase(value, alphanumeric === "upper-camel");
+
+            break;
+          case "lower-snake":
+          case "upper-snake":
+            validators.alphanumeric = (value: any) => isSnakeCase(value, alphanumeric === "upper-snake");
+
+            break;
+          case "lower-kebab":
+          case "upper-kebab":
+            validators.alphanumeric = (value: any) => isKebabCase(value, alphanumeric === "upper-kebab");
+
+            break;
+          case "lower-space":
+          case "upper-space":
+            validators.alphanumeric = (value: any) => isSpaceCase(value, alphanumeric === "upper-space");
+
+            break;
+          case "lower-dot":
+          case "upper-dot":
+            validators.alphanumeric = (value: any) => isDotCase(value, alphanumeric === "upper-dot");
+
+            break;
+          default:
+        }
+      }
     }
 
     const includes = options.includes;

@@ -182,6 +182,151 @@ describe("[ String ]", function() {
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
+  // Alphanumeric Rule
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("ALPHANUMERIC RULE", function() {
+    context("when an expected value is boolean,", function() {
+      context("true,", function() {
+        it('should be "isAlphanumeric" checker', function() {
+          const isAlphanumeric = sinon.spy();
+          const validators = createStringOperator({ isAlphanumeric })({ alphanumeric: true });
+
+          expect(validators.alphanumeric).to.eq(isAlphanumeric);
+        });
+      });
+
+      context("false,", function() {
+        it("should be undefined", function() {
+          const isAlphanumeric = sinon.spy();
+          const validators = createStringOperator({ isAlphanumeric })({ alphanumeric: false });
+
+          expect(validators.alphanumeric).to.be.undefined;
+        });
+      });
+    });
+
+    context('when an expected value is "lower-camel",', function() {
+      it('should call "isCamelCase" checker and "isUpper" flag is false', function() {
+        const isCamelCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isCamelCase })({ alphanumeric: "lower-camel" });
+
+        validators.alphanumeric(value);
+
+        expect(isCamelCase.calledOnceWith(value, false)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "upper-camel",', function() {
+      it('should call "isCamelCase" checker and "isUpper" flag is true', function() {
+        const isCamelCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isCamelCase })({ alphanumeric: "upper-camel" });
+
+        validators.alphanumeric(value);
+
+        expect(isCamelCase.calledOnceWith(value, true)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "lower-snake",', function() {
+      it('should call "isSnakeCase" checker and "isUpper" flag is false', function() {
+        const isSnakeCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isSnakeCase })({ alphanumeric: "lower-snake" });
+
+        validators.alphanumeric(value);
+
+        expect(isSnakeCase.calledOnceWith(value, false)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "upper-snake",', function() {
+      it('should call "isSnakeCase" checker and "isUpper" flag is true', function() {
+        const isSnakeCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isSnakeCase })({ alphanumeric: "upper-snake" });
+
+        validators.alphanumeric(value);
+
+        expect(isSnakeCase.calledOnceWith(value, true)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "lower-kebab",', function() {
+      it('should call "isKebabCase" checker and "isUpper" flag is false', function() {
+        const isKebabCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isKebabCase })({ alphanumeric: "lower-kebab" });
+
+        validators.alphanumeric(value);
+
+        expect(isKebabCase.calledOnceWith(value, false)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "upper-kebab",', function() {
+      it('should call "isKebabCase" checker and "isUpper" flag is true', function() {
+        const isKebabCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isKebabCase })({ alphanumeric: "upper-kebab" });
+
+        validators.alphanumeric(value);
+
+        expect(isKebabCase.calledOnceWith(value, true)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "lower-space",', function() {
+      it('should call "isSpaceCase" checker and "isUpper" flag is false', function() {
+        const isSpaceCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isSpaceCase })({ alphanumeric: "lower-space" });
+
+        validators.alphanumeric(value);
+
+        expect(isSpaceCase.calledOnceWith(value, false)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "upper-space",', function() {
+      it('should call "isSpaceCase" checker and "isUpper" flag is true', function() {
+        const isSpaceCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isSpaceCase })({ alphanumeric: "upper-space" });
+
+        validators.alphanumeric(value);
+
+        expect(isSpaceCase.calledOnceWith(value, true)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "lower-dot",', function() {
+      it('should call "isDotCase" checker and "isUpper" flag is false', function() {
+        const isDotCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isDotCase })({ alphanumeric: "lower-dot" });
+
+        validators.alphanumeric(value);
+
+        expect(isDotCase.calledOnceWith(value, false)).to.be.true;
+      });
+    });
+
+    context('when an expected value is "upper-dot",', function() {
+      it('should call "isDotCase" checker and "isUpper" flag is true', function() {
+        const isDotCase = sinon.spy();
+        const value = "abcdef";
+        const validators = createStringOperator({ isDotCase })({ alphanumeric: "upper-dot" });
+
+        validators.alphanumeric(value);
+
+        expect(isDotCase.calledOnceWith(value, true)).to.be.true;
+      });
+    });
+  });
+
+  // ---------------------------------------------------------------------------------------------------------------------------
   // Includes Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("INCLUDES RULE", function() {
