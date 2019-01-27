@@ -193,7 +193,7 @@ marubatsu({
 **Executors** is to execute validations.
 
 ### `test(value: any)`
-Returns `true` if all validations pass a value, otherwise returns `false` .
+Returns `true` if a value passes all validations, otherwise returns `false` .
 
 - `value: any` ... The target value
 
