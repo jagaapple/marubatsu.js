@@ -10,7 +10,11 @@ import marubatsu from "marubatsu";
 const website = "https://example.com";
 const isValidWebsite = marubatsu()
   .present()
-  .string({ length: [7, 128], startsWith: ["http://", "https://"] })
+  .string({ length: [7, 128] })
+  .or(
+    (validator) => validator().string({ startsWith: "http://" }),
+    (validator) => validator().string({ startsWith: "https://" }),
+  )
   .not.string({ endsWith: "/" })
   .test(website); // true
 ```
@@ -496,7 +500,7 @@ const websiteIdentifierValidator = marubatsu()
   .string({ length: [4, 255] });
 
 const urlValidator = websiteIdentifierValidator
-  .string({ minimumLength: false, startsWith: ["http", "https"] });
+  .string({ minimumLength: false, startsWith: "https" });
   // Disable `minimumLength` and merge `startsWith` rule
 ```
 
