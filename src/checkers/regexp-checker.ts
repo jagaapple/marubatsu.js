@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - REGEXP CHECKER
 // =============================================================================================================================
-export const isConformingRegExp = (value: any, regexp: RegExp) => {
+export const isConformingRegExp = (value: any, regExp: RegExp) => {
   if (value == undefined) return false;
 
   let stringValue: string = "";
@@ -19,5 +19,5 @@ export const isConformingRegExp = (value: any, regexp: RegExp) => {
       return false;
   }
 
-  return regexp.test(stringValue);
+  return regExp.test(stringValue);
 };
