@@ -10,7 +10,11 @@ import marubatsu from "marubatsu";
 const website = "https://example.com";
 const isValidWebsite = marubatsu()
   .present()
-  .string({ length: [7, 128], startsWith: ["http://", "https://"] })
+  .string({ length: [7, 128] })
+  .or(
+    (validator) => validator().string({ startsWith: "http://" }),
+    (validator) => validator().string({ startsWith: "https://" }),
+  )
   .not.string({ endsWith: "/" })
   .test(website); // true
 ```
@@ -40,13 +44,20 @@ const isValidWebsite = marubatsu()
   - [`test(value: any)`](#testvalue-any)
   - [`validate(value: any)`](#validatevalue-any)
 - [Operators](#operators)
+  - [`nullary()`](#nullary)
+  - [`empty()`](#empty)
+  - [`blank()`](#blank)
+  - [`present()`](#present)
   - [`string(rules: { [ruleName]: any } = {})`](#stringrules--rulename-any---)
+    - [`value: number | string`](#value-number--string)
     - [`length: number`](#length-number)
     - [`length: [number, number]`](#length-number-number)
     - [`maximumLength: number`](#maximumlength-number)
     - [`minimumLength: number`](#minimumlength-number)
     - [`startsWith: number | string`](#startswith-number--string)
     - [`endsWith: number | string`](#endswith-number--string)
+    - [`alphanumeric: boolean`](#alphanumeric-boolean)
+    - [`alphanumeric: "lower-camel" | "upper-camel" | "lower-snake" | "upper-snake" | "lower-kebab" | "upper-kebab" | "lower-space" | "upper-space" | "lower-dot" | "upper-dot"`](#alphanumeric-lower-camel--upper-camel--lower-snake--upper-snake--lower-kebab--upper-kebab--lower-space--upper-space--lower-dot--upper-dot)
     - [`includes: number | string`](#includes-number--string)
     - [`pattern: RegExp`](#pattern-regexp)
 - [Options](#options)
@@ -219,6 +230,62 @@ marubatsu().string({ length: [4, 20], startsWith: "@" }).validate("abc");
 ## Operators
 **Operators** is validation to check the value conforms specific rules.
 
+### `nullary()`
+Checks the value is `null` or `undefined` .
+
+```ts
+const validator = marubatsu().nullary();
+
+validator.test(null); // true
+validator.test(undefined); // true
+validator.test(-1); // false
+validator.test(0); // false
+validator.test(""); // false
+validator.test(" "); // false
+validator.test(false); // false
+validator.test([]); // false
+validator.test({}); // false
+```
+
+### `empty()`
+Checks the value is an empty string, an empty array, or an empty object (pure object/hash/dictionary).
+
+```ts
+const validator = marubatsu().nullary();
+
+validator.test(null); // false
+validator.test(undefined); // false
+validator.test(-1); // false
+validator.test(0); // false
+validator.test(""); // true
+validator.test(" "); // false
+validator.test(false); // false
+validator.test([]); // true
+validator.test({}); // true
+```
+
+### `blank()`
+Checks the value is `null` , `undefined` , an empty string, a string including only spaces, an empty array, an empty object
+(pure object/hash/dictionary), or `false` .
+
+```ts
+const validator = marubatsu().nullary();
+
+validator.test(null); // true
+validator.test(undefined); // true
+validator.test(-1); // false
+validator.test(0); // false
+validator.test(""); // true
+validator.test(" "); // true
+validator.test(false); // true
+validator.test([]); // true
+validator.test({}); // true
+```
+
+### `present()`
+Checks the value is NOT `null` , `undefined` , an empty string, a string including only spaces, an empty array, an empty object
+(pure object/hash/dictionary), or `false` . This operator is equal to `not.blank()`
+
 ### `string(rules: { [ruleName]: any } = {})`
 Checks the value is string type and conforms rules related to string.
 
@@ -229,8 +296,18 @@ validator.test("ok"); // true
 validator.test(123);  // false
 ```
 
+#### `value: number | string`
+Checks the string is equal to a specific number or string. If passing number, it will be converted to string.
+
+```ts
+const validator = marubatsu().string({ value: 123 });
+
+validator.test("123");  // true
+validator.test("1234"); // false
+```
+
 #### `length: number`
-Checks the string length is equal to specific length.
+Checks the string length is equal to a specific length.
 
 ```ts
 const validator = marubatsu().string({ length: 3 });
@@ -241,7 +318,7 @@ validator.test("1234"); // false
 ```
 
 #### `length: [number, number]`
-Checks the string length is between specific length range. The first number is minimum length and second number is maximum
+Checks the string length is between specific length range. The first number is minimum length and the second number is maximum
 length.
 
 ```ts
@@ -277,7 +354,7 @@ validator.test("1234"); // true
 
 
 #### `startsWith: number | string`
-Checks the string is starting with a specific number or string. If passing number, it will be convert to string value.
+Checks the string is starting with a specific number or string. If passing number, it will be converted to string.
 
 ```ts
 const validator = marubatsu().string({ startsWith: 1 });
@@ -288,7 +365,7 @@ validator.test("321"); // false
 ```
 
 #### `endsWith: number | string`
-Checks the string is ending with a specific number or string. If passing number, it will be convert to string value.
+Checks the string is ending with a specific number or string. If passing number, it will be converted to string.
 
 ```ts
 const validator = marubatsu().string({ endsWith: 1 });
@@ -298,8 +375,49 @@ validator.test("231"); // true
 validator.test("321"); // true
 ```
 
+#### `alphanumeric: boolean`
+Checks the string is alphanumeric.
+
+```ts
+const validator = marubatsu().string({ alphanumeric: true });
+
+validator.test("123"); // true
+validator.test("abc"); // true
+validator.test("a12"); // true
+validator.test("# @"); // false
+```
+
+#### `alphanumeric: "lower-camel" | "upper-camel" | "lower-snake" | "upper-snake" | "lower-kebab" | "upper-kebab" | "lower-space" | "upper-space" | "lower-dot" | "upper-dot"`
+Checks the string is alphanumeric and a specific case style such as `lowerCamelCase` or `lower_snake_case` .
+
+You can specify one of the following case style.
+
+| VALUE           | CASE STYLE                          | VALID STRING         |
+|-----------------|-------------------------------------|----------------------|
+| `"lower-camel"` | Lower Camel Case                    | `"lowerCamelCase"`   |
+| `"upper-camel"` | Upper Camel Case                    | `"UpperCamelCase"`   |
+| `"lower-snake"` | Lower Snake Case                    | `"lower_snake_case"` |
+| `"upper-snake"` | Upper Snake Case                    | `"Upper_Snake_Case"` |
+| `"lower-kebab"` | Lower Kebab Case (Lower Chain Case) | `"lower-kebab-case"` |
+| `"upper-kebab"` | Upper Kebab Case (Upper Chain Case) | `"Upper-Kebab-Case"` |
+| `"lower-space"` | Lower Space Case                    | `"lower space case"` |
+| `"upper-space"` | Upper Space Case                    | `"Upper Space Case"` |
+| `"lower-dot"`   | Lower Dot Case                      | `"lower.dot.case"`   |
+| `"upper-dot"`   | Upper Dot Case                      | `"Upper.Dot.Case"`   |
+
+```ts
+const validator = marubatsu().string({ alphanumeric: "lower-snake" });
+
+validator.test("jagaapple");  // true
+validator.test("jaga_apple"); // true
+validator.test("JagaApple");  // false
+validator.test("Jaga Apple"); // false
+validator.test("jaga-apple"); // false
+validator.test("jaga.apple"); // false
+```
+
 #### `includes: number | string`
-Checks the string includes a specific number or string. If passing number, it will be convert to string value.
+Checks the string includes a specific number or string. If passing number, it will be converted to string.
 
 ```ts
 const validator = marubatsu().string({ includes: "am" });
@@ -382,7 +500,7 @@ const websiteIdentifierValidator = marubatsu()
   .string({ length: [4, 255] });
 
 const urlValidator = websiteIdentifierValidator
-  .string({ minimumLength: false, startsWith: ["http", "https"] });
+  .string({ minimumLength: false, startsWith: "https" });
   // Disable `minimumLength` and merge `startsWith` rule
 ```
 

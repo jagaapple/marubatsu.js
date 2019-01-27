@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - REGEXP CHECKER TEST
 // =============================================================================================================================
-/* tslint:disable:only-arrow-functions no-unused-expression no-null-keyword */
+// tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import { isConformingRegExp } from "./regexp-checker";
 

@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - WITHIN LENGTH RANGE CHECKER TEST
 // =============================================================================================================================
-/* tslint:disable:only-arrow-functions no-unused-expression no-null-keyword */
+// tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import { isWithinLengthRange } from "./within-length-range-checker";
 

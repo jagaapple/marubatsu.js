@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - EQUAL LENGTH CHECKER TEST
 // =============================================================================================================================
-/* tslint:disable:only-arrow-functions no-unused-expression no-null-keyword */
+// tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import { isEqualToLength } from "./equal-length-checker";
 

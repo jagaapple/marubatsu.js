@@ -4,6 +4,11 @@
     "scope": "typescript",
     "body": ["export { $2 } from \"${1:module}\";"]
   },
+  "Import modules from @shared": {
+    "prefix": "import shared",
+    "scope": "typescript",
+    "body": ["import { $2 } from \"@shared/${1:index}\";"]
+  },
   "Import modules from @checkers": {
     "prefix": "import checkers",
     "scope": "typescript",

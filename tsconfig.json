@@ -15,6 +15,7 @@
     "moduleResolution": "node",
     "outDir": "./.dist",
     "paths": {
+      "@shared/*": ["./src/shared/*"],
       "@checkers/*": ["./src/checkers/*"],
       "@rules/*": ["./src/rules/*"]
     },

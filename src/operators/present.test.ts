@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - OPERATORS - PRESENT TEST
 // =============================================================================================================================
-/* tslint:disable:only-arrow-functions no-unused-expression no-null-keyword */
+// tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { createPresentOperator } from "./present";

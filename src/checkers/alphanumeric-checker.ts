@@ -1,9 +1,7 @@
 // =============================================================================================================================
-// SRC - CHECKERS - REGEXP CHECKER
+// SRC - CHECKERS - ALPHANUMERIC CHECKER
 // =============================================================================================================================
-export const isConformingRegExp = (value: any, regExp: RegExp) => {
-  if (value == undefined) return false;
-
+export const isAlphanumeric = (value: any) => {
   let stringValue: string = "";
 
   switch (typeof value) {
@@ -19,5 +17,5 @@ export const isConformingRegExp = (value: any, regExp: RegExp) => {
       return false;
   }
 
-  return regExp.test(stringValue);
+  return /^[0-9a-zA-z]*$/.test(stringValue);
 };
