@@ -3,6 +3,7 @@
 // =============================================================================================================================
 export { isAlphanumeric } from "./alphanumeric-checker";
 export { isBlank } from "./blank-checker";
+export { isCamelCase } from "./camel-case-checker";
 export { isEmpty } from "./empty-checker";
 export { endsWith } from "./ends-with-checker";
 export { isEqualToLength } from "./equal-length-checker";
