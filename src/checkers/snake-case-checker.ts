@@ -18,8 +18,6 @@ export const isSnakeCase = (value: any, isUpper: boolean) => {
       return false;
   }
 
-  if (stringValue.length === 0) return true;
-
   const wordingPattern = isUpper ? "[0-9A-Z][a-z]*" : "[0-9a-z]+";
   const regExp = new RegExp(`^${wordingPattern}(_${wordingPattern})*$`);
 

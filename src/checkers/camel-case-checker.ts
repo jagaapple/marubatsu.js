@@ -18,8 +18,6 @@ export const isCamelCase = (value: any, isUpper: boolean) => {
       return false;
   }
 
-  if (stringValue.length === 0) return true;
-
   const prefixPattern = isUpper ? "[0-9A-Z][a-z]*" : "[0-9a-z]+";
   const regExp = new RegExp(`^${prefixPattern}([0-9A-Z][a-z]*)*$`);
 
