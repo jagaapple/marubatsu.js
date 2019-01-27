@@ -52,6 +52,8 @@ const isValidWebsite = marubatsu()
     - [`minimumLength: number`](#minimumlength-number)
     - [`startsWith: number | string`](#startswith-number--string)
     - [`endsWith: number | string`](#endswith-number--string)
+    - [`alphanumeric: boolean`](#alphanumeric-boolean)
+    - [`alphanumeric: "lower-camel" | "upper-camel" | "lower-snake" | "upper-snake" | "lower-kebab" | "upper-kebab" | "lower-space" | "upper-space" | "lower-dot" | "upper-dot"`](#alphanumeric-lower-camel--upper-camel--lower-snake--upper-snake--lower-kebab--upper-kebab--lower-space--upper-space--lower-dot--upper-dot)
     - [`includes: number | string`](#includes-number--string)
     - [`pattern: RegExp`](#pattern-regexp)
 - [Options](#options)
@@ -367,6 +369,47 @@ const validator = marubatsu().string({ endsWith: 1 });
 validator.test("123"); // false
 validator.test("231"); // true
 validator.test("321"); // true
+```
+
+#### `alphanumeric: boolean`
+Checks the string is alphanumeric.
+
+```ts
+const validator = marubatsu().string({ alphanumeric: true });
+
+validator.test("123"); // true
+validator.test("abc"); // true
+validator.test("a12"); // true
+validator.test("# @"); // false
+```
+
+#### `alphanumeric: "lower-camel" | "upper-camel" | "lower-snake" | "upper-snake" | "lower-kebab" | "upper-kebab" | "lower-space" | "upper-space" | "lower-dot" | "upper-dot"`
+Checks the string is alphanumeric and a specific case style such as `lowerCamelCase` or `lower_snake_case` .
+
+You can specify one of the following case style.
+
+| VALUE           | CASE STYLE                          | VALID STRING         |
+|-----------------|-------------------------------------|----------------------|
+| `"lower-camel"` | Lower Camel Case                    | `"lowerCamelCase"`   |
+| `"upper-camel"` | Upper Camel Case                    | `"UpperCamelCase"`   |
+| `"lower-snake"` | Lower Snake Case                    | `"lower_snake_case"` |
+| `"upper-snake"` | Upper Snake Case                    | `"Upper_Snake_Case"` |
+| `"lower-kebab"` | Lower Kebab Case (Lower Chain Case) | `"lower-kebab-case"` |
+| `"upper-kebab"` | Upper Kebab Case (Upper Chain Case) | `"Upper-Kebab-Case"` |
+| `"lower-space"` | Lower Space Case                    | `"lower space case"` |
+| `"upper-space"` | Upper Space Case                    | `"Upper Space Case"` |
+| `"lower-dot"`   | Lower Dot Case                      | `"lower.dot.case"`   |
+| `"upper-dot"`   | Upper Dot Case                      | `"Upper.Dot.Case"`   |
+
+```ts
+const validator = marubatsu().string({ alphanumeric: "lower-snake" });
+
+validator.test("jagaapple");  // true
+validator.test("jaga_apple"); // true
+validator.test("JagaApple");  // false
+validator.test("Jaga Apple"); // false
+validator.test("jaga-apple"); // false
+validator.test("jaga.apple"); // false
 ```
 
 #### `includes: number | string`
