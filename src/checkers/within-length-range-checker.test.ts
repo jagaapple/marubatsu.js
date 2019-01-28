@@ -6,17 +6,6 @@ import { expect } from "chai";
 import { isWithinLengthRange } from "./within-length-range-checker";
 
 describe("[ Within Length Range Checker ]", function() {
-  context("when a value is null,", function() {
-    it("should return false", function() {
-      expect(isWithinLengthRange(null, [0, 0])).to.be.false;
-      expect(isWithinLengthRange(null, [1, 1])).to.be.false;
-      expect(isWithinLengthRange(null, [0, 1])).to.be.false;
-      expect(isWithinLengthRange(null, [undefined, 1])).to.be.false;
-      expect(isWithinLengthRange(null, [0, undefined])).to.be.false;
-      expect(isWithinLengthRange(null, [undefined, undefined])).to.be.false;
-    });
-  });
-
   context("when a value is undefined,", function() {
     it("should return false", function() {
       expect(isWithinLengthRange(undefined, [0, 0])).to.be.false;
@@ -25,6 +14,17 @@ describe("[ Within Length Range Checker ]", function() {
       expect(isWithinLengthRange(undefined, [undefined, 1])).to.be.false;
       expect(isWithinLengthRange(undefined, [0, undefined])).to.be.false;
       expect(isWithinLengthRange(undefined, [undefined, undefined])).to.be.false;
+    });
+  });
+
+  context("when a value is null,", function() {
+    it("should return false", function() {
+      expect(isWithinLengthRange(null, [0, 0])).to.be.false;
+      expect(isWithinLengthRange(null, [1, 1])).to.be.false;
+      expect(isWithinLengthRange(null, [0, 1])).to.be.false;
+      expect(isWithinLengthRange(null, [undefined, 1])).to.be.false;
+      expect(isWithinLengthRange(null, [0, undefined])).to.be.false;
+      expect(isWithinLengthRange(null, [undefined, undefined])).to.be.false;
     });
   });
 
