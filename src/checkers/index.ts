@@ -9,6 +9,7 @@ export { isEmpty } from "./empty-checker";
 export { endsWith } from "./ends-with-checker";
 export { isEqualToLength } from "./equal-length-checker";
 export { includes } from "./includes-checker";
+export { isInteger } from "./integer-checker";
 export { isKebabCase } from "./kebab-case-checker";
 export { isNullary } from "./nullary-checker";
 export { isWithinNumberRange } from "./within-number-range-checker";
