@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import { isNegativeNumber } from "./negative-number-checker";
 
-describe("[ Decimal Checker ]", function() {
+describe("[ Negative Number Checker ]", function() {
   context("when a value is undefined,", function() {
     it("should return false", function() {
       expect(isNegativeNumber(undefined)).to.be.false;

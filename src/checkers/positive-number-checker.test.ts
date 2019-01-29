@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import { isPositiveNumber } from "./positive-number-checker";
 
-describe("[ Decimal Checker ]", function() {
+describe("[ Positive Number Checker ]", function() {
   context("when a value is undefined,", function() {
     it("should return false", function() {
       expect(isPositiveNumber(undefined)).to.be.false;
