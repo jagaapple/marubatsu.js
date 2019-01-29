@@ -13,6 +13,7 @@ export { includes } from "./includes-checker";
 export { isInteger } from "./integer-checker";
 export { isKebabCase } from "./kebab-case-checker";
 export { isNullary } from "./nullary-checker";
+export { isPositiveNumber } from "./positive-number-checker";
 export { isWithinNumberRange } from "./within-number-range-checker";
 export { isConformingRegExp } from "./regexp-checker";
 export { isSnakeCase } from "./snake-case-checker";
