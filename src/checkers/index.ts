@@ -12,6 +12,7 @@ export { isEqualToLength } from "./equal-length-checker";
 export { includes } from "./includes-checker";
 export { isInteger } from "./integer-checker";
 export { isKebabCase } from "./kebab-case-checker";
+export { isNegativeNumber } from "./negative-number-checker";
 export { isNullary } from "./nullary-checker";
 export { isPositiveNumber } from "./positive-number-checker";
 export { isWithinNumberRange } from "./within-number-range-checker";
