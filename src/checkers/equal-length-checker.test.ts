@@ -6,21 +6,21 @@ import { expect } from "chai";
 import { isEqualToLength } from "./equal-length-checker";
 
 describe("[ Equal Length Checker ]", function() {
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isEqualToLength(null, 0)).to.be.false;
       expect(isEqualToLength(null, 1)).to.be.false;
     });
   });
 
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isEqualToLength(undefined, 0)).to.be.false;
       expect(isEqualToLength(undefined, 1)).to.be.false;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("an expected length is the number of digits,", function() {
       it("should return true", function() {
         expect(isEqualToLength(0, 1)).to.be.true;
@@ -36,7 +36,7 @@ describe("[ Equal Length Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     context("an expected length is the number of characters,", function() {
       it("should return true", function() {
         expect(isEqualToLength("", 0)).to.be.true;
@@ -56,14 +56,14 @@ describe("[ Equal Length Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isEqualToLength(false, 0)).to.be.false;
       expect(isEqualToLength(true, 1)).to.be.false;
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     context("an expected length is the count of elements,", function() {
       it("should return true", function() {
         expect(isEqualToLength([], 0)).to.be.true;
@@ -87,7 +87,7 @@ describe("[ Equal Length Checker ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     context("an expected length is the count of key and values,", function() {
       it("should return true", function() {
         expect(isEqualToLength({}, 0)).to.be.true;
@@ -111,7 +111,7 @@ describe("[ Equal Length Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       const func = () => true;
 

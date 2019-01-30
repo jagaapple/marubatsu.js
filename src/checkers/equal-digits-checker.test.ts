@@ -6,7 +6,7 @@ import { expect } from "chai";
 import { hasDigits } from "./equal-digits-checker";
 
 describe("[ Equal Digits Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(hasDigits(undefined, 0)).to.be.false;
       expect(hasDigits(undefined, 1)).to.be.false;
@@ -14,7 +14,7 @@ describe("[ Equal Digits Checker ]", function() {
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(hasDigits(null, 0)).to.be.false;
       expect(hasDigits(null, 1)).to.be.false;
@@ -22,7 +22,7 @@ describe("[ Equal Digits Checker ]", function() {
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("the number is equal to an expected number of digits,", function() {
       it("should return true", function() {
         expect(hasDigits(0, 1)).to.be.true;
@@ -60,7 +60,7 @@ describe("[ Equal Digits Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     it("should return false", function() {
       expect(hasDigits("0", 0)).to.be.false;
       expect(hasDigits("0", 1)).to.be.false;
@@ -78,7 +78,7 @@ describe("[ Equal Digits Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(hasDigits(true, 0)).to.be.false;
       expect(hasDigits(true, 1)).to.be.false;
@@ -89,7 +89,7 @@ describe("[ Equal Digits Checker ]", function() {
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return false", function() {
       expect(hasDigits([], 0)).to.be.false;
       expect(hasDigits([], 1)).to.be.false;
@@ -98,7 +98,7 @@ describe("[ Equal Digits Checker ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(hasDigits({}, 0)).to.be.false;
       expect(hasDigits({}, 1)).to.be.false;
@@ -107,7 +107,7 @@ describe("[ Equal Digits Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       expect(hasDigits(() => 1, 0)).to.be.false;
       expect(hasDigits(() => 1, 1)).to.be.false;

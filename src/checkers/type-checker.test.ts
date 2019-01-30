@@ -6,123 +6,123 @@ import { expect } from "chai";
 import { isType } from "./type-checker";
 
 describe("[ Type Checker ]", function() {
-  context("when a value is undefined", function() {
+  context("when a target value is undefined", function() {
     it("should detect undefined type", function() {
-      const value = undefined;
+      const targetValue = undefined;
 
-      expect(isType(value, "number")).to.be.false;
-      expect(isType(value, "string")).to.be.false;
-      expect(isType(value, "boolean")).to.be.false;
-      expect(isType(value, "null")).to.be.false;
-      expect(isType(value, "undefined")).to.be.true;
-      expect(isType(value, "array")).to.be.false;
-      expect(isType(value, "object")).to.be.false;
-      expect(isType(value, "function")).to.be.false;
+      expect(isType(targetValue, "number")).to.be.false;
+      expect(isType(targetValue, "string")).to.be.false;
+      expect(isType(targetValue, "boolean")).to.be.false;
+      expect(isType(targetValue, "null")).to.be.false;
+      expect(isType(targetValue, "undefined")).to.be.true;
+      expect(isType(targetValue, "array")).to.be.false;
+      expect(isType(targetValue, "object")).to.be.false;
+      expect(isType(targetValue, "function")).to.be.false;
     });
   });
 
-  context("when a value is null", function() {
+  context("when a target value is null", function() {
     it("should detect null type", function() {
-      const value = null;
+      const targetValue = null;
 
-      expect(isType(value, "number")).to.be.false;
-      expect(isType(value, "string")).to.be.false;
-      expect(isType(value, "boolean")).to.be.false;
-      expect(isType(value, "null")).to.be.true;
-      expect(isType(value, "undefined")).to.be.false;
-      expect(isType(value, "array")).to.be.false;
-      expect(isType(value, "object")).to.be.false;
-      expect(isType(value, "function")).to.be.false;
+      expect(isType(targetValue, "number")).to.be.false;
+      expect(isType(targetValue, "string")).to.be.false;
+      expect(isType(targetValue, "boolean")).to.be.false;
+      expect(isType(targetValue, "null")).to.be.true;
+      expect(isType(targetValue, "undefined")).to.be.false;
+      expect(isType(targetValue, "array")).to.be.false;
+      expect(isType(targetValue, "object")).to.be.false;
+      expect(isType(targetValue, "function")).to.be.false;
     });
   });
 
-  context("when a value is number", function() {
+  context("when a target value is number", function() {
     it("should detect number type", function() {
-      const value = 123;
+      const targetValue = 123;
 
-      expect(isType(value, "number")).to.be.true;
-      expect(isType(value, "string")).to.be.false;
-      expect(isType(value, "boolean")).to.be.false;
-      expect(isType(value, "null")).to.be.false;
-      expect(isType(value, "undefined")).to.be.false;
-      expect(isType(value, "array")).to.be.false;
-      expect(isType(value, "object")).to.be.false;
-      expect(isType(value, "function")).to.be.false;
+      expect(isType(targetValue, "number")).to.be.true;
+      expect(isType(targetValue, "string")).to.be.false;
+      expect(isType(targetValue, "boolean")).to.be.false;
+      expect(isType(targetValue, "null")).to.be.false;
+      expect(isType(targetValue, "undefined")).to.be.false;
+      expect(isType(targetValue, "array")).to.be.false;
+      expect(isType(targetValue, "object")).to.be.false;
+      expect(isType(targetValue, "function")).to.be.false;
     });
   });
 
-  context("when a value is string", function() {
+  context("when a target value is string", function() {
     it("should detect string type", function() {
-      const value = "123";
+      const targetValue = "123";
 
-      expect(isType(value, "number")).to.be.false;
-      expect(isType(value, "string")).to.be.true;
-      expect(isType(value, "boolean")).to.be.false;
-      expect(isType(value, "null")).to.be.false;
-      expect(isType(value, "undefined")).to.be.false;
-      expect(isType(value, "array")).to.be.false;
-      expect(isType(value, "object")).to.be.false;
-      expect(isType(value, "function")).to.be.false;
+      expect(isType(targetValue, "number")).to.be.false;
+      expect(isType(targetValue, "string")).to.be.true;
+      expect(isType(targetValue, "boolean")).to.be.false;
+      expect(isType(targetValue, "null")).to.be.false;
+      expect(isType(targetValue, "undefined")).to.be.false;
+      expect(isType(targetValue, "array")).to.be.false;
+      expect(isType(targetValue, "object")).to.be.false;
+      expect(isType(targetValue, "function")).to.be.false;
     });
   });
 
-  context("when a value is boolean", function() {
+  context("when a target value is boolean", function() {
     it("should detect boolean type", function() {
-      const value = false;
+      const targetValue = false;
 
-      expect(isType(value, "number")).to.be.false;
-      expect(isType(value, "string")).to.be.false;
-      expect(isType(value, "boolean")).to.be.true;
-      expect(isType(value, "null")).to.be.false;
-      expect(isType(value, "undefined")).to.be.false;
-      expect(isType(value, "array")).to.be.false;
-      expect(isType(value, "object")).to.be.false;
-      expect(isType(value, "function")).to.be.false;
+      expect(isType(targetValue, "number")).to.be.false;
+      expect(isType(targetValue, "string")).to.be.false;
+      expect(isType(targetValue, "boolean")).to.be.true;
+      expect(isType(targetValue, "null")).to.be.false;
+      expect(isType(targetValue, "undefined")).to.be.false;
+      expect(isType(targetValue, "array")).to.be.false;
+      expect(isType(targetValue, "object")).to.be.false;
+      expect(isType(targetValue, "function")).to.be.false;
     });
   });
 
-  context("when a value is array", function() {
+  context("when a target value is array", function() {
     it("should detect array type", function() {
-      const value: any = [];
+      const targetValue: any = [];
 
-      expect(isType(value, "number")).to.be.false;
-      expect(isType(value, "string")).to.be.false;
-      expect(isType(value, "boolean")).to.be.false;
-      expect(isType(value, "null")).to.be.false;
-      expect(isType(value, "undefined")).to.be.false;
-      expect(isType(value, "array")).to.be.true;
-      expect(isType(value, "object")).to.be.false;
-      expect(isType(value, "function")).to.be.false;
+      expect(isType(targetValue, "number")).to.be.false;
+      expect(isType(targetValue, "string")).to.be.false;
+      expect(isType(targetValue, "boolean")).to.be.false;
+      expect(isType(targetValue, "null")).to.be.false;
+      expect(isType(targetValue, "undefined")).to.be.false;
+      expect(isType(targetValue, "array")).to.be.true;
+      expect(isType(targetValue, "object")).to.be.false;
+      expect(isType(targetValue, "function")).to.be.false;
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary)", function() {
+  context("when a target value is object (pure object/hash/dictionary)", function() {
     it("should detect object type", function() {
-      const value = {};
+      const targetValue = {};
 
-      expect(isType(value, "number")).to.be.false;
-      expect(isType(value, "string")).to.be.false;
-      expect(isType(value, "boolean")).to.be.false;
-      expect(isType(value, "null")).to.be.false;
-      expect(isType(value, "undefined")).to.be.false;
-      expect(isType(value, "array")).to.be.false;
-      expect(isType(value, "object")).to.be.true;
-      expect(isType(value, "function")).to.be.false;
+      expect(isType(targetValue, "number")).to.be.false;
+      expect(isType(targetValue, "string")).to.be.false;
+      expect(isType(targetValue, "boolean")).to.be.false;
+      expect(isType(targetValue, "null")).to.be.false;
+      expect(isType(targetValue, "undefined")).to.be.false;
+      expect(isType(targetValue, "array")).to.be.false;
+      expect(isType(targetValue, "object")).to.be.true;
+      expect(isType(targetValue, "function")).to.be.false;
     });
   });
 
-  context("when a value is function", function() {
+  context("when a target value is function", function() {
     it("should detect function type", function() {
-      const value = () => true;
+      const targetValue = () => true;
 
-      expect(isType(value, "number")).to.be.false;
-      expect(isType(value, "string")).to.be.false;
-      expect(isType(value, "boolean")).to.be.false;
-      expect(isType(value, "null")).to.be.false;
-      expect(isType(value, "undefined")).to.be.false;
-      expect(isType(value, "array")).to.be.false;
-      expect(isType(value, "object")).to.be.false;
-      expect(isType(value, "function")).to.be.true;
+      expect(isType(targetValue, "number")).to.be.false;
+      expect(isType(targetValue, "string")).to.be.false;
+      expect(isType(targetValue, "boolean")).to.be.false;
+      expect(isType(targetValue, "null")).to.be.false;
+      expect(isType(targetValue, "undefined")).to.be.false;
+      expect(isType(targetValue, "array")).to.be.false;
+      expect(isType(targetValue, "object")).to.be.false;
+      expect(isType(targetValue, "function")).to.be.true;
     });
   });
 });

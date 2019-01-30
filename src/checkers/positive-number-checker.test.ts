@@ -6,19 +6,19 @@ import { expect } from "chai";
 import { isPositiveNumber } from "./positive-number-checker";
 
 describe("[ Positive Number Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isPositiveNumber(undefined)).to.be.false;
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isPositiveNumber(null)).to.be.false;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("zero,", function() {
       it("should return false", function() {
         expect(isPositiveNumber(0)).to.be.false;
@@ -58,7 +58,7 @@ describe("[ Positive Number Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     it("should return false", function() {
       expect(isPositiveNumber("0")).to.be.false;
       expect(isPositiveNumber("0.1")).to.be.false;
@@ -70,28 +70,28 @@ describe("[ Positive Number Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isPositiveNumber(true)).to.be.false;
       expect(isPositiveNumber(false)).to.be.false;
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return false", function() {
       expect(isPositiveNumber([])).to.be.false;
       expect(isPositiveNumber([1])).to.be.false;
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(isPositiveNumber({})).to.be.false;
       expect(isPositiveNumber({ a: 1 })).to.be.false;
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       expect(isPositiveNumber(() => 1)).to.be.false;
     });

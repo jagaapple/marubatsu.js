@@ -6,19 +6,19 @@ import { expect } from "chai";
 import { isInteger } from "./integer-checker";
 
 describe("[ Integer Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isInteger(undefined)).to.be.false;
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isInteger(null)).to.be.false;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("integer number,", function() {
       it("should return true", function() {
         expect(isInteger(0)).to.be.true;
@@ -48,7 +48,7 @@ describe("[ Integer Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     it("should return false", function() {
       expect(isInteger("0")).to.be.false;
       expect(isInteger("0.1")).to.be.false;
@@ -60,28 +60,28 @@ describe("[ Integer Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isInteger(true)).to.be.false;
       expect(isInteger(false)).to.be.false;
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return false", function() {
       expect(isInteger([])).to.be.false;
       expect(isInteger([1])).to.be.false;
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(isInteger({})).to.be.false;
       expect(isInteger({ a: 1 })).to.be.false;
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       expect(isInteger(() => 1)).to.be.false;
     });

@@ -6,7 +6,7 @@ import { expect } from "chai";
 import { isWithinDigitsRange } from "./within-digits-range-checker";
 
 describe("[ Within Digits Range Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isWithinDigitsRange(undefined, [0, 0])).to.be.false;
       expect(isWithinDigitsRange(undefined, [1, 1])).to.be.false;
@@ -17,7 +17,7 @@ describe("[ Within Digits Range Checker ]", function() {
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isWithinDigitsRange(null, [0, 0])).to.be.false;
       expect(isWithinDigitsRange(null, [1, 1])).to.be.false;
@@ -28,7 +28,7 @@ describe("[ Within Digits Range Checker ]", function() {
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("the number is equal to or less than a specific maximum number of digits,", function() {
       it("should return true", function() {
         expect(isWithinDigitsRange(0, [1, 2])).to.be.true;
@@ -177,7 +177,7 @@ describe("[ Within Digits Range Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     it("should return false", function() {
       expect(isWithinDigitsRange("0", [0, 0])).to.be.false;
       expect(isWithinDigitsRange("0", [1, 1])).to.be.false;
@@ -224,7 +224,7 @@ describe("[ Within Digits Range Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isWithinDigitsRange(true, [0, 0])).to.be.false;
       expect(isWithinDigitsRange(true, [1, 1])).to.be.false;
@@ -241,7 +241,7 @@ describe("[ Within Digits Range Checker ]", function() {
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return false", function() {
       expect(isWithinDigitsRange([], [0, 0])).to.be.false;
       expect(isWithinDigitsRange([], [1, 1])).to.be.false;
@@ -258,7 +258,7 @@ describe("[ Within Digits Range Checker ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(isWithinDigitsRange({}, [0, 0])).to.be.false;
       expect(isWithinDigitsRange({}, [1, 1])).to.be.false;
@@ -275,7 +275,7 @@ describe("[ Within Digits Range Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       const func = () => true;
 

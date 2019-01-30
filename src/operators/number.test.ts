@@ -31,7 +31,7 @@ describe("[ Number ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("VALUE RULE", function() {
     context("when an expected value is number,", function() {
-      it("should compare a target value with the expected value", function() {
+      it("should compare the number with the expected value", function() {
         const validators = createNumberOperator()({ value: targetValue });
 
         expect(validators.value(targetValue)).to.be.true;

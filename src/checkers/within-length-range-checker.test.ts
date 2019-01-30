@@ -6,7 +6,7 @@ import { expect } from "chai";
 import { isWithinLengthRange } from "./within-length-range-checker";
 
 describe("[ Within Length Range Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isWithinLengthRange(undefined, [0, 0])).to.be.false;
       expect(isWithinLengthRange(undefined, [1, 1])).to.be.false;
@@ -17,7 +17,7 @@ describe("[ Within Length Range Checker ]", function() {
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isWithinLengthRange(null, [0, 0])).to.be.false;
       expect(isWithinLengthRange(null, [1, 1])).to.be.false;
@@ -28,7 +28,7 @@ describe("[ Within Length Range Checker ]", function() {
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("the number of digits is equal to or less than a specific maximum length", function() {
       it("should return true", function() {
         expect(isWithinLengthRange(123, [3, 4])).to.be.true;
@@ -64,7 +64,7 @@ describe("[ Within Length Range Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     context("the number of characters is equal to or less than a specific maximum length", function() {
       it("should return true", function() {
         expect(isWithinLengthRange("123", [3, 4])).to.be.true;
@@ -100,7 +100,7 @@ describe("[ Within Length Range Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isWithinLengthRange(true, [0, 0])).to.be.false;
       expect(isWithinLengthRange(true, [1, 1])).to.be.false;
@@ -117,7 +117,7 @@ describe("[ Within Length Range Checker ]", function() {
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     context("the count of elements is equal to or less than a specific maximum length", function() {
       it("should return true", function() {
         expect(isWithinLengthRange([1, 2, 3], [3, 4])).to.be.true;
@@ -153,7 +153,7 @@ describe("[ Within Length Range Checker ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     context("the count of key and values is equal to or less than a specific maximum length", function() {
       it("should return true", function() {
         expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 4])).to.be.true;
@@ -189,7 +189,7 @@ describe("[ Within Length Range Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       const func = () => true;
 

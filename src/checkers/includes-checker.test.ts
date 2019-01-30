@@ -6,21 +6,21 @@ import { expect } from "chai";
 import { includes } from "./includes-checker";
 
 describe("[ Includes Checker ]", function() {
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(includes(null, "null")).to.be.false;
       expect(includes(null, "ul")).to.be.false;
     });
   });
 
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(includes(undefined, "undefined")).to.be.false;
       expect(includes(undefined, "defi")).to.be.false;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("including an expected number", function() {
       it("should return true", function() {
         expect(includes(0, "0")).to.be.true;
@@ -36,7 +36,7 @@ describe("[ Includes Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     context("including an expected characters", function() {
       it("should return true", function() {
         expect(includes("0", "0")).to.be.true;
@@ -52,7 +52,7 @@ describe("[ Includes Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(includes(false, "false")).to.be.false;
       expect(includes(false, "als")).to.be.false;
@@ -61,7 +61,7 @@ describe("[ Includes Checker ]", function() {
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     context("one or more elements are equal to an expected characters,", function() {
       it("should return true", function() {
         expect(includes([1, 2, 3, 4, 5], "3")).to.be.true;
@@ -82,7 +82,7 @@ describe("[ Includes Checker ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(includes({}, "object")).to.be.false;
       expect(includes({}, "bje")).to.be.false;
@@ -95,7 +95,7 @@ describe("[ Includes Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       const func = () => true;
 

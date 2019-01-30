@@ -6,7 +6,7 @@ import { expect } from "chai";
 import { isWithinNumberRange } from "./within-number-range-checker";
 
 describe("[ Within Number Range Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isWithinNumberRange(undefined, [0, 0])).to.be.false;
       expect(isWithinNumberRange(undefined, [1, 1])).to.be.false;
@@ -17,7 +17,7 @@ describe("[ Within Number Range Checker ]", function() {
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isWithinNumberRange(null, [0, 0])).to.be.false;
       expect(isWithinNumberRange(null, [1, 1])).to.be.false;
@@ -28,8 +28,8 @@ describe("[ Within Number Range Checker ]", function() {
     });
   });
 
-  context("when a value is number,", function() {
-    context("the value is equal to or less than a specific maximum length,", function() {
+  context("when a target value is number,", function() {
+    context("the number is equal to or less than a specific maximum length,", function() {
       it("should return true", function() {
         expect(isWithinNumberRange(3, [2, 4])).to.be.true;
         expect(isWithinNumberRange(3, [3, 3])).to.be.true;
@@ -44,7 +44,7 @@ describe("[ Within Number Range Checker ]", function() {
       });
     });
 
-    context("the value is more than a specific maximum length,", function() {
+    context("the number is more than a specific maximum length,", function() {
       it("should return false", function() {
         expect(isWithinNumberRange(4, [0, 3])).to.be.false;
         expect(isWithinNumberRange(4, [3, 3])).to.be.false;
@@ -56,7 +56,7 @@ describe("[ Within Number Range Checker ]", function() {
       });
     });
 
-    context("the value is equal to or more than a specific minimum length,", function() {
+    context("the number is equal to or more than a specific minimum length,", function() {
       it("should return true", function() {
         expect(isWithinNumberRange(3, [3, 5])).to.be.true;
         expect(isWithinNumberRange(3.1, [3.1, 5])).to.be.true;
@@ -69,7 +69,7 @@ describe("[ Within Number Range Checker ]", function() {
       });
     });
 
-    context("the value is less than a specific minimum length,", function() {
+    context("the number is less than a specific minimum length,", function() {
       it("should return false", function() {
         expect(isWithinNumberRange(3, [4, 5])).to.be.false;
         expect(isWithinNumberRange(3, [4, 4])).to.be.false;
@@ -82,7 +82,7 @@ describe("[ Within Number Range Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     it("should return false", function() {
       expect(isWithinNumberRange("", [0, 0])).to.be.false;
       expect(isWithinNumberRange("", [1, 1])).to.be.false;
@@ -105,7 +105,7 @@ describe("[ Within Number Range Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isWithinNumberRange(true, [0, 0])).to.be.false;
       expect(isWithinNumberRange(true, [1, 1])).to.be.false;
@@ -122,7 +122,7 @@ describe("[ Within Number Range Checker ]", function() {
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return false", function() {
       expect(isWithinNumberRange([], [0, 0])).to.be.false;
       expect(isWithinNumberRange([], [1, 1])).to.be.false;
@@ -145,7 +145,7 @@ describe("[ Within Number Range Checker ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(isWithinNumberRange({}, [0, 0])).to.be.false;
       expect(isWithinNumberRange({}, [1, 1])).to.be.false;
@@ -162,7 +162,7 @@ describe("[ Within Number Range Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       const func = () => 1;
 

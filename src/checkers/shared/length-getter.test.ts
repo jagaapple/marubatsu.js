@@ -6,26 +6,26 @@ import { expect } from "chai";
 import { getLength } from "./length-getter";
 
 describe("[ Length Getter ]", function() {
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return undefined", function() {
       expect(getLength(null)).to.be.undefined;
     });
   });
 
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return undefined", function() {
       expect(getLength(undefined)).to.be.undefined;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     it("should return the number of digits", function() {
       expect(getLength(0)).to.eq(1);
       expect(getLength(345)).to.eq(3);
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     it("should return the number of characters", function() {
       expect(getLength("")).to.eq(0);
       expect(getLength(" ")).to.eq(1);
@@ -34,13 +34,13 @@ describe("[ Length Getter ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return undefined", function() {
       expect(getLength(undefined)).to.be.undefined;
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return the count of elements", function() {
       expect(getLength([])).to.eq(0);
       expect(getLength([undefined])).to.eq(1);
@@ -51,7 +51,7 @@ describe("[ Length Getter ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return the count of key and values", function() {
       expect(getLength({})).to.eq(0);
       expect(getLength({ a: undefined })).to.eq(1);
@@ -62,7 +62,7 @@ describe("[ Length Getter ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return undefined", function() {
       expect(getLength(() => true)).to.be.undefined;
     });

@@ -6,19 +6,19 @@ import { expect } from "chai";
 import { isAlphanumeric } from "./alphanumeric-checker";
 
 describe("[ Alphanumeric Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isAlphanumeric(undefined)).to.be.false;
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isAlphanumeric(null)).to.be.false;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("zero,", function() {
       it("should return true", function() {
         expect(isAlphanumeric(0)).to.be.true;
@@ -45,7 +45,7 @@ describe("[ Alphanumeric Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     context("including only number and alphabets,", function() {
       it("should return true", function() {
         expect(isAlphanumeric("0")).to.be.true;
@@ -75,26 +75,26 @@ describe("[ Alphanumeric Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isAlphanumeric(true)).to.be.false;
       expect(isAlphanumeric(false)).to.be.false;
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return false", function() {
       expect(isAlphanumeric([])).to.be.false;
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(isAlphanumeric({})).to.be.false;
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       expect(isAlphanumeric(() => true)).to.be.false;
     });
