@@ -66,20 +66,4 @@ const createProxyExecutor = (executor: Executor) =>
 
 const marubatsu = () => createProxyExecutor(new Executor());
 
-// marubatsu()
-//   .number({ value: 123 })
-//   .number({ value: [5, 10] })
-//   .number({ maximumValue: 10 })
-//   .number({ minimumValue: 5 })
-//   .number({ integer: true })
-//   .number({ float: true })
-//   .number({ positive: true })
-//   .number({ negative: true })
-//   .number({ digits: 3 })
-//   .number({ digits: [3, 5] })
-//   .number({ integerDigits: 3 })
-//   .number({ integerDigits: [3, 5] })
-//   .number({ decimalDigits: 3 })
-//   .number({ decimalDigits: [3, 5] });
-
 export default marubatsu;
