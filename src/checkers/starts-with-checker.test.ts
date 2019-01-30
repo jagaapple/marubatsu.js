@@ -35,26 +35,10 @@ describe("[ Starts With Checker ]", function() {
   });
 
   context("when a target value is number,", function() {
-    context("starting with an expected value,", function() {
-      it("should return true", function() {
-        expect(startsWith(0, "0")).to.be.true;
-        expect(startsWith(12345, "123")).to.be.true;
-      });
-    });
-
-    context("not starting with an expected value,", function() {
-      it("should return false", function() {
-        expect(startsWith(12345, "num")).to.be.false;
-        expect(startsWith(12345, "abc")).to.be.false;
-        expect(startsWith(12345, "345")).to.be.false;
-      });
-    });
-
-    context("an expected value is an empty string,", function() {
-      it("should return true", function() {
-        expect(startsWith(0, "")).to.be.true;
-        expect(startsWith(12345, "")).to.be.true;
-      });
+    it("should return false", function() {
+      expect(startsWith(12345, "123")).to.be.false;
+      expect(startsWith(12345, "num")).to.be.false;
+      expect(startsWith(12345, "abc")).to.be.false;
     });
   });
 

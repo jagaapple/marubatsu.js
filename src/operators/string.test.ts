@@ -30,22 +30,11 @@ describe("[ String ]", function() {
   // Value Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("VALUE RULE", function() {
-    context("when an expected value is number,", function() {
-      it("should compare the number converted to string with the expected value,", function() {
-        const val = 123;
-        const validators = createStringOperator()({ value: val });
+    it("should compare the string with the expected value", function() {
+      const val = "123";
+      const validators = createStringOperator()({ value: val });
 
-        expect(validators.value(targetValue)).to.be.true;
-      });
-    });
-
-    context("when an expected value is string,", function() {
-      it("should compare the string with the expected value", function() {
-        const val = "123";
-        const validators = createStringOperator()({ value: val });
-
-        expect(validators.value(targetValue)).to.be.true;
-      });
+      expect(validators.value(targetValue)).to.be.true;
     });
   });
 
@@ -116,28 +105,14 @@ describe("[ String ]", function() {
   // Starts With Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("STARTS WITH RULE", function() {
-    context("when an expected value is number,", function() {
-      it('should call "checkToStartsWith" checker with an expected value converted to string', function() {
-        const checkToStartsWith = sinon.spy();
-        const startsWith = 123;
-        const validators = createStringOperator({ checkToStartsWith })({ startsWith });
+    it('should call "checkToStartsWith" checker with an expected value', function() {
+      const checkToStartsWith = sinon.spy();
+      const startsWith = "123";
+      const validators = createStringOperator({ checkToStartsWith })({ startsWith });
 
-        validators.startsWith(targetValue);
+      validators.startsWith(targetValue);
 
-        expect(checkToStartsWith.calledOnceWith(targetValue, startsWith.toString())).to.be.true;
-      });
-    });
-
-    context("when an expected value is string,", function() {
-      it('should call "checkToStartsWith" checker with an expected value', function() {
-        const checkToStartsWith = sinon.spy();
-        const startsWith = "123";
-        const validators = createStringOperator({ checkToStartsWith })({ startsWith });
-
-        validators.startsWith(targetValue);
-
-        expect(checkToStartsWith.calledOnceWith(targetValue, startsWith)).to.be.true;
-      });
+      expect(checkToStartsWith.calledOnceWith(targetValue, startsWith)).to.be.true;
     });
   });
 
@@ -145,28 +120,14 @@ describe("[ String ]", function() {
   // Ends With Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("ENDS WITH RULE", function() {
-    context("when an expected value is number,", function() {
-      it('should call "checkToEndsWith" checker with an expected value converted to string', function() {
-        const checkToEndsWith = sinon.spy();
-        const endsWith = 345;
-        const validators = createStringOperator({ checkToEndsWith })({ endsWith });
+    it('should call "checkToEndsWith" checker with an expected value', function() {
+      const checkToEndsWith = sinon.spy();
+      const endsWith = "345";
+      const validators = createStringOperator({ checkToEndsWith })({ endsWith });
 
-        validators.endsWith(targetValue);
+      validators.endsWith(targetValue);
 
-        expect(checkToEndsWith.calledOnceWith(targetValue, endsWith.toString())).to.be.true;
-      });
-    });
-
-    context("when an expected value is string,", function() {
-      it('should call "checkToEndsWith" checker with an expected value', function() {
-        const checkToEndsWith = sinon.spy();
-        const endsWith = "345";
-        const validators = createStringOperator({ checkToEndsWith })({ endsWith });
-
-        validators.endsWith(targetValue);
-
-        expect(checkToEndsWith.calledOnceWith(targetValue, endsWith)).to.be.true;
-      });
+      expect(checkToEndsWith.calledOnceWith(targetValue, endsWith)).to.be.true;
     });
   });
 
@@ -309,28 +270,14 @@ describe("[ String ]", function() {
   // Includes Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("INCLUDES RULE", function() {
-    context("when an expected value is number,", function() {
-      it('should call "checkToIncludes" checker with the expected value converted to string', function() {
-        const checkToIncludes = sinon.spy();
-        const includes = 234;
-        const validators = createStringOperator({ checkToIncludes })({ includes });
+    it('should call "checkToIncludes" checker with the expected value', function() {
+      const checkToIncludes = sinon.spy();
+      const includes = "234";
+      const validators = createStringOperator({ checkToIncludes })({ includes });
 
-        validators.includes(targetValue);
+      validators.includes(targetValue);
 
-        expect(checkToIncludes.calledOnceWith(targetValue, includes.toString())).to.be.true;
-      });
-    });
-
-    context("when an expected value is string,", function() {
-      it('should call "checkToIncludes" checker with the expected value', function() {
-        const checkToIncludes = sinon.spy();
-        const includes = "234";
-        const validators = createStringOperator({ checkToIncludes })({ includes });
-
-        validators.includes(targetValue);
-
-        expect(checkToIncludes.calledOnceWith(targetValue, includes)).to.be.true;
-      });
+      expect(checkToIncludes.calledOnceWith(targetValue, includes)).to.be.true;
     });
   });
 

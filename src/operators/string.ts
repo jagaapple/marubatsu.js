@@ -46,14 +46,14 @@ export type AlphanumericOptionCaseType =
   | "upper-dot";
 
 export interface Options {
-  value?: number | string;
+  value?: string;
   length?: number | [number, number];
   maximumLength?: number;
   minimumLength?: number;
-  startsWith?: number | string;
-  endsWith?: number | string;
+  startsWith?: string;
+  endsWith?: string;
   alphanumeric?: boolean | AlphanumericOptionCaseType;
-  includes?: number | string;
+  includes?: string;
   pattern?: RegExp;
 }
 
@@ -86,7 +86,7 @@ export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
 
     const val = options.value;
     if (val != undefined) {
-      validators.value = (value: any) => val.toString() === value;
+      validators.value = (value: any) => val === value;
     }
 
     const length = options.length;
