@@ -30,7 +30,7 @@ describe("[ String ]", function() {
   // Value Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("VALUE RULE", function() {
-    context("when an expected value is number", function() {
+    context("when an expected value is number,", function() {
       it("should compare the number converted to string with the expected value,", function() {
         const val = 123;
         const validators = createStringOperator()({ value: val });
@@ -39,7 +39,7 @@ describe("[ String ]", function() {
       });
     });
 
-    context("when an expected value is string", function() {
+    context("when an expected value is string,", function() {
       it("should compare the string with the expected value", function() {
         const val = "123";
         const validators = createStringOperator()({ value: val });
@@ -309,7 +309,7 @@ describe("[ String ]", function() {
   // Includes Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("INCLUDES RULE", function() {
-    context("when an expected value is number", function() {
+    context("when an expected value is number,", function() {
       it('should call "checkToIncludes" checker with the expected value converted to string', function() {
         const checkToIncludes = sinon.spy();
         const includes = 234;
@@ -321,7 +321,7 @@ describe("[ String ]", function() {
       });
     });
 
-    context("when an expected value is string", function() {
+    context("when an expected value is string,", function() {
       it('should call "checkToIncludes" checker with the expected value', function() {
         const checkToIncludes = sinon.spy();
         const includes = "234";

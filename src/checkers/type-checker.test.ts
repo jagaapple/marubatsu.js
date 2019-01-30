@@ -6,7 +6,7 @@ import { expect } from "chai";
 import { isType } from "./type-checker";
 
 describe("[ Type Checker ]", function() {
-  context("when a target value is undefined", function() {
+  context("when a target value is undefined,", function() {
     it("should detect undefined type", function() {
       const targetValue = undefined;
 
@@ -21,7 +21,7 @@ describe("[ Type Checker ]", function() {
     });
   });
 
-  context("when a target value is null", function() {
+  context("when a target value is null,", function() {
     it("should detect null type", function() {
       const targetValue = null;
 
@@ -36,7 +36,7 @@ describe("[ Type Checker ]", function() {
     });
   });
 
-  context("when a target value is number", function() {
+  context("when a target value is number,", function() {
     it("should detect number type", function() {
       const targetValue = 123;
 
@@ -51,7 +51,7 @@ describe("[ Type Checker ]", function() {
     });
   });
 
-  context("when a target value is string", function() {
+  context("when a target value is string,", function() {
     it("should detect string type", function() {
       const targetValue = "123";
 
@@ -66,7 +66,7 @@ describe("[ Type Checker ]", function() {
     });
   });
 
-  context("when a target value is boolean", function() {
+  context("when a target value is boolean,", function() {
     it("should detect boolean type", function() {
       const targetValue = false;
 
@@ -81,7 +81,7 @@ describe("[ Type Checker ]", function() {
     });
   });
 
-  context("when a target value is array", function() {
+  context("when a target value is array,", function() {
     it("should detect array type", function() {
       const targetValue: any = [];
 
@@ -96,7 +96,7 @@ describe("[ Type Checker ]", function() {
     });
   });
 
-  context("when a target value is object (pure object/hash/dictionary)", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should detect object type", function() {
       const targetValue = {};
 
@@ -111,7 +111,7 @@ describe("[ Type Checker ]", function() {
     });
   });
 
-  context("when a target value is function", function() {
+  context("when a target value is function,", function() {
     it("should detect function type", function() {
       const targetValue = () => true;
 
