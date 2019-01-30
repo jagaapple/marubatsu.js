@@ -90,7 +90,7 @@ describe("[ Includes Checker ]", function() {
       expect(includes({ a: undefined }, "defi")).to.be.false;
       expect(includes({ a: null }, "ul")).to.be.false;
       expect(includes({ a: 12345 }, "234")).to.be.false;
-      expect(includes({ a: "" }, `""`)).to.be.false;
+      expect(includes({ a: "" }, '""')).to.be.false;
       expect(includes({ a: "12345" }, "234")).to.be.false;
     });
   });
