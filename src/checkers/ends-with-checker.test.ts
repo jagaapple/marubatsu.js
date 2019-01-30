@@ -6,7 +6,7 @@ import { expect } from "chai";
 import { endsWith } from "./ends-with-checker";
 
 describe("[ Ends With Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(endsWith(undefined, "ned")).to.be.false;
       expect(endsWith(undefined, "ull")).to.be.false;
@@ -20,7 +20,7 @@ describe("[ Ends With Checker ]", function() {
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(endsWith(null, "ned")).to.be.false;
       expect(endsWith(null, "ull")).to.be.false;
@@ -34,7 +34,7 @@ describe("[ Ends With Checker ]", function() {
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("ending with an expected value,", function() {
       it("should return true", function() {
         expect(endsWith(0, "0")).to.be.true;
@@ -58,7 +58,7 @@ describe("[ Ends With Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     context("ending with an expected value,", function() {
       it("should return true", function() {
         expect(endsWith("12345", "345")).to.be.true;
@@ -85,7 +85,7 @@ describe("[ Ends With Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(endsWith(true, "rue")).to.be.false;
       expect(endsWith(true, "cde")).to.be.false;
@@ -101,7 +101,7 @@ describe("[ Ends With Checker ]", function() {
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     context("ending with an expected value at the first element,", function() {
       it("should return true", function() {
         expect(endsWith([12345, 23456, 34567], "567")).to.be.true;
@@ -145,7 +145,7 @@ describe("[ Ends With Checker ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(endsWith({}, "obj")).to.be.false;
       expect(endsWith({ abcde: undefined }, "ned")).to.be.false;
@@ -172,7 +172,7 @@ describe("[ Ends With Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     const func = () => true;
 
     it("should return false", function() {

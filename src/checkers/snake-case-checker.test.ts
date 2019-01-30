@@ -6,21 +6,21 @@ import { expect } from "chai";
 import { isSnakeCase } from "./snake-case-checker";
 
 describe("[ Snake Case Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isSnakeCase(undefined, false)).to.be.false;
       expect(isSnakeCase(undefined, true)).to.be.false;
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isSnakeCase(null, false)).to.be.false;
       expect(isSnakeCase(null, true)).to.be.false;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("zero,", function() {
       it("should return true", function() {
         expect(isSnakeCase(0, false)).to.be.true;
@@ -43,7 +43,7 @@ describe("[ Snake Case Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     context("an empty string,", function() {
       it("should return true", function() {
         expect(isSnakeCase("", false)).to.be.true;
@@ -222,7 +222,7 @@ describe("[ Snake Case Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isSnakeCase(true, false)).to.be.false;
       expect(isSnakeCase(true, true)).to.be.false;
@@ -231,21 +231,21 @@ describe("[ Snake Case Checker ]", function() {
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return false", function() {
       expect(isSnakeCase([], false)).to.be.false;
       expect(isSnakeCase([], true)).to.be.false;
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(isSnakeCase({}, false)).to.be.false;
       expect(isSnakeCase({}, true)).to.be.false;
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       expect(isSnakeCase(() => true, false)).to.be.false;
       expect(isSnakeCase(() => true, true)).to.be.false;

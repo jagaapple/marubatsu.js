@@ -6,19 +6,19 @@ import { expect } from "chai";
 import { isBlank } from "./blank-checker";
 
 describe("[ Blank Checker ]", function() {
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return true", function() {
       expect(isBlank(undefined)).to.be.true;
     });
   });
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return true", function() {
       expect(isBlank(null)).to.be.true;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("zero,", function() {
       it("should return false", function() {
         expect(isBlank(0)).to.be.false;
@@ -38,7 +38,7 @@ describe("[ Blank Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     context("an empty string,", function() {
       it("should return true", function() {
         expect(isBlank("")).to.be.true;
@@ -60,7 +60,7 @@ describe("[ Blank Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     context("true,", function() {
       it("should return false", function() {
         expect(isBlank(true)).to.be.false;
@@ -74,7 +74,7 @@ describe("[ Blank Checker ]", function() {
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     context("an empty array,", function() {
       it("should return true", function() {
         expect(isBlank([])).to.be.true;
@@ -100,7 +100,7 @@ describe("[ Blank Checker ]", function() {
     });
   });
 
-  context("when a value is object,", function() {
+  context("when a target value is object,", function() {
     context("an empty object,", function() {
       it("should return true", function() {
         expect(isBlank({})).to.be.true;
@@ -120,7 +120,7 @@ describe("[ Blank Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       expect(isBlank(() => true)).to.be.false;
     });

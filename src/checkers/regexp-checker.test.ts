@@ -8,21 +8,21 @@ import { isConformingRegExp } from "./regexp-checker";
 describe("[ RegExp Checker ]", function() {
   const sampleRegExp = /^[1-3]+$/;
 
-  context("when a value is null,", function() {
+  context("when a target value is null,", function() {
     it("should return false", function() {
       expect(isConformingRegExp(null, sampleRegExp)).to.be.false;
       expect(isConformingRegExp(null, sampleRegExp)).to.be.false;
     });
   });
 
-  context("when a value is undefined,", function() {
+  context("when a target value is undefined,", function() {
     it("should return false", function() {
       expect(isConformingRegExp(undefined, sampleRegExp)).to.be.false;
       expect(isConformingRegExp(undefined, sampleRegExp)).to.be.false;
     });
   });
 
-  context("when a value is number,", function() {
+  context("when a target value is number,", function() {
     context("conforming a specific regular expression,", function() {
       it("should return true", function() {
         expect(isConformingRegExp(123, sampleRegExp)).to.be.true;
@@ -38,7 +38,7 @@ describe("[ RegExp Checker ]", function() {
     });
   });
 
-  context("when a value is string,", function() {
+  context("when a target value is string,", function() {
     context("conforming a specific regular expression,", function() {
       it("should return true", function() {
         expect(isConformingRegExp("123", sampleRegExp)).to.be.true;
@@ -54,14 +54,14 @@ describe("[ RegExp Checker ]", function() {
     });
   });
 
-  context("when a value is boolean,", function() {
+  context("when a target value is boolean,", function() {
     it("should return false", function() {
       expect(isConformingRegExp(true, sampleRegExp)).to.be.false;
       expect(isConformingRegExp(false, sampleRegExp)).to.be.false;
     });
   });
 
-  context("when a value is array,", function() {
+  context("when a target value is array,", function() {
     it("should return false", function() {
       expect(isConformingRegExp([], sampleRegExp)).to.be.false;
       expect(isConformingRegExp([undefined], sampleRegExp)).to.be.false;
@@ -72,7 +72,7 @@ describe("[ RegExp Checker ]", function() {
     });
   });
 
-  context("when a value is object (pure object/hash/dictionary),", function() {
+  context("when a target value is object (pure object/hash/dictionary),", function() {
     it("should return false", function() {
       expect(isConformingRegExp({}, sampleRegExp)).to.be.false;
       expect(isConformingRegExp({ a: undefined }, sampleRegExp)).to.be.false;
@@ -83,7 +83,7 @@ describe("[ RegExp Checker ]", function() {
     });
   });
 
-  context("when a value is function,", function() {
+  context("when a target value is function,", function() {
     it("should return false", function() {
       expect(isConformingRegExp(() => true, sampleRegExp)).to.be.false;
     });
