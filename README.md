@@ -193,9 +193,9 @@ marubatsu({
 **Executors** is to execute validations.
 
 ### `test(value: any)`
-Returns `true` if a target value passes all validations, otherwise returns `false` .
+Returns `true` if a value passes all validations, otherwise returns `false` .
 
-- `value: any` ... The target value
+- `value: any` ... The value
 
 ```ts
 marubatsu().string({ length: 3 }).test("123");  // true
@@ -251,7 +251,7 @@ validator.test({}); // false
 Checks the value is an empty string, an empty array, or an empty object (pure object/hash/dictionary).
 
 ```ts
-const validator = marubatsu().nullary();
+const validator = marubatsu().empty();
 
 validator.test(null); // false
 validator.test(undefined); // false
@@ -269,7 +269,7 @@ Checks the value is `null` , `undefined` , an empty string, a string including o
 (pure object/hash/dictionary), or `false` .
 
 ```ts
-const validator = marubatsu().nullary();
+const validator = marubatsu().blank();
 
 validator.test(null); // true
 validator.test(undefined); // true
@@ -297,13 +297,13 @@ validator.test(123);  // false
 ```
 
 #### `value: string`
-Checks the string is equal to a specific number or string.
+Checks the string is equal to a specific string.
 
 ```ts
-const validator = marubatsu().string({ value: 123 });
+const validator = marubatsu().string({ value: "abc" });
 
-validator.test("123");  // true
-validator.test("1234"); // false
+validator.test("abc");   // true
+validator.test("abcde"); // false
 ```
 
 #### `length: number`
@@ -354,25 +354,23 @@ validator.test("1234"); // true
 
 
 #### `startsWith: string`
-Checks the string is starting with a specific number or string.
+Checks the string is starting with a specific string.
 
 ```ts
-const validator = marubatsu().string({ startsWith: 1 });
+const validator = marubatsu().string({ startsWith: "abc" });
 
-validator.test("123"); // true
-validator.test("231"); // false
-validator.test("321"); // false
+validator.test("abcde"); // true
+validator.test("12345"); // false
 ```
 
 #### `endsWith: string`
-Checks the string is ending with a specific number or string.
+Checks the string is ending with a specific string.
 
 ```ts
-const validator = marubatsu().string({ endsWith: 1 });
+const validator = marubatsu().string({ endsWith: "cde" });
 
-validator.test("123"); // false
-validator.test("231"); // true
-validator.test("321"); // true
+validator.test("abcde"); // true
+validator.test("12345"); // false
 ```
 
 #### `alphanumeric: boolean`
@@ -417,12 +415,12 @@ validator.test("jaga.apple"); // false
 ```
 
 #### `includes: string`
-Checks the string includes a specific number or string.
+Checks the string includes a specific string.
 
 ```ts
 const validator = marubatsu().string({ includes: "am" });
 
-validator.test("I am Jaga Apple"); // true
+validator.test("I am Jaga Apple");    // true
 validator.test("This is Jaga Apple"); // false
 ```
 
