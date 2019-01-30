@@ -8,6 +8,7 @@ export { isDecimal } from "./decimal-checker";
 export { isDotCase } from "./dot-case-checker";
 export { isEmpty } from "./empty-checker";
 export { endsWith } from "./ends-with-checker";
+export { hasDigits } from "./equal-digits-checker";
 export { isEqualToLength } from "./equal-length-checker";
 export { includes } from "./includes-checker";
 export { isInteger } from "./integer-checker";
