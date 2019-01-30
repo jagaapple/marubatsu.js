@@ -60,6 +60,19 @@ const isValidWebsite = marubatsu()
     - [`alphanumeric: "lower-camel" | "upper-camel" | "lower-snake" | "upper-snake" | "lower-kebab" | "upper-kebab" | "lower-space" | "upper-space" | "lower-dot" | "upper-dot"`](#alphanumeric-lower-camel--upper-camel--lower-snake--upper-snake--lower-kebab--upper-kebab--lower-space--upper-space--lower-dot--upper-dot)
     - [`includes: string`](#includes-string)
     - [`pattern: RegExp`](#pattern-regexp)
+  - [`number(rules: { [ruleName]: any } = {})`](#numberrules--rulename-any---)
+    - [`value: number`](#value-number)
+    - [`value: [number, number]`](#value-number-number)
+    - [`maximumValue: number`](#maximumvalue-number)
+    - [`minimumValue: number`](#minimumvalue-number)
+    - [`integer: boolean`](#integer-boolean)
+    - [`float: boolean`](#float-boolean)
+    - [`positive: boolean`](#positive-boolean)
+    - [`negative: boolean`](#negative-boolean)
+    - [`digits: number`](#digits-number)
+    - [`digits: [number, number]`](#digits-number-number)
+    - [`maximumDigits: number`](#maximumdigits-number)
+    - [`minimumDigits: number`](#minimumdigits-number)
 - [Options](#options)
     - [`checkAll: boolean = false`](#checkall-boolean--false)
 - [Receipes](#receipes)
@@ -193,9 +206,9 @@ marubatsu({
 **Executors** is to execute validations.
 
 ### `test(value: any)`
-Returns `true` if a target value passes all validations, otherwise returns `false` .
+Returns `true` if a value passes all validations, otherwise returns `false` .
 
-- `value: any` ... The target value
+- `value: any` ... The value
 
 ```ts
 marubatsu().string({ length: 3 }).test("123");  // true
@@ -251,7 +264,7 @@ validator.test({}); // false
 Checks the value is an empty string, an empty array, or an empty object (pure object/hash/dictionary).
 
 ```ts
-const validator = marubatsu().nullary();
+const validator = marubatsu().empty();
 
 validator.test(null); // false
 validator.test(undefined); // false
@@ -269,7 +282,7 @@ Checks the value is `null` , `undefined` , an empty string, a string including o
 (pure object/hash/dictionary), or `false` .
 
 ```ts
-const validator = marubatsu().nullary();
+const validator = marubatsu().blank();
 
 validator.test(null); // true
 validator.test(undefined); // true
@@ -297,13 +310,13 @@ validator.test(123);  // false
 ```
 
 #### `value: string`
-Checks the string is equal to a specific number or string.
+Checks the string is equal to a specific string.
 
 ```ts
-const validator = marubatsu().string({ value: 123 });
+const validator = marubatsu().string({ value: "abc" });
 
-validator.test("123");  // true
-validator.test("1234"); // false
+validator.test("abc");   // true
+validator.test("abcde"); // false
 ```
 
 #### `length: number`
@@ -354,25 +367,23 @@ validator.test("1234"); // true
 
 
 #### `startsWith: string`
-Checks the string is starting with a specific number or string.
+Checks the string is starting with a specific string.
 
 ```ts
-const validator = marubatsu().string({ startsWith: 1 });
+const validator = marubatsu().string({ startsWith: "abc" });
 
-validator.test("123"); // true
-validator.test("231"); // false
-validator.test("321"); // false
+validator.test("abcde"); // true
+validator.test("12345"); // false
 ```
 
 #### `endsWith: string`
-Checks the string is ending with a specific number or string.
+Checks the string is ending with a specific string.
 
 ```ts
-const validator = marubatsu().string({ endsWith: 1 });
+const validator = marubatsu().string({ endsWith: "cde" });
 
-validator.test("123"); // false
-validator.test("231"); // true
-validator.test("321"); // true
+validator.test("abcde"); // true
+validator.test("12345"); // false
 ```
 
 #### `alphanumeric: boolean`
@@ -417,12 +428,12 @@ validator.test("jaga.apple"); // false
 ```
 
 #### `includes: string`
-Checks the string includes a specific number or string.
+Checks the string includes a specific string.
 
 ```ts
 const validator = marubatsu().string({ includes: "am" });
 
-validator.test("I am Jaga Apple"); // true
+validator.test("I am Jaga Apple");    // true
 validator.test("This is Jaga Apple"); // false
 ```
 
@@ -434,6 +445,148 @@ const validator = marubatsu().string({ pattern: /^.+@.+$/ });
 
 validator.test("example@example.com"); // true
 validator.test("example.com");         // false
+```
+
+### `number(rules: { [ruleName]: any } = {})`
+Checks the value is string type and conforms rules realted to number.
+
+```ts
+const validator = marubatsu().number();
+
+validator.test(123);  // true
+validator.test("ok"); // false
+```
+
+#### `value: number`
+Checks the number is equal to a specific number.
+
+```ts
+const validator = marubatsu().number({ value: 123 });
+
+validator.test(123);   // true
+validator.test(12345); // false
+```
+
+#### `value: [number, number]`
+Checks the number is between specific value range. The first number is minimum value and the second number is maximum value.
+
+```ts
+const validator = marubatsu().number({ value: [100, 200] });
+
+validator.test(123);   // true
+validator.test(12345); // false
+```
+
+#### `maximumValue: number`
+Checks the number is equal to or less than a specific maximum value.
+
+```ts
+const validator = marubatsu().number({ maximumValue: 200 });
+
+validator.test(123);   // true
+validator.test(12345); // false
+```
+
+#### `minimumValue: number`
+Checks the number is equal to or more than a specific minimum value.
+
+```ts
+const validator = marubatsu().number({ minimumValue: 100 });
+
+validator.test(123); // true
+validator.test(12);  // false
+```
+
+#### `integer: boolean`
+Checks the number does not have decimal.
+
+```ts
+const validator = marubatsu().number({ integer: true });
+
+validator.test(100);    // true
+validator.test(100.0);  // true
+validator.test(100.00); // true
+validator.test(100.01); // false
+```
+
+#### `float: boolean`
+Checks the number has decimal.
+
+```ts
+const validator = marubatsu().number({ float: true });
+
+validator.test(100);    // false
+validator.test(100.0);  // false
+validator.test(100.00); // false
+validator.test(100.01); // true
+```
+
+#### `positive: boolean`
+Checks the number is a positive number. `0` is `false` .
+
+```ts
+const validator = marubatsu().number({ positive: true });
+
+validator.test(100);  // true
+validator.test(0);    // false
+validator.test(-100); // false
+```
+
+#### `negative: boolean`
+Checks the number is a negative number. `0` is `false` .
+
+```ts
+const validator = marubatsu().number({ negative: true });
+
+validator.test(100);  // false
+validator.test(0);    // false
+validator.test(-100); // true
+```
+
+#### `digits: number`
+Checks the number of digits is equal to a specific number.
+
+```ts
+const validator = marubatsu().number({ digits: 3 });
+
+validator.test(12);   // false
+validator.test(123);  // true
+validator.test(1234); // false
+```
+
+#### `digits: [number, number]`
+Checks the number of digits is between specific value range. The first number is minimum and the second number is maximum number
+of digits.
+
+```ts
+const validator = marubatsu().number({ digits: [3, 4] });
+
+validator.test(12);    // false
+validator.test(123);   // true
+validator.test(1234);  // true
+validator.test(12345); // false
+```
+
+#### `maximumDigits: number`
+Checks the number of digits is equal to or less than a specific number.
+
+```ts
+const validator = marubatsu().number({ maximumDigits: 3 });
+
+validator.test(12);   // true
+validator.test(123);  // true
+validator.test(1234); // false
+```
+
+#### `minimumDigits: number`
+Checks the number of digits is equal to or more than a specific number.
+
+```ts
+const validator = marubatsu().number({ minimumDigits: 3 });
+
+validator.test(12);   // false
+validator.test(123);  // true
+validator.test(1234); // true
 ```
 
 
