@@ -60,6 +60,19 @@ const isValidWebsite = marubatsu()
     - [`alphanumeric: "lower-camel" | "upper-camel" | "lower-snake" | "upper-snake" | "lower-kebab" | "upper-kebab" | "lower-space" | "upper-space" | "lower-dot" | "upper-dot"`](#alphanumeric-lower-camel--upper-camel--lower-snake--upper-snake--lower-kebab--upper-kebab--lower-space--upper-space--lower-dot--upper-dot)
     - [`includes: string`](#includes-string)
     - [`pattern: RegExp`](#pattern-regexp)
+  - [`number(rules: { [ruleName]: any } = {})`](#numberrules--rulename-any---)
+    - [`value: number`](#value-number)
+    - [`value: [number, number]`](#value-number-number)
+    - [`maximumValue: number`](#maximumvalue-number)
+    - [`minimumValue: number`](#minimumvalue-number)
+    - [`integer: boolean`](#integer-boolean)
+    - [`float: boolean`](#float-boolean)
+    - [`positive: boolean`](#positive-boolean)
+    - [`negative: boolean`](#negative-boolean)
+    - [`digits: number`](#digits-number)
+    - [`digits: [number, number]`](#digits-number-number)
+    - [`maximumDigits: number`](#maximumdigits-number)
+    - [`minimumDigits: number`](#minimumdigits-number)
 - [Options](#options)
     - [`checkAll: boolean = false`](#checkall-boolean--false)
 - [Receipes](#receipes)
@@ -432,6 +445,148 @@ const validator = marubatsu().string({ pattern: /^.+@.+$/ });
 
 validator.test("example@example.com"); // true
 validator.test("example.com");         // false
+```
+
+### `number(rules: { [ruleName]: any } = {})`
+Checks the value is string type and conforms rules realted to number.
+
+```ts
+const validator = marubatsu().number();
+
+validator.test(123);  // true
+validator.test("ok"); // false
+```
+
+#### `value: number`
+Checks the number is equal to a specific number.
+
+```ts
+const validator = marubatsu().number({ value: 123 });
+
+validator.test(123);   // true
+validator.test(12345); // false
+```
+
+#### `value: [number, number]`
+Checks the number is between specific value range. The first number is minimum value and the second number is maximum value.
+
+```ts
+const validator = marubatsu().number({ value: [100, 200] });
+
+validator.test(123);   // true
+validator.test(12345); // false
+```
+
+#### `maximumValue: number`
+Checks the number is equal to or less than a specific maximum value.
+
+```ts
+const validator = marubatsu().number({ maximumValue: 200 });
+
+validator.test(123);   // true
+validator.test(12345); // false
+```
+
+#### `minimumValue: number`
+Checks the number is equal to or more than a specific minimum value.
+
+```ts
+const validator = marubatsu().number({ minimumValue: 100 });
+
+validator.test(123); // true
+validator.test(12);  // false
+```
+
+#### `integer: boolean`
+Checks the number does not have decimal.
+
+```ts
+const validator = marubatsu().number({ integer: true });
+
+validator.test(100);    // true
+validator.test(100.0);  // true
+validator.test(100.00); // true
+validator.test(100.01); // false
+```
+
+#### `float: boolean`
+Checks the number has decimal.
+
+```ts
+const validator = marubatsu().number({ float: true });
+
+validator.test(100);    // false
+validator.test(100.0);  // false
+validator.test(100.00); // false
+validator.test(100.01); // true
+```
+
+#### `positive: boolean`
+Checks the number is a positive number. `0` is `false` .
+
+```ts
+const validator = marubatsu().number({ positive: true });
+
+validator.test(100);  // true
+validator.test(0);    // false
+validator.test(-100); // false
+```
+
+#### `negative: boolean`
+Checks the number is a negative number. `0` is `false` .
+
+```ts
+const validator = marubatsu().number({ negative: true });
+
+validator.test(100);  // false
+validator.test(0);    // false
+validator.test(-100); // true
+```
+
+#### `digits: number`
+Checks the number of digits is equal to a specific number.
+
+```ts
+const validator = marubatsu().number({ digits: 3 });
+
+validator.test(12);   // false
+validator.test(123);  // true
+validator.test(1234); // false
+```
+
+#### `digits: [number, number]`
+Checks the number of digits is between specific value range. The first number is minimum and the second number is maximum number
+of digits.
+
+```ts
+const validator = marubatsu().number({ digits: [3, 4] });
+
+validator.test(12);    // false
+validator.test(123);   // true
+validator.test(1234);  // true
+validator.test(12345); // false
+```
+
+#### `maximumDigits: number`
+Checks the number of digits is equal to or less than a specific number.
+
+```ts
+const validator = marubatsu().number({ maximumDigits: 3 });
+
+validator.test(12);   // true
+validator.test(123);  // true
+validator.test(1234); // false
+```
+
+#### `minimumDigits: number`
+Checks the number of digits is equal to or more than a specific number.
+
+```ts
+const validator = marubatsu().number({ minimumDigits: 3 });
+
+validator.test(12);   // false
+validator.test(123);  // true
+validator.test(1234); // true
 ```
 
 
