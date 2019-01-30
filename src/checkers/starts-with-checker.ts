@@ -7,10 +7,6 @@ export const startsWith = (value: any, expectedValue: string) => {
   let stringValue: string = "";
 
   switch (typeof value) {
-    case "number":
-      stringValue = value.toString();
-
-      break;
     case "string":
       stringValue = value;
 

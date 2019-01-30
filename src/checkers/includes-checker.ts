@@ -7,10 +7,6 @@ export const includes = (value: any, expectedValue: string) => {
   let checkableValue: string | any[] = "";
 
   switch (typeof value) {
-    case "number":
-      checkableValue = value.toString();
-
-      break;
     case "string":
       checkableValue = value;
 

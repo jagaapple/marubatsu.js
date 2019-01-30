@@ -21,18 +21,9 @@ describe("[ Includes Checker ]", function() {
   });
 
   context("when a target value is number,", function() {
-    context("including an expected number,", function() {
-      it("should return true", function() {
-        expect(includes(0, "0")).to.be.true;
-        expect(includes(12345, "234")).to.be.true;
-      });
-    });
-
-    context("not including an expected number,", function() {
-      it("should return false", function() {
-        expect(includes(12345, "0")).to.be.false;
-        expect(includes(12345, "56")).to.be.false;
-      });
+    it("should return false", function() {
+      expect(includes(0, "0")).to.be.false;
+      expect(includes(12345, "234")).to.be.false;
     });
   });
 
