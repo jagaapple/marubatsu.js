@@ -17,7 +17,8 @@
     "paths": {
       "@shared/*": ["./src/shared/*"],
       "@checkers/*": ["./src/checkers/*"],
-      "@rules/*": ["./src/rules/*"]
+      "@executors/*": ["./src/executors/*"],
+      "@operators/*": ["./src/operators/*"]
     },
     "rootDir": "./src",
     "removeComments": true,
