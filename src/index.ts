@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - INDEX
 // =============================================================================================================================
-import { builtInOperators, Operator, ValidationExecutor, Validators } from "./operators";
+import { builtInOperatorCreators, Operator, ValidationExecutor, Validators } from "./operators";
 
 interface ValidatorsByOperatorName {
   [operatorName: string]: Validators;
@@ -21,25 +21,27 @@ class Executor {
   // ---------------------------------------------------------------------------------------------------------------------------
   test<T>(value: T) {
     return Object.values(this.validatorsByOperatorName).every((validator: Validators) => {
-      return Object.values(validator).every((executor: ValidationExecutor) => executor(value));
+      return Object.values(validator).every((executor: ValidationExecutor) => executor.executor(value));
     });
   }
 
   // Protected Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  protected registerValidator(operatorName: string, validator: Validators) {
-    const prevValidator = this.validatorsByOperatorName[operatorName];
+  protected registerOperator(operatorName: string, validators: Validators) {
+    const prevValidatorsByOperatorName = this.validatorsByOperatorName[operatorName];
 
     this.validatorsByOperatorName[operatorName] = {
-      ...prevValidator,
-      ...validator,
+      ...prevValidatorsByOperatorName,
+      ...validators,
     };
   }
 }
 
 type ExecutorWithBuiltInRules = Executor &
   {
-    [K in keyof typeof builtInOperators]: (...parameters: Parameters<(typeof builtInOperators)[K]>) => ExecutorWithBuiltInRules
+    [K in keyof typeof builtInOperatorCreators]: (
+      ...parameters: Parameters<(typeof builtInOperatorCreators)[K]["createValidators"]> // tslint:disable-line:trailing-comma
+    ) => ExecutorWithBuiltInRules
   };
 const createProxyExecutor = (executor: Executor) =>
   new Proxy(executor, {
@@ -47,14 +49,14 @@ const createProxyExecutor = (executor: Executor) =>
       if (Reflect.has(target, property)) return Reflect.get(target, property);
 
       // Call built-in operators.
-      if (Reflect.has(builtInOperators, property)) {
-        const operator = Reflect.get(builtInOperators, property) as Operator;
+      if (Reflect.has(builtInOperatorCreators, property)) {
+        const operator = Reflect.get(builtInOperatorCreators, property) as Operator;
 
         return (...args: any) => {
-          const validator = operator(...args);
+          const validators = operator.createValidators(...args);
 
           // tslint:disable-next-line:no-string-literal
-          target["registerValidator"](property.toString(), validator);
+          target["registerOperator"](operator.name, validators);
 
           return receiver;
         };

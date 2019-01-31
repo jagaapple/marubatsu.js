@@ -16,13 +16,16 @@ export const createNullaryOperator = (checkers: Partial<DICheckers> = {}) => {
   const { isNullary } = { ...deafultCheckers, ...checkers };
   // tslint:enable:no-shadowed-variable
 
-  return (_: Options = {}) => {
-    const validators: Validators = {
-      type: () => true,
-    };
+  return {
+    name: "nullary",
+    createValidators: (_: Options = {}) => {
+      const validators: Validators = {
+        type: { executor: () => true },
+      };
 
-    validators.nullary = isNullary;
+      validators.nullary = { expected: true, executor: isNullary };
 
-    return validators;
+      return validators;
+    },
   };
 };

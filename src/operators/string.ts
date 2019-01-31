@@ -79,89 +79,134 @@ export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
   };
   // tslint:enable:no-shadowed-variable
 
-  return (options: Options = {}) => {
-    const validators: Validators = {
-      type: (value: any) => isType(value, "string"),
-    };
+  return {
+    name: "string",
+    createValidators: (options: Options = {}) => {
+      const validators: Validators = {
+        type: { executor: (value: any) => isType(value, "string") },
+      };
 
-    const val = options.value;
-    if (val != undefined) {
-      validators.value = (value: any) => val === value;
-    }
+      const val = options.value;
+      if (val != undefined) {
+        validators.value = {
+          expected: val,
+          executor: (value: any) => val === value,
+        };
+      }
 
-    const length = options.length;
-    if (length != undefined) {
-      validators.length = Array.isArray(length)
-        ? (value: any) => isWithinLengthRange(value, length)
-        : (value: any) => isEqualToLength(value, length);
-    }
+      const length = options.length;
+      if (length != undefined) {
+        validators.length = {
+          expected: length,
+          executor: Array.isArray(length)
+            ? (value: any) => isWithinLengthRange(value, length)
+            : (value: any) => isEqualToLength(value, length),
+        };
+      }
 
-    const maximumLength = options.maximumLength;
-    if (maximumLength != undefined) {
-      validators.maximumLength = (value: any) => isWithinLengthRange(value, [undefined, maximumLength]);
-    }
+      const maximumLength = options.maximumLength;
+      if (maximumLength != undefined) {
+        validators.maximumLength = {
+          expected: maximumLength,
+          executor: (value: any) => isWithinLengthRange(value, [undefined, maximumLength]),
+        };
+      }
 
-    const minimumLength = options.minimumLength;
-    if (minimumLength != undefined) {
-      validators.minimumLength = (value: any) => isWithinLengthRange(value, [minimumLength, undefined]);
-    }
+      const minimumLength = options.minimumLength;
+      if (minimumLength != undefined) {
+        validators.minimumLength = {
+          expected: minimumLength,
+          executor: (value: any) => isWithinLengthRange(value, [minimumLength, undefined]),
+        };
+      }
 
-    const startsWith = options.startsWith;
-    if (startsWith != undefined) {
-      validators.startsWith = (value: any) => checkToStartsWith(value, startsWith.toString());
-    }
+      const startsWith = options.startsWith;
+      if (startsWith != undefined) {
+        validators.startsWith = {
+          expected: startsWith,
+          executor: (value: any) => checkToStartsWith(value, startsWith),
+        };
+      }
 
-    const endsWith = options.endsWith;
-    if (endsWith != undefined) {
-      validators.endsWith = (value: any) => checkToEndsWith(value, endsWith.toString());
-    }
+      const endsWith = options.endsWith;
+      if (endsWith != undefined) {
+        validators.endsWith = {
+          expected: endsWith,
+          executor: (value: any) => checkToEndsWith(value, endsWith),
+        };
+      }
 
-    const alphanumeric = options.alphanumeric;
-    if (alphanumeric != undefined) {
-      if (alphanumeric === true) {
-        validators.alphanumeric = isAlphanumeric;
-      } else {
-        switch (alphanumeric) {
-          case "lower-camel":
-          case "upper-camel":
-            validators.alphanumeric = (value: any) => isCamelCase(value, alphanumeric === "upper-camel");
+      const alphanumeric = options.alphanumeric;
+      if (alphanumeric != undefined) {
+        if (alphanumeric === true) {
+          validators.alphanumeric = {
+            expected: true,
+            executor: isAlphanumeric,
+          };
+        } else {
+          switch (alphanumeric) {
+            case "lower-camel":
+            case "upper-camel":
+              validators.alphanumeric = {
+                expected: alphanumeric,
+                executor: (value: any) => isCamelCase(value, alphanumeric === "upper-camel"),
+              };
 
-            break;
-          case "lower-snake":
-          case "upper-snake":
-            validators.alphanumeric = (value: any) => isSnakeCase(value, alphanumeric === "upper-snake");
+              break;
+            case "lower-snake":
+            case "upper-snake":
+              validators.alphanumeric = {
+                expected: alphanumeric,
+                executor: (value: any) => isSnakeCase(value, alphanumeric === "upper-snake"),
+              };
 
-            break;
-          case "lower-kebab":
-          case "upper-kebab":
-            validators.alphanumeric = (value: any) => isKebabCase(value, alphanumeric === "upper-kebab");
+              break;
+            case "lower-kebab":
+            case "upper-kebab":
+              validators.alphanumeric = {
+                expected: alphanumeric,
+                executor: (value: any) => isKebabCase(value, alphanumeric === "upper-kebab"),
+              };
 
-            break;
-          case "lower-space":
-          case "upper-space":
-            validators.alphanumeric = (value: any) => isSpaceCase(value, alphanumeric === "upper-space");
+              break;
+            case "lower-space":
+            case "upper-space":
+              validators.alphanumeric = {
+                expected: alphanumeric,
+                executor: (value: any) => isSpaceCase(value, alphanumeric === "upper-space"),
+              };
 
-            break;
-          case "lower-dot":
-          case "upper-dot":
-            validators.alphanumeric = (value: any) => isDotCase(value, alphanumeric === "upper-dot");
+              break;
+            case "lower-dot":
+            case "upper-dot":
+              validators.alphanumeric = {
+                expected: alphanumeric,
+                executor: (value: any) => isDotCase(value, alphanumeric === "upper-dot"),
+              };
 
-            break;
-          default:
+              break;
+            default:
+          }
         }
       }
-    }
 
-    const includes = options.includes;
-    if (includes != undefined) {
-      validators.includes = (value: any) => checkToIncludes(value, includes.toString());
-    }
+      const includes = options.includes;
+      if (includes != undefined) {
+        validators.includes = {
+          expected: includes,
+          executor: (value: any) => checkToIncludes(value, includes),
+        };
+      }
 
-    const pattern = options.pattern;
-    if (pattern != undefined) {
-      validators.pattern = (value: any) => isConformingRegExp(value, pattern);
-    }
+      const pattern = options.pattern;
+      if (pattern != undefined) {
+        validators.pattern = {
+          expected: pattern,
+          executor: (value: any) => isConformingRegExp(value, pattern),
+        };
+      }
 
-    return validators;
+      return validators;
+    },
   };
 };

@@ -16,13 +16,16 @@ export const createBlankOperator = (checkers: Partial<DICheckers> = {}) => {
   const { isBlank } = { ...deafultCheckers, ...checkers };
   // tslint:enable:no-shadowed-variable
 
-  return (_: Options = {}) => {
-    const validators: Validators = {
-      type: () => true,
-    };
+  return {
+    name: "blank",
+    createValidators: (_: Options = {}) => {
+      const validators: Validators = {
+        type: { executor: () => true },
+      };
 
-    validators.blank = isBlank;
+      validators.blank = { expected: true, executor: isBlank };
 
-    return validators;
+      return validators;
+    },
   };
 };

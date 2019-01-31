@@ -8,20 +8,38 @@ import { allTypeValues } from "@shared/values.test";
 import { createStringOperator } from "./string";
 
 describe("[ String Operator ]", function() {
+  const example = it;
   const targetValue = "123";
   afterEach(function() {
     sinon.restore();
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
+  // Name
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("NAME", function() {
+    it('should be "string"', function() {
+      const name = createStringOperator().name;
+
+      expect(name).to.eq("string");
+    });
+  });
+
+  // ---------------------------------------------------------------------------------------------------------------------------
   // Type Checking
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("TYPE CHECKING", function() {
-    it("should check a target value is string", function() {
-      const validators = createStringOperator()();
+    const validators = createStringOperator().createValidators();
 
+    example("an expected value should be undefined", function() {
+      allTypeValues.forEach(() => {
+        expect(validators.type.expected).to.be.undefined;
+      });
+    });
+
+    example("an executor should check a target value is string", function() {
       allTypeValues.forEach((value: any) => {
-        expect(validators.type(value)).to.eq(typeof value === "string");
+        expect(validators.type.executor(value)).to.eq(typeof value === "string");
       });
     });
   });
@@ -30,11 +48,18 @@ describe("[ String Operator ]", function() {
   // Value Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("VALUE RULE", function() {
-    it("should compare the string with the expected value", function() {
-      const val = "123";
-      const validators = createStringOperator()({ value: val });
+    const val = "123";
 
-      expect(validators.value(targetValue)).to.be.true;
+    example("an expected value should be proper", function() {
+      const validators = createStringOperator().createValidators({ value: val });
+
+      expect(validators.value.expected).to.eq(val);
+    });
+
+    example("an executor should compare the string with the expected value", function() {
+      const validators = createStringOperator().createValidators({ value: val });
+
+      expect(validators.value.executor(targetValue)).to.be.true;
     });
   });
 
@@ -43,13 +68,22 @@ describe("[ String Operator ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("LENGTH RULE", function() {
     context("when a target value is array,", function() {
-      it('should call "isWithinLengthRange" checker', function() {
+      const length: [number, number] = [1, 4];
+
+      example("an expected value should be proper", function() {
         const isWithinLengthRange = sinon.spy();
         const isEqualToLength = sinon.spy();
-        const length: [number, number] = [1, 4];
-        const validators = createStringOperator({ isWithinLengthRange, isEqualToLength })({ length });
+        const validators = createStringOperator({ isWithinLengthRange, isEqualToLength }).createValidators({ length });
 
-        validators.length(targetValue);
+        expect(validators.length.expected).to.eq(length);
+      });
+
+      example('an executor should call "isWithinLengthRange" checker', function() {
+        const isWithinLengthRange = sinon.spy();
+        const isEqualToLength = sinon.spy();
+        const validators = createStringOperator({ isWithinLengthRange, isEqualToLength }).createValidators({ length });
+
+        validators.length.executor(targetValue);
 
         expect(isWithinLengthRange.calledOnceWith(targetValue, length)).to.be.true;
         expect(isEqualToLength.called).to.be.false;
@@ -57,13 +91,22 @@ describe("[ String Operator ]", function() {
     });
 
     context("when a target value is not array,", function() {
-      it('should call "isEqualToLength" checker', function() {
+      const length = 3;
+
+      example("an expected value should be proper", function() {
         const isWithinLengthRange = sinon.spy();
         const isEqualToLength = sinon.spy();
-        const length = 3;
-        const validators = createStringOperator({ isWithinLengthRange, isEqualToLength })({ length });
+        const validators = createStringOperator({ isWithinLengthRange, isEqualToLength }).createValidators({ length });
 
-        validators.length(targetValue);
+        expect(validators.length.expected).to.eq(length);
+      });
+
+      example('an executor should call "isEqualToLength" checker', function() {
+        const isWithinLengthRange = sinon.spy();
+        const isEqualToLength = sinon.spy();
+        const validators = createStringOperator({ isWithinLengthRange, isEqualToLength }).createValidators({ length });
+
+        validators.length.executor(targetValue);
 
         expect(isWithinLengthRange.called).to.be.false;
         expect(isEqualToLength.calledOnceWith(targetValue, length)).to.be.true;
@@ -75,42 +118,72 @@ describe("[ String Operator ]", function() {
   // Maximum Length Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("MAXIMUM LENGTH RULE", function() {
-    it('should call "isWithinLengthRange" checker with undefined and an expected maximum length as array', function() {
+    const maximumLength = 4;
+
+    example("an execpted value should be proper", function() {
       const isWithinLengthRange = sinon.spy();
-      const maximumLength = 4;
-      const validators = createStringOperator({ isWithinLengthRange })({ maximumLength });
+      const validators = createStringOperator({ isWithinLengthRange }).createValidators({ maximumLength });
 
-      validators.maximumLength(targetValue);
-
-      expect(isWithinLengthRange.calledOnceWith(targetValue, [undefined, maximumLength])).to.be.true;
+      expect(validators.maximumLength.expected).to.eq(maximumLength);
     });
+
+    example(
+      'an executor should call "isWithinLengthRange" checker with undefined and an expected maximum length as array',
+      function() {
+        const isWithinLengthRange = sinon.spy();
+        const validators = createStringOperator({ isWithinLengthRange }).createValidators({ maximumLength });
+
+        validators.maximumLength.executor(targetValue);
+
+        expect(isWithinLengthRange.calledOnceWith(targetValue, [undefined, maximumLength])).to.be.true;
+      },
+    );
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Minimum Length Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("MINIMUM LENGTH RULE", function() {
-    it('should call "isWithinLengthRange" checker with an expected minimum length and undefined as array', function() {
+    const minimumLength = 2;
+
+    example("an expected value should be proper", function() {
       const isWithinLengthRange = sinon.spy();
-      const minimumLength = 2;
-      const validators = createStringOperator({ isWithinLengthRange })({ minimumLength });
+      const validators = createStringOperator({ isWithinLengthRange }).createValidators({ minimumLength });
 
-      validators.minimumLength(targetValue);
-
-      expect(isWithinLengthRange.calledOnceWith(targetValue, [minimumLength, undefined])).to.be.true;
+      expect(validators.minimumLength.expected).to.eq(minimumLength);
     });
+
+    example(
+      'an executor should call "isWithinLengthRange" checker with an expected minimum length and undefined as array',
+      function() {
+        const isWithinLengthRange = sinon.spy();
+        const validators = createStringOperator({ isWithinLengthRange }).createValidators({ minimumLength });
+
+        validators.minimumLength.executor(targetValue);
+
+        expect(isWithinLengthRange.calledOnceWith(targetValue, [minimumLength, undefined])).to.be.true;
+      },
+    );
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Starts With Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("STARTS WITH RULE", function() {
-    it('should call "checkToStartsWith" checker with an expected value', function() {
-      const checkToStartsWith = sinon.spy();
-      const startsWith = "123";
-      const validators = createStringOperator({ checkToStartsWith })({ startsWith });
+    const startsWith = "123";
 
-      validators.startsWith(targetValue);
+    example("an expected value should be proper", function() {
+      const checkToStartsWith = sinon.spy();
+      const validators = createStringOperator({ checkToStartsWith }).createValidators({ startsWith });
+
+      expect(validators.startsWith.expected).to.eq(startsWith);
+    });
+
+    example('an executor should call "checkToStartsWith" checker with an expected value', function() {
+      const checkToStartsWith = sinon.spy();
+      const validators = createStringOperator({ checkToStartsWith }).createValidators({ startsWith });
+
+      validators.startsWith.executor(targetValue);
 
       expect(checkToStartsWith.calledOnceWith(targetValue, startsWith)).to.be.true;
     });
@@ -120,12 +193,20 @@ describe("[ String Operator ]", function() {
   // Ends With Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("ENDS WITH RULE", function() {
-    it('should call "checkToEndsWith" checker with an expected value', function() {
-      const checkToEndsWith = sinon.spy();
-      const endsWith = "345";
-      const validators = createStringOperator({ checkToEndsWith })({ endsWith });
+    const endsWith = "345";
 
-      validators.endsWith(targetValue);
+    example("an expected value should be proper", function() {
+      const checkToEndsWith = sinon.spy();
+      const validators = createStringOperator({ checkToEndsWith }).createValidators({ endsWith });
+
+      expect(validators.endsWith.expected).to.eq(endsWith);
+    });
+
+    example('an executor should call "checkToEndsWith" checker with an expected value', function() {
+      const checkToEndsWith = sinon.spy();
+      const validators = createStringOperator({ checkToEndsWith }).createValidators({ endsWith });
+
+      validators.endsWith.executor(targetValue);
 
       expect(checkToEndsWith.calledOnceWith(targetValue, endsWith)).to.be.true;
     });
@@ -137,18 +218,25 @@ describe("[ String Operator ]", function() {
   describe("ALPHANUMERIC RULE", function() {
     context("when an expected value is boolean,", function() {
       context("true,", function() {
-        it('should be "isAlphanumeric" checker', function() {
+        example("an expected value should be true", function() {
           const isAlphanumeric = sinon.spy();
-          const validators = createStringOperator({ isAlphanumeric })({ alphanumeric: true });
+          const validators = createStringOperator({ isAlphanumeric }).createValidators({ alphanumeric: true });
 
-          expect(validators.alphanumeric).to.eq(isAlphanumeric);
+          expect(validators.alphanumeric.expected).to.be.true;
+        });
+
+        example('an executor should be "isAlphanumeric" checker', function() {
+          const isAlphanumeric = sinon.spy();
+          const validators = createStringOperator({ isAlphanumeric }).createValidators({ alphanumeric: true });
+
+          expect(validators.alphanumeric.executor).to.eq(isAlphanumeric);
         });
       });
 
       context("false,", function() {
         it("should be undefined", function() {
           const isAlphanumeric = sinon.spy();
-          const validators = createStringOperator({ isAlphanumeric })({ alphanumeric: false });
+          const validators = createStringOperator({ isAlphanumeric }).createValidators({ alphanumeric: false });
 
           expect(validators.alphanumeric).to.be.undefined;
         });
@@ -156,110 +244,180 @@ describe("[ String Operator ]", function() {
     });
 
     context('when an expected value is "lower-camel",', function() {
-      it('should call "isCamelCase" checker and "isUpper" flag is false', function() {
+      example('an expected value should be "lower-camel"', function() {
         const isCamelCase = sinon.spy();
-        const validators = createStringOperator({ isCamelCase })({ alphanumeric: "lower-camel" });
+        const validators = createStringOperator({ isCamelCase }).createValidators({ alphanumeric: "lower-camel" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("lower-camel");
+      });
+
+      example('an executor should call "isCamelCase" checker and "isUpper" flag is false', function() {
+        const isCamelCase = sinon.spy();
+        const validators = createStringOperator({ isCamelCase }).createValidators({ alphanumeric: "lower-camel" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isCamelCase.calledOnceWith(targetValue, false)).to.be.true;
       });
     });
 
     context('when an expected value is "upper-camel",', function() {
-      it('should call "isCamelCase" checker and "isUpper" flag is true', function() {
+      example('an expected value should be "upper-camel"', function() {
         const isCamelCase = sinon.spy();
-        const validators = createStringOperator({ isCamelCase })({ alphanumeric: "upper-camel" });
+        const validators = createStringOperator({ isCamelCase }).createValidators({ alphanumeric: "upper-camel" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("upper-camel");
+      });
+
+      example('an executor should call "isCamelCase" checker and "isUpper" flag is true', function() {
+        const isCamelCase = sinon.spy();
+        const validators = createStringOperator({ isCamelCase }).createValidators({ alphanumeric: "upper-camel" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isCamelCase.calledOnceWith(targetValue, true)).to.be.true;
       });
     });
 
     context('when an expected value is "lower-snake",', function() {
-      it('should call "isSnakeCase" checker and "isUpper" flag is false', function() {
+      example('an expected value should be "lower-snake"', function() {
         const isSnakeCase = sinon.spy();
-        const validators = createStringOperator({ isSnakeCase })({ alphanumeric: "lower-snake" });
+        const validators = createStringOperator({ isSnakeCase }).createValidators({ alphanumeric: "lower-snake" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("lower-snake");
+      });
+
+      example('an executor should call "isSnakeCase" checker and "isUpper" flag is false', function() {
+        const isSnakeCase = sinon.spy();
+        const validators = createStringOperator({ isSnakeCase }).createValidators({ alphanumeric: "lower-snake" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isSnakeCase.calledOnceWith(targetValue, false)).to.be.true;
       });
     });
 
     context('when an expected value is "upper-snake",', function() {
-      it('should call "isSnakeCase" checker and "isUpper" flag is true', function() {
+      example('an expected value should be "upper-snake"', function() {
         const isSnakeCase = sinon.spy();
-        const validators = createStringOperator({ isSnakeCase })({ alphanumeric: "upper-snake" });
+        const validators = createStringOperator({ isSnakeCase }).createValidators({ alphanumeric: "upper-snake" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("upper-snake");
+      });
+
+      example('an executor should call "isSnakeCase" checker and "isUpper" flag is true', function() {
+        const isSnakeCase = sinon.spy();
+        const validators = createStringOperator({ isSnakeCase }).createValidators({ alphanumeric: "upper-snake" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isSnakeCase.calledOnceWith(targetValue, true)).to.be.true;
       });
     });
 
     context('when an expected value is "lower-kebab",', function() {
-      it('should call "isKebabCase" checker and "isUpper" flag is false', function() {
+      example('an expected value should be "lower-kebab"', function() {
         const isKebabCase = sinon.spy();
-        const validators = createStringOperator({ isKebabCase })({ alphanumeric: "lower-kebab" });
+        const validators = createStringOperator({ isKebabCase }).createValidators({ alphanumeric: "lower-kebab" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("lower-kebab");
+      });
+
+      example('an executor should call "isKebabCase" checker and "isUpper" flag is false', function() {
+        const isKebabCase = sinon.spy();
+        const validators = createStringOperator({ isKebabCase }).createValidators({ alphanumeric: "lower-kebab" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isKebabCase.calledOnceWith(targetValue, false)).to.be.true;
       });
     });
 
     context('when an expected value is "upper-kebab",', function() {
-      it('should call "isKebabCase" checker and "isUpper" flag is true', function() {
+      example('an expected value should be "upper-kebab"', function() {
         const isKebabCase = sinon.spy();
-        const validators = createStringOperator({ isKebabCase })({ alphanumeric: "upper-kebab" });
+        const validators = createStringOperator({ isKebabCase }).createValidators({ alphanumeric: "upper-kebab" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("upper-kebab");
+      });
+
+      example('an executor should call "isKebabCase" checker and "isUpper" flag is true', function() {
+        const isKebabCase = sinon.spy();
+        const validators = createStringOperator({ isKebabCase }).createValidators({ alphanumeric: "upper-kebab" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isKebabCase.calledOnceWith(targetValue, true)).to.be.true;
       });
     });
 
     context('when an expected value is "lower-space",', function() {
-      it('should call "isSpaceCase" checker and "isUpper" flag is false', function() {
+      example('an expected value should be "lower-space"', function() {
         const isSpaceCase = sinon.spy();
-        const validators = createStringOperator({ isSpaceCase })({ alphanumeric: "lower-space" });
+        const validators = createStringOperator({ isSpaceCase }).createValidators({ alphanumeric: "lower-space" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("lower-space");
+      });
+
+      example('an executor should call "isSpaceCase" checker and "isUpper" flag is false', function() {
+        const isSpaceCase = sinon.spy();
+        const validators = createStringOperator({ isSpaceCase }).createValidators({ alphanumeric: "lower-space" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isSpaceCase.calledOnceWith(targetValue, false)).to.be.true;
       });
     });
 
     context('when an expected value is "upper-space",', function() {
-      it('should call "isSpaceCase" checker and "isUpper" flag is true', function() {
+      example('an expected value should be "upper-space"', function() {
         const isSpaceCase = sinon.spy();
-        const validators = createStringOperator({ isSpaceCase })({ alphanumeric: "upper-space" });
+        const validators = createStringOperator({ isSpaceCase }).createValidators({ alphanumeric: "upper-space" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("upper-space");
+      });
+
+      example('an executor should call "isSpaceCase" checker and "isUpper" flag is true', function() {
+        const isSpaceCase = sinon.spy();
+        const validators = createStringOperator({ isSpaceCase }).createValidators({ alphanumeric: "upper-space" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isSpaceCase.calledOnceWith(targetValue, true)).to.be.true;
       });
     });
 
     context('when an expected value is "lower-dot",', function() {
-      it('should call "isDotCase" checker and "isUpper" flag is false', function() {
+      example('an expected value should be "lower-dot"', function() {
         const isDotCase = sinon.spy();
-        const validators = createStringOperator({ isDotCase })({ alphanumeric: "lower-dot" });
+        const validators = createStringOperator({ isDotCase }).createValidators({ alphanumeric: "lower-dot" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("lower-dot");
+      });
+
+      example('an executor should call "isDotCase" checker and "isUpper" flag is false', function() {
+        const isDotCase = sinon.spy();
+        const validators = createStringOperator({ isDotCase }).createValidators({ alphanumeric: "lower-dot" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isDotCase.calledOnceWith(targetValue, false)).to.be.true;
       });
     });
 
     context('when an expected value is "upper-dot",', function() {
-      it('should call "isDotCase" checker and "isUpper" flag is true', function() {
+      example('an expected value should be "upper-dot"', function() {
         const isDotCase = sinon.spy();
-        const validators = createStringOperator({ isDotCase })({ alphanumeric: "upper-dot" });
+        const validators = createStringOperator({ isDotCase }).createValidators({ alphanumeric: "upper-dot" });
 
-        validators.alphanumeric(targetValue);
+        expect(validators.alphanumeric.expected).to.eq("upper-dot");
+      });
+
+      example('an executor should call "isDotCase" checker and "isUpper" flag is true', function() {
+        const isDotCase = sinon.spy();
+        const validators = createStringOperator({ isDotCase }).createValidators({ alphanumeric: "upper-dot" });
+
+        validators.alphanumeric.executor(targetValue);
 
         expect(isDotCase.calledOnceWith(targetValue, true)).to.be.true;
       });
@@ -270,12 +428,20 @@ describe("[ String Operator ]", function() {
   // Includes Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("INCLUDES RULE", function() {
-    it('should call "checkToIncludes" checker with the expected value', function() {
-      const checkToIncludes = sinon.spy();
-      const includes = "234";
-      const validators = createStringOperator({ checkToIncludes })({ includes });
+    const includes = "234";
 
-      validators.includes(targetValue);
+    example("an expected value should be proper", function() {
+      const checkToIncludes = sinon.spy();
+      const validators = createStringOperator({ checkToIncludes }).createValidators({ includes });
+
+      expect(validators.includes.expected).to.eq(includes);
+    });
+
+    example('an executor should call "checkToIncludes" checker with the expected value', function() {
+      const checkToIncludes = sinon.spy();
+      const validators = createStringOperator({ checkToIncludes }).createValidators({ includes });
+
+      validators.includes.executor(targetValue);
 
       expect(checkToIncludes.calledOnceWith(targetValue, includes)).to.be.true;
     });
@@ -285,12 +451,20 @@ describe("[ String Operator ]", function() {
   // Pattern Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("PATTERN RULE", function() {
-    it('should call "isConformingRegExp" checker', function() {
-      const isConformingRegExp = sinon.spy();
-      const pattern = /^[a-z]+$/;
-      const validators = createStringOperator({ isConformingRegExp })({ pattern });
+    const pattern = /^[a-z]+$/;
 
-      validators.pattern(targetValue);
+    example("an expected value should be proper", function() {
+      const isConformingRegExp = sinon.spy();
+      const validators = createStringOperator({ isConformingRegExp }).createValidators({ pattern });
+
+      expect(validators.pattern.expected).to.eq(pattern);
+    });
+
+    example('an executor should call "isConformingRegExp" checker', function() {
+      const isConformingRegExp = sinon.spy();
+      const validators = createStringOperator({ isConformingRegExp }).createValidators({ pattern });
+
+      validators.pattern.executor(targetValue);
 
       expect(isConformingRegExp.calledOnceWith(targetValue, pattern)).to.be.true;
     });

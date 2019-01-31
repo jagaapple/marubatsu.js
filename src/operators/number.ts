@@ -55,63 +55,84 @@ export const createNumberOperator = (checkers: Partial<DICheckers> = {}) => {
   };
   // tslint:enable:no-shadowed-variable
 
-  return (options: Options = {}) => {
-    const validators: Validators = {
-      type: (value: any) => isType(value, "number"),
-    };
+  return {
+    name: "number",
+    createValidators: (options: Options = {}) => {
+      const validators: Validators = {
+        type: { executor: (value: any) => isType(value, "number") },
+      };
 
-    const val = options.value;
-    if (val != undefined) {
-      validators.value = Array.isArray(val) ? (value: any) => isWithinNumberRange(value, val) : (value: any) => val === value;
-    }
+      const val = options.value;
+      if (val != undefined) {
+        validators.value = {
+          expected: val,
+          executor: Array.isArray(val) ? (value: any) => isWithinNumberRange(value, val) : (value: any) => val === value,
+        };
+      }
 
-    const maximumValue = options.maximumValue;
-    if (maximumValue != undefined) {
-      validators.maximumValue = (value: any) => isWithinNumberRange(value, [undefined, maximumValue]);
-    }
+      const maximumValue = options.maximumValue;
+      if (maximumValue != undefined) {
+        validators.maximumValue = {
+          expected: maximumValue,
+          executor: (value: any) => isWithinNumberRange(value, [undefined, maximumValue]),
+        };
+      }
 
-    const minimumValue = options.minimumValue;
-    if (minimumValue != undefined) {
-      validators.minimumValue = (value: any) => isWithinNumberRange(value, [minimumValue, undefined]);
-    }
+      const minimumValue = options.minimumValue;
+      if (minimumValue != undefined) {
+        validators.minimumValue = {
+          expected: minimumValue,
+          executor: (value: any) => isWithinNumberRange(value, [minimumValue, undefined]),
+        };
+      }
 
-    const integer = options.integer;
-    if (integer != undefined) {
-      validators.integer = isInteger;
-    }
+      const integer = options.integer;
+      if (integer != undefined) {
+        validators.integer = { expected: true, executor: isInteger };
+      }
 
-    const float = options.float;
-    if (float != undefined) {
-      validators.float = isDecimal;
-    }
+      const float = options.float;
+      if (float != undefined) {
+        validators.float = { expected: true, executor: isDecimal };
+      }
 
-    const positive = options.positive;
-    if (positive != undefined) {
-      validators.positive = isPositiveNumber;
-    }
+      const positive = options.positive;
+      if (positive != undefined) {
+        validators.positive = { expected: true, executor: isPositiveNumber };
+      }
 
-    const negative = options.negative;
-    if (negative != undefined) {
-      validators.negative = isNegativeNumber;
-    }
+      const negative = options.negative;
+      if (negative != undefined) {
+        validators.negative = { expected: true, executor: isNegativeNumber };
+      }
 
-    const digits = options.digits;
-    if (digits != undefined) {
-      validators.digits = Array.isArray(digits)
-        ? (value: any) => isWithinDigitsRange(value, digits)
-        : (value: any) => hasDigits(value, digits);
-    }
+      const digits = options.digits;
+      if (digits != undefined) {
+        validators.digits = {
+          expected: digits,
+          executor: Array.isArray(digits)
+            ? (value: any) => isWithinDigitsRange(value, digits)
+            : (value: any) => hasDigits(value, digits),
+        };
+      }
 
-    const maximumDigits = options.maximumDigits;
-    if (maximumDigits != undefined) {
-      validators.maximumDigits = (value: any) => isWithinDigitsRange(value, [undefined, maximumDigits]);
-    }
+      const maximumDigits = options.maximumDigits;
+      if (maximumDigits != undefined) {
+        validators.maximumDigits = {
+          expected: maximumDigits,
+          executor: (value: any) => isWithinDigitsRange(value, [undefined, maximumDigits]),
+        };
+      }
 
-    const minimumDigits = options.minimumDigits;
-    if (minimumDigits != undefined) {
-      validators.minimumDigits = (value: any) => isWithinDigitsRange(value, [minimumDigits, undefined]);
-    }
+      const minimumDigits = options.minimumDigits;
+      if (minimumDigits != undefined) {
+        validators.minimumDigits = {
+          expected: minimumDigits,
+          executor: (value: any) => isWithinDigitsRange(value, [minimumDigits, undefined]),
+        };
+      }
 
-    return validators;
+      return validators;
+    },
   };
 };

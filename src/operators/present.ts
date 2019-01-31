@@ -16,13 +16,19 @@ export const createPresentOperator = (checkers: Partial<DICheckers> = {}) => {
   const { isBlank } = { ...deafultCheckers, ...checkers };
   // tslint:enable:no-shadowed-variable
 
-  return (_: Options = {}) => {
-    const validators: Validators = {
-      type: () => true,
-    };
+  return {
+    name: "present",
+    createValidators: (_: Options = {}) => {
+      const validators: Validators = {
+        type: { executor: () => true },
+      };
 
-    validators.present = (value: any) => !isBlank(value);
+      validators.present = {
+        expected: true,
+        executor: (value: any) => !isBlank(value),
+      };
 
-    return validators;
+      return validators;
+    },
   };
 };

@@ -10,7 +10,7 @@ import { createNumberOperator } from "./number";
 import { createPresentOperator } from "./present";
 import { createStringOperator } from "./string";
 
-export const builtInOperators = {
+export const builtInOperatorCreators = {
   blank: createBlankOperator(),
   empty: createEmptyOperator(),
   nullary: createNullaryOperator(),

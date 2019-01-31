@@ -23,9 +23,9 @@ describe("[ Test Executor ]", function() {
       validatorExecutor3 = sinon.stub().returns(true);
 
       validators = {
-        a: validatorExecutor1,
-        b: validatorExecutor2,
-        c: validatorExecutor3,
+        a: { executor: validatorExecutor1 },
+        b: { executor: validatorExecutor2 },
+        c: { executor: validatorExecutor3 },
       } as any;
     });
 
@@ -53,9 +53,9 @@ describe("[ Test Executor ]", function() {
       validatorExecutor3 = sinon.stub().returns(true);
 
       validators = {
-        a: validatorExecutor1,
-        b: validatorExecutor2,
-        c: validatorExecutor3,
+        a: { executor: validatorExecutor1 },
+        b: { executor: validatorExecutor2 },
+        c: { executor: validatorExecutor3 },
       } as any;
     });
 
