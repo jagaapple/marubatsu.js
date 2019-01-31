@@ -2,7 +2,7 @@
 // SRC - OPERATORS - PRESENT
 // =============================================================================================================================
 import { isBlank } from "@checkers/index";
-import { Validator } from "./shared";
+import { Validators } from "./shared";
 
 const deafultCheckers = {
   isBlank,
@@ -17,7 +17,7 @@ export const createPresentOperator = (checkers: Partial<DICheckers> = {}) => {
   // tslint:enable:no-shadowed-variable
 
   return (_: Options = {}) => {
-    const validators: Validator = {
+    const validators: Validators = {
       type: () => true,
     };
 

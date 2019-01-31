@@ -16,7 +16,7 @@ import {
   isWithinLengthRange,
   startsWith as checkToStartsWith,
 } from "@checkers/index";
-import { Validator } from "./shared";
+import { Validators } from "./shared";
 
 const deafultCheckers = {
   isAlphanumeric,
@@ -80,7 +80,7 @@ export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
   // tslint:enable:no-shadowed-variable
 
   return (options: Options = {}) => {
-    const validators: Validator = {
+    const validators: Validators = {
       type: (value: any) => isType(value, "string"),
     };
 

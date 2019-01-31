@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - OPERATORS - INDEX
 // =============================================================================================================================
-export { Operator, ValidationExecutor, Validator } from "./shared";
+export { Operator, ValidationExecutor, Validators } from "./shared";
 
 import { createBlankOperator } from "./blank";
 import { createEmptyOperator } from "./empty";

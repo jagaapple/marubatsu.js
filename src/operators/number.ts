@@ -11,7 +11,7 @@ import {
   isWithinDigitsRange,
   isWithinNumberRange,
 } from "@checkers/index";
-import { Validator } from "./shared";
+import { Validators } from "./shared";
 
 const deafultCheckers = {
   hasDigits,
@@ -56,7 +56,7 @@ export const createNumberOperator = (checkers: Partial<DICheckers> = {}) => {
   // tslint:enable:no-shadowed-variable
 
   return (options: Options = {}) => {
-    const validators: Validator = {
+    const validators: Validators = {
       type: (value: any) => isType(value, "number"),
     };
 

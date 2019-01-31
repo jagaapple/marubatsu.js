@@ -1,4 +1,4 @@
 // =============================================================================================================================
 // SRC - OPERATORS - SHARED - INDEX
 // =============================================================================================================================
-export { Operator, ValidationExecutor, Validator } from "./operator";
+export { Operator, ValidationExecutor, Validators } from "./operator";

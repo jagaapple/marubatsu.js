@@ -1,10 +1,10 @@
 // =============================================================================================================================
 // SRC - INDEX
 // =============================================================================================================================
-import { builtInOperators, Operator, ValidationExecutor, Validator } from "./operators";
+import { builtInOperators, Operator, ValidationExecutor, Validators } from "./operators";
 
 interface ValidatorsByOperatorName {
-  [operatorName: string]: Validator;
+  [operatorName: string]: Validators;
 }
 
 class Executor {
@@ -20,14 +20,14 @@ class Executor {
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   test<T>(value: T) {
-    return Object.values(this.validatorsByOperatorName).every((validator: Validator) => {
+    return Object.values(this.validatorsByOperatorName).every((validator: Validators) => {
       return Object.values(validator).every((executor: ValidationExecutor) => executor(value));
     });
   }
 
   // Protected Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  protected registerValidator(operatorName: string, validator: Validator) {
+  protected registerValidator(operatorName: string, validator: Validators) {
     const prevValidator = this.validatorsByOperatorName[operatorName];
 
     this.validatorsByOperatorName[operatorName] = {
