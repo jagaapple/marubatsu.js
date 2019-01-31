@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { createBlankOperator } from "./blank";
 
-describe("[ Blank ]", function() {
+describe("[ Blank Operator ]", function() {
   afterEach(function() {
     sinon.restore();
   });

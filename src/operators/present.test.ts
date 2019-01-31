@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { createPresentOperator } from "./present";
 
-describe("[ Present ]", function() {
+describe("[ Present Operator ]", function() {
   afterEach(function() {
     sinon.restore();
   });

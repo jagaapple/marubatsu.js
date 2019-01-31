@@ -7,7 +7,7 @@ import * as sinon from "sinon";
 import { allTypeValues } from "@shared/values.test";
 import { createStringOperator } from "./string";
 
-describe("[ String ]", function() {
+describe("[ String Operator ]", function() {
   const targetValue = "123";
   afterEach(function() {
     sinon.restore();

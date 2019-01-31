@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { createNullaryOperator } from "./nullary";
 
-describe("[ Nullary ]", function() {
+describe("[ Nullary Operator ]", function() {
   afterEach(function() {
     sinon.restore();
   });
