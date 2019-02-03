@@ -7,7 +7,6 @@ import * as sinon from "sinon";
 import { createNullaryOperator } from "./nullary";
 
 describe("[ Nullary Operator ]", function() {
-  const example = it;
   afterEach(function() {
     sinon.restore();
   });
@@ -24,35 +23,14 @@ describe("[ Nullary Operator ]", function() {
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Type Checking
-  // ---------------------------------------------------------------------------------------------------------------------------
-  describe("TYPE CHECKING", function() {
-    const validators = createNullaryOperator().createValidators();
-
-    example("an expected value should be undefined", function() {
-      expect(validators.type.expected).to.be.undefined;
-    });
-
-    example("an executor should return true", function() {
-      expect(validators.type.executor(undefined)).to.be.true;
-    });
-  });
-
-  // ---------------------------------------------------------------------------------------------------------------------------
   // Nullary Rule
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("NULLARY RULE", function() {
-    example("an expected value should be true", function() {
-      const validators = createNullaryOperator().createValidators();
-
-      expect(validators.nullary.expected).to.be.true;
-    });
-
-    example('an executor should be "isNullary" checker', function() {
+    it('should be "isNullary" checker', function() {
       const isNullary = sinon.spy();
       const validators = createNullaryOperator({ isNullary }).createValidators();
 
-      expect(validators.nullary.executor).to.eq(isNullary);
+      expect(validators.nullary).to.eq(isNullary);
     });
   });
 });

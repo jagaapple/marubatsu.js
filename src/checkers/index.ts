@@ -1,6 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - INDEX
 // =============================================================================================================================
+export { CheckResult } from "./shared";
 export { isAlphanumeric } from "./alphanumeric-checker";
 export { isBlank } from "./blank-checker";
 export { isCamelCase } from "./camel-case-checker";
@@ -10,12 +11,14 @@ export { isEmpty } from "./empty-checker";
 export { endsWith } from "./ends-with-checker";
 export { hasDigits } from "./equal-digits-checker";
 export { isEqualToLength } from "./equal-length-checker";
+export { isEqualToValue } from "./equal-value-checker";
 export { includes } from "./includes-checker";
 export { isInteger } from "./integer-checker";
 export { isKebabCase } from "./kebab-case-checker";
 export { isNegativeNumber } from "./negative-number-checker";
 export { isNullary } from "./nullary-checker";
 export { isPositiveNumber } from "./positive-number-checker";
+export { isPresent } from "./present-checker";
 export { isConformingRegExp } from "./regexp-checker";
 export { isSnakeCase } from "./snake-case-checker";
 export { isSpaceCase } from "./space-case-checker";

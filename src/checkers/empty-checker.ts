@@ -1,11 +1,19 @@
 // =============================================================================================================================
 // SRC - CHECKERS - EMPTY CHECKER
 // =============================================================================================================================
-export const isEmpty = (value: any) => {
-  if (value == undefined) return false;
+import { CheckResult } from "./shared";
+
+type Result = CheckResult<"empty">;
+export const isEmpty = (value: any): Result => {
+  const result: Result = {
+    isPassed: false,
+    expected: "empty",
+    actual: value,
+  };
+
+  if (value == undefined) return result;
 
   let valueLength: number = 0;
-
   switch (typeof value) {
     case "string":
       valueLength = value.length;
@@ -16,8 +24,10 @@ export const isEmpty = (value: any) => {
 
       break;
     default:
-      return false;
+      return result;
   }
 
-  return valueLength === 0;
+  result.isPassed = valueLength === 0;
+
+  return result;
 };

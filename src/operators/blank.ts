@@ -19,11 +19,9 @@ export const createBlankOperator = (checkers: Partial<DICheckers> = {}) => {
   return {
     name: "blank",
     createValidators: (_: Options = {}) => {
-      const validators: Validators = {
-        type: { executor: () => true },
-      };
+      const validators: Validators = {};
 
-      validators.blank = { expected: true, executor: isBlank };
+      validators.blank = isBlank;
 
       return validators;
     },

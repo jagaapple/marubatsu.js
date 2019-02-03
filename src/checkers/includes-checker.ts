@@ -1,18 +1,26 @@
 // =============================================================================================================================
 // SRC - CHECKERS - INCLUDES CHECKER
 // =============================================================================================================================
-export const includes = (value: any, expectedValue: string) => {
-  if (value == undefined) return false;
+import { CheckResult } from "./shared";
+
+type Result = CheckResult<string>;
+export const includes = (value: any, expectedValue: string): Result => {
+  const result: Result = {
+    isPassed: false,
+    expected: expectedValue,
+    actual: value,
+  };
+
+  if (value == undefined) return result;
 
   let checkableValue: string | any[] = "";
-
   switch (typeof value) {
     case "string":
       checkableValue = value;
 
       break;
     case "object":
-      if (!Array.isArray(value)) return false;
+      if (!Array.isArray(value)) return result;
 
       // Convert all elements in array to string.
       checkableValue = value.map((element: any) => {
@@ -23,8 +31,10 @@ export const includes = (value: any, expectedValue: string) => {
 
       break;
     default:
-      return false;
+      return result;
   }
 
-  return checkableValue.includes(expectedValue);
+  result.isPassed = checkableValue.includes(expectedValue);
+
+  return result;
 };

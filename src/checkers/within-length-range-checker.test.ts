@@ -3,202 +3,267 @@
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
+import { allTypeValues } from "@shared/values.test";
 import { isWithinLengthRange } from "./within-length-range-checker";
 
 describe("[ Within Length Range Checker ]", function() {
-  context("when a target value is undefined,", function() {
-    it("should return false", function() {
-      expect(isWithinLengthRange(undefined, [0, 0])).to.be.false;
-      expect(isWithinLengthRange(undefined, [1, 1])).to.be.false;
-      expect(isWithinLengthRange(undefined, [0, 1])).to.be.false;
-      expect(isWithinLengthRange(undefined, [undefined, 1])).to.be.false;
-      expect(isWithinLengthRange(undefined, [0, undefined])).to.be.false;
-      expect(isWithinLengthRange(undefined, [undefined, undefined])).to.be.false;
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Is Passed
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("IS PASSED ::", function() {
+    context("when a target value is undefined,", function() {
+      it("should be false", function() {
+        expect(isWithinLengthRange(undefined, [0, 0]).isPassed).to.be.false;
+        expect(isWithinLengthRange(undefined, [1, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(undefined, [0, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(undefined, [undefined, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(undefined, [0, undefined]).isPassed).to.be.false;
+        expect(isWithinLengthRange(undefined, [undefined, undefined]).isPassed).to.be.false;
+      });
+    });
+
+    context("when a target value is null,", function() {
+      it("should be false", function() {
+        expect(isWithinLengthRange(null, [0, 0]).isPassed).to.be.false;
+        expect(isWithinLengthRange(null, [1, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(null, [0, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(null, [undefined, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(null, [0, undefined]).isPassed).to.be.false;
+        expect(isWithinLengthRange(null, [undefined, undefined]).isPassed).to.be.false;
+      });
+    });
+
+    context("when a target value is number,", function() {
+      context("the number of digits is equal to or less than a specific maximum length,", function() {
+        it("should be true", function() {
+          expect(isWithinLengthRange(123, [3, 4]).isPassed).to.be.true;
+          expect(isWithinLengthRange(123, [3, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange(123, [0, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange(123, [undefined, 3]).isPassed).to.be.true;
+        });
+      });
+
+      context("the number of digits is more than a specific maximum length,", function() {
+        it("should be false", function() {
+          expect(isWithinLengthRange(123, [0, 2]).isPassed).to.be.false;
+          expect(isWithinLengthRange(123, [2, 2]).isPassed).to.be.false;
+          expect(isWithinLengthRange(123, [undefined, 2]).isPassed).to.be.false;
+        });
+      });
+
+      context("the number of digits is equal to or more than a specific minimum length,", function() {
+        it("should be true", function() {
+          expect(isWithinLengthRange(123, [2, 9]).isPassed).to.be.true;
+          expect(isWithinLengthRange(123, [3, 9]).isPassed).to.be.true;
+          expect(isWithinLengthRange(123, [3, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange(123, [3, undefined]).isPassed).to.be.true;
+        });
+      });
+
+      context("the number of digits is less than a specific minimum length,", function() {
+        it("should be false", function() {
+          expect(isWithinLengthRange(123, [4, 9]).isPassed).to.be.false;
+          expect(isWithinLengthRange(123, [4, 4]).isPassed).to.be.false;
+          expect(isWithinLengthRange(123, [4, undefined]).isPassed).to.be.false;
+        });
+      });
+    });
+
+    context("when a target value is string,", function() {
+      context("the number of characters is equal to or less than a specific maximum length,", function() {
+        it("should be true", function() {
+          expect(isWithinLengthRange("123", [3, 4]).isPassed).to.be.true;
+          expect(isWithinLengthRange("123", [3, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange("123", [0, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange("123", [undefined, 3]).isPassed).to.be.true;
+        });
+      });
+
+      context("the number of characters is more than a specific maximum length,", function() {
+        it("should be false", function() {
+          expect(isWithinLengthRange("123", [0, 2]).isPassed).to.be.false;
+          expect(isWithinLengthRange("123", [2, 2]).isPassed).to.be.false;
+          expect(isWithinLengthRange("123", [undefined, 2]).isPassed).to.be.false;
+        });
+      });
+
+      context("the number of characters is equal to or more than a specific minimum length,", function() {
+        it("should be true", function() {
+          expect(isWithinLengthRange("123", [2, 9]).isPassed).to.be.true;
+          expect(isWithinLengthRange("123", [3, 9]).isPassed).to.be.true;
+          expect(isWithinLengthRange("123", [3, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange("123", [3, undefined]).isPassed).to.be.true;
+        });
+      });
+
+      context("the number of characters is less than a specific minimum length,", function() {
+        it("should be false", function() {
+          expect(isWithinLengthRange("123", [4, 9]).isPassed).to.be.false;
+          expect(isWithinLengthRange("123", [4, 4]).isPassed).to.be.false;
+          expect(isWithinLengthRange("123", [4, undefined]).isPassed).to.be.false;
+        });
+      });
+    });
+
+    context("when a target value is boolean,", function() {
+      it("should be false", function() {
+        expect(isWithinLengthRange(true, [0, 0]).isPassed).to.be.false;
+        expect(isWithinLengthRange(true, [1, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(true, [0, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(true, [undefined, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(true, [0, undefined]).isPassed).to.be.false;
+        expect(isWithinLengthRange(true, [undefined, undefined]).isPassed).to.be.false;
+        expect(isWithinLengthRange(false, [0, 0]).isPassed).to.be.false;
+        expect(isWithinLengthRange(false, [1, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(false, [0, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(false, [undefined, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(false, [0, undefined]).isPassed).to.be.false;
+        expect(isWithinLengthRange(false, [undefined, undefined]).isPassed).to.be.false;
+      });
+    });
+
+    context("when a target value is array,", function() {
+      context("the count of elements is equal to or less than a specific maximum length,", function() {
+        it("should be true", function() {
+          expect(isWithinLengthRange([1, 2, 3], [3, 4]).isPassed).to.be.true;
+          expect(isWithinLengthRange([1, 2, 3], [3, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange([1, 2, 3], [0, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange([1, 2, 3], [undefined, 3]).isPassed).to.be.true;
+        });
+      });
+
+      context("the count of elements is more than a specific maximum length,", function() {
+        it("should be false", function() {
+          expect(isWithinLengthRange([1, 2, 3], [0, 2]).isPassed).to.be.false;
+          expect(isWithinLengthRange([1, 2, 3], [2, 2]).isPassed).to.be.false;
+          expect(isWithinLengthRange([1, 2, 3], [undefined, 2]).isPassed).to.be.false;
+        });
+      });
+
+      context("the count of elements is equal to or more than a specific minimum length,", function() {
+        it("should be true", function() {
+          expect(isWithinLengthRange([1, 2, 3], [2, 9]).isPassed).to.be.true;
+          expect(isWithinLengthRange([1, 2, 3], [3, 9]).isPassed).to.be.true;
+          expect(isWithinLengthRange([1, 2, 3], [3, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange([1, 2, 3], [3, undefined]).isPassed).to.be.true;
+        });
+      });
+
+      context("the count of elements is less than a specific minimum length,", function() {
+        it("should be false", function() {
+          expect(isWithinLengthRange([1, 2, 3], [4, 9]).isPassed).to.be.false;
+          expect(isWithinLengthRange([1, 2, 3], [4, 4]).isPassed).to.be.false;
+          expect(isWithinLengthRange([1, 2, 3], [4, undefined]).isPassed).to.be.false;
+        });
+      });
+    });
+
+    context("when a target value is object (pure object/hash/dictionary),", function() {
+      context("the count of key and values is equal to or less than a specific maximum length,", function() {
+        it("should be true", function() {
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 4]).isPassed).to.be.true;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [0, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [undefined, 3]).isPassed).to.be.true;
+        });
+      });
+
+      context("the count of key and values is more than a specific maximum length,", function() {
+        it("should be false", function() {
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [0, 2]).isPassed).to.be.false;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [2, 2]).isPassed).to.be.false;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [undefined, 2]).isPassed).to.be.false;
+        });
+      });
+
+      context("the count of key and values is equal to or more than a specific minimum length,", function() {
+        it("should be true", function() {
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [2, 9]).isPassed).to.be.true;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 9]).isPassed).to.be.true;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 3]).isPassed).to.be.true;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, undefined]).isPassed).to.be.true;
+        });
+      });
+
+      context("the count of key and values is less than a specific minimum length,", function() {
+        it("should be false", function() {
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [4, 9]).isPassed).to.be.false;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [4, 4]).isPassed).to.be.false;
+          expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [4, undefined]).isPassed).to.be.false;
+        });
+      });
+    });
+
+    context("when a target value is function,", function() {
+      it("should be false", function() {
+        const func = () => true;
+
+        expect(isWithinLengthRange(func, [0, 0]).isPassed).to.be.false;
+        expect(isWithinLengthRange(func, [1, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(func, [0, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(func, [undefined, 1]).isPassed).to.be.false;
+        expect(isWithinLengthRange(func, [0, undefined]).isPassed).to.be.false;
+        expect(isWithinLengthRange(func, [undefined, undefined]).isPassed).to.be.false;
+      });
     });
   });
 
-  context("when a target value is null,", function() {
-    it("should return false", function() {
-      expect(isWithinLengthRange(null, [0, 0])).to.be.false;
-      expect(isWithinLengthRange(null, [1, 1])).to.be.false;
-      expect(isWithinLengthRange(null, [0, 1])).to.be.false;
-      expect(isWithinLengthRange(null, [undefined, 1])).to.be.false;
-      expect(isWithinLengthRange(null, [0, undefined])).to.be.false;
-      expect(isWithinLengthRange(null, [undefined, undefined])).to.be.false;
-    });
-  });
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Expected
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("EXPECTED ::", function() {
+    context("when specifying minimum length,", function() {
+      context("specifying maximum length,", function() {
+        it("should have the minimum and maximum length as array", function() {
+          const expectedNumberOfDigits: [number, number] = [100, 200];
 
-  context("when a target value is number,", function() {
-    context("the number of digits is equal to or less than a specific maximum length,", function() {
-      it("should return true", function() {
-        expect(isWithinLengthRange(123, [3, 4])).to.be.true;
-        expect(isWithinLengthRange(123, [3, 3])).to.be.true;
-        expect(isWithinLengthRange(123, [0, 3])).to.be.true;
-        expect(isWithinLengthRange(123, [undefined, 3])).to.be.true;
+          expect(isWithinLengthRange(123, expectedNumberOfDigits).expected[0]).to.eq(expectedNumberOfDigits[0]);
+          expect(isWithinLengthRange(123, expectedNumberOfDigits).expected[1]).to.eq(expectedNumberOfDigits[1]);
+        });
+      });
+
+      context("not specifying maximum length,", function() {
+        it("should have the minimum length and positive infinity as array", function() {
+          const expectedNumberOfDigits: [number, undefined] = [100, undefined];
+
+          expect(isWithinLengthRange(123, expectedNumberOfDigits).expected[0]).to.eq(expectedNumberOfDigits[0]);
+          expect(isWithinLengthRange(123, expectedNumberOfDigits).expected[1]).to.eq(Number.POSITIVE_INFINITY);
+        });
       });
     });
 
-    context("the number of digits is more than a specific maximum length,", function() {
-      it("should return false", function() {
-        expect(isWithinLengthRange(123, [0, 2])).to.be.false;
-        expect(isWithinLengthRange(123, [2, 2])).to.be.false;
-        expect(isWithinLengthRange(123, [undefined, 2])).to.be.false;
-      });
-    });
+    context("when not specifying minimum length,", function() {
+      context("specifying maximum length,", function() {
+        it("should have negative infinity and the maximum length as array", function() {
+          const expectedNumberOfDigits: [undefined, number] = [undefined, 200];
 
-    context("the number of digits is equal to or more than a specific minimum length,", function() {
-      it("should return true", function() {
-        expect(isWithinLengthRange(123, [2, 9])).to.be.true;
-        expect(isWithinLengthRange(123, [3, 9])).to.be.true;
-        expect(isWithinLengthRange(123, [3, 3])).to.be.true;
-        expect(isWithinLengthRange(123, [3, undefined])).to.be.true;
+          expect(isWithinLengthRange(123, expectedNumberOfDigits).expected[0]).to.eq(Number.NEGATIVE_INFINITY);
+          expect(isWithinLengthRange(123, expectedNumberOfDigits).expected[1]).to.eq(expectedNumberOfDigits[1]);
+        });
       });
-    });
 
-    context("the number of digits is less than a specific minimum length,", function() {
-      it("should return false", function() {
-        expect(isWithinLengthRange(123, [4, 9])).to.be.false;
-        expect(isWithinLengthRange(123, [4, 4])).to.be.false;
-        expect(isWithinLengthRange(123, [4, undefined])).to.be.false;
-      });
-    });
-  });
+      context("not specifying maximum length,", function() {
+        it("should have negative and positive infinity as array", function() {
+          const expectedNumberOfDigits: [undefined, undefined] = [undefined, undefined];
 
-  context("when a target value is string,", function() {
-    context("the number of characters is equal to or less than a specific maximum length,", function() {
-      it("should return true", function() {
-        expect(isWithinLengthRange("123", [3, 4])).to.be.true;
-        expect(isWithinLengthRange("123", [3, 3])).to.be.true;
-        expect(isWithinLengthRange("123", [0, 3])).to.be.true;
-        expect(isWithinLengthRange("123", [undefined, 3])).to.be.true;
-      });
-    });
-
-    context("the number of characters is more than a specific maximum length,", function() {
-      it("should return false", function() {
-        expect(isWithinLengthRange("123", [0, 2])).to.be.false;
-        expect(isWithinLengthRange("123", [2, 2])).to.be.false;
-        expect(isWithinLengthRange("123", [undefined, 2])).to.be.false;
-      });
-    });
-
-    context("the number of characters is equal to or more than a specific minimum length,", function() {
-      it("should return true", function() {
-        expect(isWithinLengthRange("123", [2, 9])).to.be.true;
-        expect(isWithinLengthRange("123", [3, 9])).to.be.true;
-        expect(isWithinLengthRange("123", [3, 3])).to.be.true;
-        expect(isWithinLengthRange("123", [3, undefined])).to.be.true;
-      });
-    });
-
-    context("the number of characters is less than a specific minimum length,", function() {
-      it("should return false", function() {
-        expect(isWithinLengthRange("123", [4, 9])).to.be.false;
-        expect(isWithinLengthRange("123", [4, 4])).to.be.false;
-        expect(isWithinLengthRange("123", [4, undefined])).to.be.false;
+          expect(isWithinLengthRange(123, expectedNumberOfDigits).expected[0]).to.eq(Number.NEGATIVE_INFINITY);
+          expect(isWithinLengthRange(123, expectedNumberOfDigits).expected[1]).to.eq(Number.POSITIVE_INFINITY);
+        });
       });
     });
   });
 
-  context("when a target value is boolean,", function() {
-    it("should return false", function() {
-      expect(isWithinLengthRange(true, [0, 0])).to.be.false;
-      expect(isWithinLengthRange(true, [1, 1])).to.be.false;
-      expect(isWithinLengthRange(true, [0, 1])).to.be.false;
-      expect(isWithinLengthRange(true, [undefined, 1])).to.be.false;
-      expect(isWithinLengthRange(true, [0, undefined])).to.be.false;
-      expect(isWithinLengthRange(true, [undefined, undefined])).to.be.false;
-      expect(isWithinLengthRange(false, [0, 0])).to.be.false;
-      expect(isWithinLengthRange(false, [1, 1])).to.be.false;
-      expect(isWithinLengthRange(false, [0, 1])).to.be.false;
-      expect(isWithinLengthRange(false, [undefined, 1])).to.be.false;
-      expect(isWithinLengthRange(false, [0, undefined])).to.be.false;
-      expect(isWithinLengthRange(false, [undefined, undefined])).to.be.false;
-    });
-  });
-
-  context("when a target value is array,", function() {
-    context("the count of elements is equal to or less than a specific maximum length,", function() {
-      it("should return true", function() {
-        expect(isWithinLengthRange([1, 2, 3], [3, 4])).to.be.true;
-        expect(isWithinLengthRange([1, 2, 3], [3, 3])).to.be.true;
-        expect(isWithinLengthRange([1, 2, 3], [0, 3])).to.be.true;
-        expect(isWithinLengthRange([1, 2, 3], [undefined, 3])).to.be.true;
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Actual
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("ACTUAL ::", function() {
+    it("should be a target value", function() {
+      allTypeValues.forEach((value: any) => {
+        expect(isWithinLengthRange(value, [100, 200]).actual).to.eq(value);
+        expect(isWithinLengthRange(value, [100, undefined]).actual).to.eq(value);
+        expect(isWithinLengthRange(value, [undefined, 200]).actual).to.eq(value);
+        expect(isWithinLengthRange(value, [undefined, undefined]).actual).to.eq(value);
       });
-    });
-
-    context("the count of elements is more than a specific maximum length,", function() {
-      it("should return false", function() {
-        expect(isWithinLengthRange([1, 2, 3], [0, 2])).to.be.false;
-        expect(isWithinLengthRange([1, 2, 3], [2, 2])).to.be.false;
-        expect(isWithinLengthRange([1, 2, 3], [undefined, 2])).to.be.false;
-      });
-    });
-
-    context("the count of elements is equal to or more than a specific minimum length,", function() {
-      it("should return true", function() {
-        expect(isWithinLengthRange([1, 2, 3], [2, 9])).to.be.true;
-        expect(isWithinLengthRange([1, 2, 3], [3, 9])).to.be.true;
-        expect(isWithinLengthRange([1, 2, 3], [3, 3])).to.be.true;
-        expect(isWithinLengthRange([1, 2, 3], [3, undefined])).to.be.true;
-      });
-    });
-
-    context("the count of elements is less than a specific minimum length,", function() {
-      it("should return false", function() {
-        expect(isWithinLengthRange([1, 2, 3], [4, 9])).to.be.false;
-        expect(isWithinLengthRange([1, 2, 3], [4, 4])).to.be.false;
-        expect(isWithinLengthRange([1, 2, 3], [4, undefined])).to.be.false;
-      });
-    });
-  });
-
-  context("when a target value is object (pure object/hash/dictionary),", function() {
-    context("the count of key and values is equal to or less than a specific maximum length,", function() {
-      it("should return true", function() {
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 4])).to.be.true;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 3])).to.be.true;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [0, 3])).to.be.true;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [undefined, 3])).to.be.true;
-      });
-    });
-
-    context("the count of key and values is more than a specific maximum length,", function() {
-      it("should return false", function() {
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [0, 2])).to.be.false;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [2, 2])).to.be.false;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [undefined, 2])).to.be.false;
-      });
-    });
-
-    context("the count of key and values is equal to or more than a specific minimum length,", function() {
-      it("should return true", function() {
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [2, 9])).to.be.true;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 9])).to.be.true;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, 3])).to.be.true;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [3, undefined])).to.be.true;
-      });
-    });
-
-    context("the count of key and values is less than a specific minimum length,", function() {
-      it("should return false", function() {
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [4, 9])).to.be.false;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [4, 4])).to.be.false;
-        expect(isWithinLengthRange({ a: 1, b: 2, c: 3 }, [4, undefined])).to.be.false;
-      });
-    });
-  });
-
-  context("when a target value is function,", function() {
-    it("should return false", function() {
-      const func = () => true;
-
-      expect(isWithinLengthRange(func, [0, 0])).to.be.false;
-      expect(isWithinLengthRange(func, [1, 1])).to.be.false;
-      expect(isWithinLengthRange(func, [0, 1])).to.be.false;
-      expect(isWithinLengthRange(func, [undefined, 1])).to.be.false;
-      expect(isWithinLengthRange(func, [0, undefined])).to.be.false;
-      expect(isWithinLengthRange(func, [undefined, undefined])).to.be.false;
     });
   });
 });

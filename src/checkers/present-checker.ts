@@ -1,32 +1,32 @@
 // =============================================================================================================================
-// SRC - CHECKERS - ALPHANUMERIC CHECKER
+// SRC - CHECKERS - PRESENT CHECKER
 // =============================================================================================================================
 import { CheckResult } from "./shared";
+import { isNullary } from "./nullary-checker";
+import { isEmpty } from "./empty-checker";
 
-type Result = CheckResult<"alphanumeric">;
-export const isAlphanumeric = (value: any): Result => {
+type Result = CheckResult<"present">;
+export const isPresent = (value: any): Result => {
   const result: Result = {
     isPassed: false,
-    expected: "alphanumeric",
+    expected: "present",
     actual: value,
   };
 
-  let stringValue: string = "";
+  let trimmedValue = value;
   switch (typeof value) {
-    case "number":
-      stringValue = value.toString();
-
-      break;
     case "string":
-      stringValue = value;
+      trimmedValue = value.trim();
 
       break;
-    default:
+    case "boolean":
+      result.isPassed = value;
+
       return result;
+    default:
   }
 
-  result.isPassed = /^[0-9a-zA-z]*$/.test(stringValue);
-  result.actual = stringValue;
+  result.isPassed = !(isNullary(trimmedValue).isPassed || isEmpty(trimmedValue).isPassed);
 
   return result;
 };

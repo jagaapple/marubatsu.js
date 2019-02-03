@@ -4,6 +4,7 @@
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
+import { Validators } from "@operators/index";
 import { test } from "./test";
 
 describe("[ Test Executor ]", function() {
@@ -12,21 +13,21 @@ describe("[ Test Executor ]", function() {
     sinon.restore();
   });
 
-  context("when all validation executors return true,", function() {
+  context('when all validation executor\'s "isPassed" return true,', function() {
     let validatorExecutor1: sinon.SinonStub;
     let validatorExecutor2: sinon.SinonStub;
     let validatorExecutor3: sinon.SinonStub;
-    let validators: any;
+    let validators: Validators;
     beforeEach(function() {
-      validatorExecutor1 = sinon.stub().returns(true);
-      validatorExecutor2 = sinon.stub().returns(true);
-      validatorExecutor3 = sinon.stub().returns(true);
+      validatorExecutor1 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
+      validatorExecutor2 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
+      validatorExecutor3 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
 
       validators = {
-        a: { executor: validatorExecutor1 },
-        b: { executor: validatorExecutor2 },
-        c: { executor: validatorExecutor3 },
-      } as any;
+        a: validatorExecutor1,
+        b: validatorExecutor2,
+        c: validatorExecutor3,
+      };
     });
 
     it("should return true", function() {
@@ -42,21 +43,21 @@ describe("[ Test Executor ]", function() {
     });
   });
 
-  context("when one of validation executors returns false,", function() {
+  context('when one ore more validation executor\'s "isPassed" return false,', function() {
     let validatorExecutor1: sinon.SinonStub;
     let validatorExecutor2: sinon.SinonStub;
     let validatorExecutor3: sinon.SinonStub;
-    let validators: any;
+    let validators: Validators;
     beforeEach(function() {
-      validatorExecutor1 = sinon.stub().returns(true);
-      validatorExecutor2 = sinon.stub().returns(false);
-      validatorExecutor3 = sinon.stub().returns(true);
+      validatorExecutor1 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
+      validatorExecutor2 = sinon.stub().returns({ isPassed: false, expected: 0, actual: 0 });
+      validatorExecutor3 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
 
       validators = {
-        a: { executor: validatorExecutor1 },
-        b: { executor: validatorExecutor2 },
-        c: { executor: validatorExecutor3 },
-      } as any;
+        a: validatorExecutor1,
+        b: validatorExecutor2,
+        c: validatorExecutor3,
+      };
     });
 
     it("should return false", function() {

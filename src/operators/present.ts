@@ -1,11 +1,11 @@
 // =============================================================================================================================
 // SRC - OPERATORS - PRESENT
 // =============================================================================================================================
-import { isBlank } from "@checkers/index";
+import { isPresent } from "@checkers/index";
 import { Validators } from "./shared";
 
 const deafultCheckers = {
-  isBlank,
+  isPresent,
 };
 
 export interface Options {}
@@ -13,20 +13,15 @@ export interface Options {}
 type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
 export const createPresentOperator = (checkers: Partial<DICheckers> = {}) => {
   // tslint:disable:no-shadowed-variable
-  const { isBlank } = { ...deafultCheckers, ...checkers };
+  const { isPresent } = { ...deafultCheckers, ...checkers };
   // tslint:enable:no-shadowed-variable
 
   return {
     name: "present",
     createValidators: (_: Options = {}) => {
-      const validators: Validators = {
-        type: { executor: () => true },
-      };
+      const validators: Validators = {};
 
-      validators.present = {
-        expected: true,
-        executor: (value: any) => !isBlank(value),
-      };
+      validators.present = isPresent;
 
       return validators;
     },

@@ -301,7 +301,7 @@ rules:
       named-imports-order: "case-insensitive"
       module-source-path: "full"
   # Recommends to use a conditional expression instead of assigning to the same thing in each branch of an if statement.
-  prefer-conditional-expression: [true, "check-else-if"]
+  prefer-conditional-expression: false
   # Require that variable declarations use `const` instead of `let` and `var` if possible.
   prefer-const: true
   # Recommend a `for-of` loop over a standard `for` loop if the index is only used to access the array being iterated.

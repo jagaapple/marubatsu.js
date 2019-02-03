@@ -4,6 +4,7 @@
 import {
   hasDigits,
   isDecimal,
+  isEqualToValue,
   isInteger,
   isNegativeNumber,
   isPositiveNumber,
@@ -16,6 +17,7 @@ import { Validators } from "./shared";
 const deafultCheckers = {
   hasDigits,
   isDecimal,
+  isEqualToValue,
   isInteger,
   isNegativeNumber,
   isPositiveNumber,
@@ -43,6 +45,7 @@ export const createNumberOperator = (checkers: Partial<DICheckers> = {}) => {
   const {
     hasDigits,
     isDecimal,
+    isEqualToValue,
     isInteger,
     isNegativeNumber,
     isPositiveNumber,
@@ -59,77 +62,61 @@ export const createNumberOperator = (checkers: Partial<DICheckers> = {}) => {
     name: "number",
     createValidators: (options: Options = {}) => {
       const validators: Validators = {
-        type: { executor: (value: any) => isType(value, "number") },
+        type: (value: any) => isType(value, "number"),
       };
 
       const val = options.value;
       if (val != undefined) {
-        validators.value = {
-          expected: val,
-          executor: Array.isArray(val) ? (value: any) => isWithinNumberRange(value, val) : (value: any) => val === value,
-        };
+        validators.value = Array.isArray(val)
+          ? (value: any) => isWithinNumberRange(value, val)
+          : (value: any) => isEqualToValue(value, val);
       }
 
       const maximumValue = options.maximumValue;
       if (maximumValue != undefined) {
-        validators.maximumValue = {
-          expected: maximumValue,
-          executor: (value: any) => isWithinNumberRange(value, [undefined, maximumValue]),
-        };
+        validators.maximumValue = (value: any) => isWithinNumberRange(value, [undefined, maximumValue]);
       }
 
       const minimumValue = options.minimumValue;
       if (minimumValue != undefined) {
-        validators.minimumValue = {
-          expected: minimumValue,
-          executor: (value: any) => isWithinNumberRange(value, [minimumValue, undefined]),
-        };
+        validators.minimumValue = (value: any) => isWithinNumberRange(value, [minimumValue, undefined]);
       }
 
       const integer = options.integer;
       if (integer != undefined) {
-        validators.integer = { expected: true, executor: isInteger };
+        validators.integer = isInteger;
       }
 
       const float = options.float;
       if (float != undefined) {
-        validators.float = { expected: true, executor: isDecimal };
+        validators.float = isDecimal;
       }
 
       const positive = options.positive;
       if (positive != undefined) {
-        validators.positive = { expected: true, executor: isPositiveNumber };
+        validators.positive = isPositiveNumber;
       }
 
       const negative = options.negative;
       if (negative != undefined) {
-        validators.negative = { expected: true, executor: isNegativeNumber };
+        validators.negative = isNegativeNumber;
       }
 
       const digits = options.digits;
       if (digits != undefined) {
-        validators.digits = {
-          expected: digits,
-          executor: Array.isArray(digits)
-            ? (value: any) => isWithinDigitsRange(value, digits)
-            : (value: any) => hasDigits(value, digits),
-        };
+        validators.digits = Array.isArray(digits)
+          ? (value: any) => isWithinDigitsRange(value, digits)
+          : (value: any) => hasDigits(value, digits);
       }
 
       const maximumDigits = options.maximumDigits;
       if (maximumDigits != undefined) {
-        validators.maximumDigits = {
-          expected: maximumDigits,
-          executor: (value: any) => isWithinDigitsRange(value, [undefined, maximumDigits]),
-        };
+        validators.maximumDigits = (value: any) => isWithinDigitsRange(value, [undefined, maximumDigits]);
       }
 
       const minimumDigits = options.minimumDigits;
       if (minimumDigits != undefined) {
-        validators.minimumDigits = {
-          expected: minimumDigits,
-          executor: (value: any) => isWithinDigitsRange(value, [minimumDigits, undefined]),
-        };
+        validators.minimumDigits = (value: any) => isWithinDigitsRange(value, [minimumDigits, undefined]);
       }
 
       return validators;

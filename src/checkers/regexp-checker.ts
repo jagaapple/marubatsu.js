@@ -1,11 +1,19 @@
 // =============================================================================================================================
 // SRC - CHECKERS - REGEXP CHECKER
 // =============================================================================================================================
-export const isConformingRegExp = (value: any, regExp: RegExp) => {
-  if (value == undefined) return false;
+import { CheckResult } from "./shared";
+
+type Result = CheckResult<true>;
+export const isConformingRegExp = (value: any, regExp: RegExp): Result => {
+  const result: Result = {
+    isPassed: false,
+    expected: true,
+    actual: false,
+  };
+
+  if (value == undefined) return result;
 
   let stringValue: string = "";
-
   switch (typeof value) {
     case "number":
       stringValue = value.toString();
@@ -16,8 +24,12 @@ export const isConformingRegExp = (value: any, regExp: RegExp) => {
 
       break;
     default:
-      return false;
+      return result;
   }
 
-  return regExp.test(stringValue);
+  const isPassed = regExp.test(stringValue);
+  result.isPassed = isPassed;
+  result.actual = isPassed;
+
+  return result;
 };

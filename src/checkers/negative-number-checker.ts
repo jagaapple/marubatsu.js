@@ -1,8 +1,19 @@
 // =============================================================================================================================
 // SRC - CHECKERS - NEGATIVE NUMBER CHECKER
 // =============================================================================================================================
-export const isNegativeNumber = (value: any) => {
-  if (typeof value !== "number") return false;
+import { CheckResult } from "./shared";
 
-  return value < 0;
+type Result = CheckResult<"negative-number">;
+export const isNegativeNumber = (value: any) => {
+  const result: Result = {
+    isPassed: false,
+    expected: "negative-number",
+    actual: value,
+  };
+
+  if (typeof value !== "number") return result;
+
+  result.isPassed = value < 0;
+
+  return result;
 };

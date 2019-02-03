@@ -19,11 +19,9 @@ export const createNullaryOperator = (checkers: Partial<DICheckers> = {}) => {
   return {
     name: "nullary",
     createValidators: (_: Options = {}) => {
-      const validators: Validators = {
-        type: { executor: () => true },
-      };
+      const validators: Validators = {};
 
-      validators.nullary = { expected: true, executor: isNullary };
+      validators.nullary = isNullary;
 
       return validators;
     },

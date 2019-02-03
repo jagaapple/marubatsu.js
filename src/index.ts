@@ -1,7 +1,8 @@
 // =============================================================================================================================
 // SRC - INDEX
 // =============================================================================================================================
-import { builtInOperatorCreators, Operator, ValidationExecutor, Validators } from "./operators";
+import { builtInOperatorCreators, Operator, Validators } from "./operators";
+import { test, validate } from "@executors/index";
 
 interface ValidatorsByOperatorName {
   [operatorName: string]: Validators;
@@ -20,8 +21,15 @@ class Executor {
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   test<T>(value: T) {
-    return Object.values(this.validatorsByOperatorName).every((validator: Validators) => {
-      return Object.values(validator).every((executor: ValidationExecutor) => executor.executor(value));
+    return Object.values(this.validatorsByOperatorName).some((validators: Validators) => test(validators, value));
+  }
+
+  validate<T>(value: T) {
+    return Object.entries(this.validatorsByOperatorName).map((operatorNameAndValidators: [string, Validators]) => {
+      const operatorName = operatorNameAndValidators[0];
+      const validators = operatorNameAndValidators[1];
+
+      return validate(operatorName, validators, value);
     });
   }
 

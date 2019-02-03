@@ -1,19 +1,17 @@
 // =============================================================================================================================
-// SRC - CHECKERS - INTEGER CHECKER
+// SRC - CHECKERS - EQUAL VALUE CHECKER
 // =============================================================================================================================
 import { CheckResult } from "./shared";
 
-type Result = CheckResult<"integer">;
-export const isInteger = (value: any) => {
+type Result = CheckResult<number>;
+export const isEqualToValue = (value: any, expectedValue: any): Result => {
   const result: Result = {
     isPassed: false,
-    expected: "integer",
+    expected: expectedValue,
     actual: value,
   };
 
-  if (typeof value !== "number") return result;
-
-  result.isPassed = ~~value === value;
+  result.isPassed = value === expectedValue;
 
   return result;
 };

@@ -1,8 +1,19 @@
 // =============================================================================================================================
 // SRC - CHECKERS - POSITIVE NUMBER CHECKER
 // =============================================================================================================================
-export const isPositiveNumber = (value: any) => {
-  if (typeof value !== "number") return false;
+import { CheckResult } from "./shared";
 
-  return value > 0;
+type Result = CheckResult<"positive-number">;
+export const isPositiveNumber = (value: any): Result => {
+  const result: Result = {
+    isPassed: false,
+    expected: "positive-number",
+    actual: value,
+  };
+
+  if (typeof value !== "number") return result;
+
+  result.isPassed = value > 0;
+
+  return result;
 };
