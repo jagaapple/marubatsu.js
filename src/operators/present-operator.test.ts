@@ -1,12 +1,12 @@
 // =============================================================================================================================
-// SRC - OPERATORS - BLANK TEST
+// SRC - OPERATORS - PRESENT OPERATOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { createBlankOperator } from "./blank";
+import { createPresentOperator } from "./present-operator";
 
-describe("[ Blank Operator ]", function() {
+describe("[ Present Operator ]", function() {
   afterEach(function() {
     sinon.restore();
   });
@@ -15,22 +15,22 @@ describe("[ Blank Operator ]", function() {
   // Name
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("NAME", function() {
-    it('should be "blank"', function() {
-      const name = createBlankOperator().name;
+    it('should be "present"', function() {
+      const name = createPresentOperator().name;
 
-      expect(name).to.eq("blank");
+      expect(name).to.eq("present");
     });
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Blank Rule
+  // Present Rule
   // ---------------------------------------------------------------------------------------------------------------------------
-  describe("BLANK RULE", function() {
-    it('should be "isBlank" checker', function() {
-      const isBlank = sinon.spy();
-      const validators = createBlankOperator({ isBlank }).createValidators();
+  describe("PRESENT RULE", function() {
+    it('should be "isPresent" checker', function() {
+      const isPresent = sinon.spy();
+      const validators = createPresentOperator({ isPresent }).createValidators();
 
-      expect(validators.blank).to.eq(isBlank);
+      expect(validators.present).to.eq(isPresent);
     });
   });
 });

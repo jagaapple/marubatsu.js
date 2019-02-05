@@ -3,12 +3,12 @@
 // =============================================================================================================================
 export { Operator, ValidationExecutor, Validators } from "./shared";
 
-import { createBlankOperator } from "./blank";
-import { createEmptyOperator } from "./empty";
-import { createNullaryOperator } from "./nullary";
-import { createNumberOperator } from "./number";
-import { createPresentOperator } from "./present";
-import { createStringOperator } from "./string";
+import { createBlankOperator } from "./blank-operator";
+import { createEmptyOperator } from "./empty-operator";
+import { createNullaryOperator } from "./nullary-operator";
+import { createNumberOperator } from "./number-operator";
+import { createPresentOperator } from "./present-operator";
+import { createStringOperator } from "./string-operator";
 
 export const builtInOperatorCreators = {
   blank: createBlankOperator(),

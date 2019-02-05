@@ -1,11 +1,11 @@
 // =============================================================================================================================
-// SRC - OPERATORS - NUMBER TEST
+// SRC - OPERATORS - NUMBER OPERATOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { allTypeValues } from "@shared/values.test";
-import { createNumberOperator } from "./number";
+import { createNumberOperator } from "./number-operator";
 
 describe("[ Number Operator ]", function() {
   const targetValue = 123;

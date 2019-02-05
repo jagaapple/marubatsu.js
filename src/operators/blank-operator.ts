@@ -1,27 +1,27 @@
 // =============================================================================================================================
-// SRC - OPERATORS - NULLARY
+// SRC - OPERATORS - BLANK OPERATOR
 // =============================================================================================================================
-import { isNullary } from "@checkers/index";
+import { isBlank } from "@checkers/index";
 import { Validators } from "./shared";
 
 const deafultCheckers = {
-  isNullary,
+  isBlank,
 };
 
 export interface Options {}
 
 type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
-export const createNullaryOperator = (checkers: Partial<DICheckers> = {}) => {
+export const createBlankOperator = (checkers: Partial<DICheckers> = {}) => {
   // tslint:disable:no-shadowed-variable
-  const { isNullary } = { ...deafultCheckers, ...checkers };
+  const { isBlank } = { ...deafultCheckers, ...checkers };
   // tslint:enable:no-shadowed-variable
 
   return {
-    name: "nullary",
+    name: "blank",
     createValidators: (_: Options = {}) => {
       const validators: Validators = {};
 
-      validators.nullary = isNullary;
+      validators.blank = isBlank;
 
       return validators;
     },

@@ -1,11 +1,11 @@
 // =============================================================================================================================
-// SRC - OPERATORS - STRING TEST
+// SRC - OPERATORS - STRING OPERATOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { allTypeValues } from "@shared/values.test";
-import { createStringOperator } from "./string";
+import { createStringOperator } from "./string-operator";
 
 describe("[ String Operator ]", function() {
   const targetValue = "123";

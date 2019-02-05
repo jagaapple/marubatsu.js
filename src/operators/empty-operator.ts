@@ -1,27 +1,27 @@
 // =============================================================================================================================
-// SRC - OPERATORS - BLANK
+// SRC - OPERATORS - EMPTY OPERATOR
 // =============================================================================================================================
-import { isBlank } from "@checkers/index";
+import { isEmpty } from "@checkers/index";
 import { Validators } from "./shared";
 
 const deafultCheckers = {
-  isBlank,
+  isEmpty,
 };
 
 export interface Options {}
 
 type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
-export const createBlankOperator = (checkers: Partial<DICheckers> = {}) => {
+export const createEmptyOperator = (checkers: Partial<DICheckers> = {}) => {
   // tslint:disable:no-shadowed-variable
-  const { isBlank } = { ...deafultCheckers, ...checkers };
+  const { isEmpty } = { ...deafultCheckers, ...checkers };
   // tslint:enable:no-shadowed-variable
 
   return {
-    name: "blank",
+    name: "empty",
     createValidators: (_: Options = {}) => {
       const validators: Validators = {};
 
-      validators.blank = isBlank;
+      validators.empty = isEmpty;
 
       return validators;
     },

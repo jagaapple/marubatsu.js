@@ -1,12 +1,12 @@
 // =============================================================================================================================
-// SRC - OPERATORS - NULLARY TEST
+// SRC - OPERATORS - EMPTY OPERATOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { createNullaryOperator } from "./nullary";
+import { createEmptyOperator } from "./empty-operator";
 
-describe("[ Nullary Operator ]", function() {
+describe("[ Empty Operator ]", function() {
   afterEach(function() {
     sinon.restore();
   });
@@ -15,22 +15,22 @@ describe("[ Nullary Operator ]", function() {
   // Name
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("NAME", function() {
-    it('should be "nullary"', function() {
-      const name = createNullaryOperator().name;
+    it('should be "empty"', function() {
+      const name = createEmptyOperator().name;
 
-      expect(name).to.eq("nullary");
+      expect(name).to.eq("empty");
     });
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Nullary Rule
+  // Empty Rule
   // ---------------------------------------------------------------------------------------------------------------------------
-  describe("NULLARY RULE", function() {
-    it('should be "isNullary" checker', function() {
-      const isNullary = sinon.spy();
-      const validators = createNullaryOperator({ isNullary }).createValidators();
+  describe("EMPTY RULE", function() {
+    it('should be "isEmpty" checker', function() {
+      const isEmpty = sinon.spy();
+      const validators = createEmptyOperator({ isEmpty }).createValidators();
 
-      expect(validators.nullary).to.eq(isNullary);
+      expect(validators.empty).to.eq(isEmpty);
     });
   });
 });

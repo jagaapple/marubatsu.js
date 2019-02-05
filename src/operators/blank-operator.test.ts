@@ -1,12 +1,12 @@
 // =============================================================================================================================
-// SRC - OPERATORS - PRESENT TEST
+// SRC - OPERATORS - BLANK OPERATOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { createPresentOperator } from "./present";
+import { createBlankOperator } from "./blank-operator";
 
-describe("[ Present Operator ]", function() {
+describe("[ Blank Operator ]", function() {
   afterEach(function() {
     sinon.restore();
   });
@@ -15,22 +15,22 @@ describe("[ Present Operator ]", function() {
   // Name
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("NAME", function() {
-    it('should be "present"', function() {
-      const name = createPresentOperator().name;
+    it('should be "blank"', function() {
+      const name = createBlankOperator().name;
 
-      expect(name).to.eq("present");
+      expect(name).to.eq("blank");
     });
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Present Rule
+  // Blank Rule
   // ---------------------------------------------------------------------------------------------------------------------------
-  describe("PRESENT RULE", function() {
-    it('should be "isPresent" checker', function() {
-      const isPresent = sinon.spy();
-      const validators = createPresentOperator({ isPresent }).createValidators();
+  describe("BLANK RULE", function() {
+    it('should be "isBlank" checker', function() {
+      const isBlank = sinon.spy();
+      const validators = createBlankOperator({ isBlank }).createValidators();
 
-      expect(validators.present).to.eq(isPresent);
+      expect(validators.blank).to.eq(isBlank);
     });
   });
 });
