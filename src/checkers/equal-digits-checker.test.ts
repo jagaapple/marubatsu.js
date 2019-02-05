@@ -145,9 +145,10 @@ describe("[ Equal Digits Checker ]", function() {
       });
 
       context("infinity,", function() {
-        it('should be "not-number"');
-        expect(hasDigits(Number.POSITIVE_INFINITY, 0).actual).to.eq("not-number");
-        expect(hasDigits(Number.NEGATIVE_INFINITY, 0).actual).to.eq("not-number");
+        it('should be "not-number"', function() {
+          expect(hasDigits(Number.POSITIVE_INFINITY, 0).actual).to.eq("not-number");
+          expect(hasDigits(Number.NEGATIVE_INFINITY, 0).actual).to.eq("not-number");
+        });
       });
     });
 
