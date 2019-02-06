@@ -344,7 +344,7 @@ validator.test("1234"); // false
 ```
 
 #### `maximumLength: number`
-Checks the string length is not more than a specific length.
+Checks the string length is no more than a specific length.
 
 ```ts
 const validator = marubatsu().string({ maximumLength: 3 });
@@ -355,7 +355,7 @@ validator.test("1234"); // false
 ```
 
 #### `minimumLength: number`
-Checks the string length is not less than a specific length.
+Checks the string length is no less than a specific length.
 
 ```ts
 const validator = marubatsu().string({ minimumLength: 3 });
