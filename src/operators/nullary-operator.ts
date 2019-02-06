@@ -8,7 +8,9 @@ const deafultCheckers = {
   isNullary,
 };
 
-export interface Options {}
+export interface Options {
+  nullary?: unknown; // Defines for messages but not used
+}
 
 type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
 export const createNullaryOperator = (checkers: Partial<DICheckers> = {}) => {

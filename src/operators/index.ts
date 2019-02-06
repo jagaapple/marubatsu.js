@@ -22,6 +22,7 @@ export const builtInOperatorCreators = {
 import { ErrorMessageCreators } from "./shared";
 import { errorMessageCreators as blankErrorMessageCreators } from "./blank-messages";
 import { errorMessageCreators as emptyErrorMessageCreators } from "./empty-messages";
+import { errorMessageCreators as nullaryErrorMessageCreators } from "./nullary-messages";
 import { errorMessageCreators as presentErrorMessageCreators } from "./present-messages";
 import { errorMessageCreators as stringErrorMessageCreators } from "./string-messages";
 
@@ -30,6 +31,7 @@ export const builtInOperatorMessageCreators: {
 } = {
   blank: { error: blankErrorMessageCreators },
   empty: { error: emptyErrorMessageCreators },
+  nullary: { error: nullaryErrorMessageCreators },
   present: { error: presentErrorMessageCreators },
   string: { error: stringErrorMessageCreators },
 };
