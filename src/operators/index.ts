@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - OPERATORS - INDEX
 // =============================================================================================================================
-export { Operator, ValidationExecutor, Validators } from "./shared";
+export { ErrorMessageCreator, ErrorMessageCreators, Operator, ValidationExecutor, Validators } from "./shared";
 
 import { createBlankOperator } from "./blank-operator";
 import { createEmptyOperator } from "./empty-operator";
@@ -17,4 +17,13 @@ export const builtInOperatorCreators = {
   number: createNumberOperator(),
   present: createPresentOperator(),
   string: createStringOperator(),
+};
+
+import { ErrorMessageCreators } from "./shared";
+import { errorMessageCreators } from "./string-messages";
+
+export const builtInOperatorMessageCreators: {
+  [K in keyof typeof builtInOperatorCreators]?: { error: ErrorMessageCreators<any> }
+} = {
+  string: { error: errorMessageCreators },
 };
