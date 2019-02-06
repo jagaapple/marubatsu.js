@@ -8,7 +8,9 @@ const deafultCheckers = {
   isEmpty,
 };
 
-export interface Options {}
+export interface Options {
+  empty?: unknown; // Defines for messages but not used
+}
 
 type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
 export const createEmptyOperator = (checkers: Partial<DICheckers> = {}) => {
