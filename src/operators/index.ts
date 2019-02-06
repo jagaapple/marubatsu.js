@@ -20,10 +20,12 @@ export const builtInOperatorCreators = {
 };
 
 import { ErrorMessageCreators } from "./shared";
-import { errorMessageCreators } from "./string-messages";
+import { errorMessageCreators as presentErrorMessageCreators } from "./present-messages";
+import { errorMessageCreators as stringErrorMessageCreators } from "./string-messages";
 
 export const builtInOperatorMessageCreators: {
   [K in keyof typeof builtInOperatorCreators]?: { error: ErrorMessageCreators<any> }
 } = {
-  string: { error: errorMessageCreators },
+  present: { error: presentErrorMessageCreators },
+  string: { error: stringErrorMessageCreators },
 };
