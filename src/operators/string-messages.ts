@@ -9,7 +9,10 @@ export const errorMessageCreators: ErrorMessageCreators<OperatorOptions> = {
   length: (subject: string, actual: any, expected: number | [number, number]) => {
     if (typeof expected === "number") return `The ${subject} should be ${expected} characters in length, but ${actual}.`;
 
-    return `The ${subject} should be between ${expected[1]} and ${expected[0]} characters in length, but ${actual}.`;
+    const maximumLength = expected[0];
+    const minimumLength = expected[1];
+
+    return `The ${subject} should be between ${minimumLength} and ${maximumLength} characters in length, but ${actual}.`;
   },
   maximumLength: (subject: string, actual: any, expected: number) =>
     `The ${subject} should be no more than ${expected} characters in length, but ${actual}.`,
