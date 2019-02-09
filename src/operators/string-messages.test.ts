@@ -12,10 +12,11 @@ describe("[ String Messages ]", function() {
   describe("ERROR MESSAGE CREATORS ::", function() {
     const dummySubject = "STRING";
     const dummyActual = "ACTUAL";
-    const dummyExpected = "EXPECTED";
 
     describe("VALUE ::", function() {
-      it('should have "should be <ACTUAL>" word', function() {
+      it('should have "should be <EXPECTED>" word', function() {
+        const dummyExpected = "abc";
+
         expect(errorMessageCreators.value(dummySubject, dummyActual, dummyExpected)).to.have.string(
           `should be ${dummyExpected}`,
         );
