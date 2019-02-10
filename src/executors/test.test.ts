@@ -19,15 +19,11 @@ describe("[ Test Executor ]", function() {
     let validatorExecutor3: sinon.SinonStub;
     let validators: Validators;
     beforeEach(function() {
-      validatorExecutor1 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
-      validatorExecutor2 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
-      validatorExecutor3 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
+      validatorExecutor1 = sinon.stub().returns({ isPassed: true, expected: 1, actual: 1 });
+      validatorExecutor2 = sinon.stub().returns({ isPassed: true, expected: 2, actual: 2 });
+      validatorExecutor3 = sinon.stub().returns({ isPassed: true, expected: 3, actual: 3 });
 
-      validators = {
-        a: validatorExecutor1,
-        b: validatorExecutor2,
-        c: validatorExecutor3,
-      };
+      validators = { validatorExecutor1, validatorExecutor2, validatorExecutor3 };
     });
 
     it("should return true", function() {
@@ -49,15 +45,11 @@ describe("[ Test Executor ]", function() {
     let validatorExecutor3: sinon.SinonStub;
     let validators: Validators;
     beforeEach(function() {
-      validatorExecutor1 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
-      validatorExecutor2 = sinon.stub().returns({ isPassed: false, expected: 0, actual: 0 });
-      validatorExecutor3 = sinon.stub().returns({ isPassed: true, expected: 0, actual: 0 });
+      validatorExecutor1 = sinon.stub().returns({ isPassed: true, expected: 1, actual: 1 });
+      validatorExecutor2 = sinon.stub().returns({ isPassed: false, expected: 2, actual: 2 });
+      validatorExecutor3 = sinon.stub().returns({ isPassed: false, expected: 3, actual: 3 });
 
-      validators = {
-        a: validatorExecutor1,
-        b: validatorExecutor2,
-        c: validatorExecutor3,
-      };
+      validators = { validatorExecutor1, validatorExecutor2, validatorExecutor3 };
     });
 
     it("should return false", function() {
