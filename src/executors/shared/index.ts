@@ -1,5 +1,4 @@
 // =============================================================================================================================
-// SRC - EXECUTORS - INDEX
+// SRC - EXECUTORS - SHARED - INDEX
 // =============================================================================================================================
-export { test } from "./test";
-export { validate, ValidationResult } from "./validate";
+export { ValidationError } from "./error";

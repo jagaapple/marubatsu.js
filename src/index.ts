@@ -1,8 +1,8 @@
 // =============================================================================================================================
 // SRC - INDEX
 // =============================================================================================================================
-import { builtInOperatorCreators, Operator, Validators } from "./operators";
-import { test, validate } from "@executors/index";
+import { builtInOperatorCreators, builtInOperatorMessageCreators, Operator, Validators } from "./operators";
+import { test, validate, ValidationResult } from "@executors/index";
 
 interface ValidatorsByOperatorName {
   [operatorName: string]: Validators;
@@ -24,13 +24,25 @@ class Executor {
     return Object.values(this.validatorsByOperatorName).some((validators: Validators) => test(validators, value));
   }
 
-  validate<T>(value: T) {
-    return Object.entries(this.validatorsByOperatorName).map((operatorNameAndValidators: [string, Validators]) => {
+  validate<T>(value: T): ValidationResult {
+    let result: ValidationResult = { isPassed: false };
+
+    Object.entries(this.validatorsByOperatorName).map((operatorNameAndValidators: [string, Validators]) => {
       const operatorName = operatorNameAndValidators[0];
       const validators = operatorNameAndValidators[1];
 
-      return validate(operatorName, validators, value);
+      const messageCreators = builtInOperatorMessageCreators[operatorName as keyof typeof builtInOperatorCreators];
+      const errorMessageCreators = messageCreators && messageCreators.error;
+
+      const validatedResult = validate(operatorName, validators, value, errorMessageCreators);
+      if (!validatedResult.isPassed) {
+        result = validatedResult;
+      }
+
+      return validatedResult.isPassed;
     });
+
+    return result;
   }
 
   // Protected Functions

@@ -1,5 +1,8 @@
 // =============================================================================================================================
-// SRC - EXECUTORS - INDEX
+// SRC - EXECUTORS - SHARED - ERROR
 // =============================================================================================================================
-export { test } from "./test";
-export { validate, ValidationResult } from "./validate";
+export interface ValidationError {
+  ruleName: string;
+  expected: any;
+  message: string;
+}
