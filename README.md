@@ -21,6 +21,7 @@ const isValidWebsite = marubatsu()
 
 <div align="center">
 <a href="https://www.npmjs.com/package/marubatsu"><img src="https://img.shields.io/npm/v/marubatsu.svg" alt="npm"></a>
+<a href="https://bundlephobia.com/result?p=marubatsu"><img src="https://img.shields.io/bundlephobia/minzip/marubatsu.svg?style=flat" alt="bundlephobia"></a>
 <a href="https://circleci.com/gh/jagaapple/marubatsu.js"><img src="https://img.shields.io/circleci/project/github/jagaapple/marubatsu.js/master.svg" alt="circleci"></a>
 <a href="https://codecov.io/gh/jagaapple/marubatsu.js"><img src="https://img.shields.io/codecov/c/github/jagaapple/marubatsu.js/master.svg" alt="codecov"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/jagaapple/marubatsu.js.svg" alt="license"></a>

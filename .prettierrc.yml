@@ -11,6 +11,8 @@ useTabs: false
 semi: true
 # Use single quotes instead of double quotes.
 singleQuote: false
+# Use single quotes instead of double quotes in JSX.
+# jsxSingleQuote: false
 # Print trailing commas wherever possible when multi-line (A single-line array, for example, never gets trailing commas).
 trailingComma: "all"
 # Print spaces between brackets in object literals.
@@ -28,7 +30,7 @@ arrowParens: "always"
 # Specify which parser to use.
 # Both the babylon and flow parsers support the same set of JavaScript features (including Flow).
 # Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
-parser: "typescript"
+# parser: "typescript"
 # Specify the input filepath. This will be used to do parser inference.
 filepath: "none"
 # Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
@@ -42,3 +44,8 @@ insertPragma: false
 # e.g. GitHub comment and BitBucket. In some cases you may want to rely on editor/viewer soft wrapping instead, so this option
 # allows you to opt out with "never".
 proseWrap: "preserve"
+# Specify the global whitespace sensitivity for HTML files, see whitespace-sensitive formatting for more info.
+# https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
+htmlWhitespaceSensitivity: "strict"
+# For historical reasons, there exist two commonly used flavors of line endings in text files.
+endOfLine: "lf"
