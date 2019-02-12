@@ -32,6 +32,8 @@ rules:
   #     }
   # NG: let x: number = (y = 1, z = 2);
   ban-comma-operator: true
+  # Bans `// @ts-ignore` comments from being used.
+  ban-ts-ignore: true
   # Disallow to use specific type directly.
   ban-types:
     - true
@@ -63,15 +65,21 @@ rules:
   eofline: true
   # Enforce a certain header comment for all files, matched by a regular expression.
   file-header: [true]
+  # Enforces a consistent file naming convention.
+  file-name-casing: [true, "kebab-case"]
   # Require to use `if` statement in a `for ... in` .
   # OK: for (let key in someObject) {
   #       if (someObject.hasownProperty(key) { ... }
   #     }
   forin: true
+  # Prevents using the built-in Function constructor.
+  function-constructor: true
   # Disallow importing the specified modules directly via `import` and `require` .
   import-blacklist: false
   # Ensure proper spacing between import statement keywords.
   import-spacing: true
+  # Enforces using explicit += 1 or -= 1 operators.
+  increment-decrement: true
   # Enforce indentation with tabs or spaces.
   indent: [true, "spaces", 2]
   # Require interface names to begin with a capital "I".
@@ -91,7 +99,7 @@ rules:
   # Require files to remain under a certain number of lines.
   max-file-line-count: [true, 1000]
   # Require lines to be under a certain max length.
-  max-line-length: [true, 128]
+  max-line-length: [true, { limit: 128, ignore-pattern: "^import" }]
   # Require explicit access modifier declarations for class members.
   member-access: [true, "no-public"] # Require declarations except for "public" access modifier
   # Enforce member ordering.
@@ -166,7 +174,7 @@ rules:
   # Disallow iterating over an array with a for-in loop.
   no-for-in-array: true
   # Disallow to import modules that are not listed as dependency in the project's package.json.
-  no-implicit-dependencies: [false]
+  no-implicit-dependencies: false
   # Avoid import statements with side-effect.
   no-import-side-effect:
     - true
@@ -253,7 +261,7 @@ rules:
   # Warn if a type assertion does not change the type of an expression.
   no-unnecessary-type-assertion: false
   # Warn when using an expression of type `any` in a dynamic way.
-  no-unsafe-any: false # For React JSX
+  no-unsafe-any: false
   # Disallow control flow statements, such as return, continue, break and throws in finally blocks.
   no-unsafe-finally: true
   # Disallow unused expression statements.
@@ -289,7 +297,7 @@ rules:
     - "check-open-brace"
     - "check-whitespace"
   # Disallow multiple variable definitions in the same declaration statement.
-  one-variable-per-declaration: [true, "ignore-for-loop"]
+  one-variable-per-declaration: true
   # Disallow traditional function expressions.
   only-arrow-functions: [true, "allow-declarations", "allow-named-functions"]
   # Require that import statements be alphabetized and grouped.
@@ -319,6 +327,8 @@ rules:
   prefer-switch: false
   # Prefer a template expression over string literal concatenation.
   prefer-template: [true, "allow-single-concat"] # A single concatenation ( `x + y` ) is allowed, but not more ( `x + y + z` )
+  # Prefer a `while` loop instead of a `for` loop without initializer and incrementer.
+  prefer-while: true
   # Require any function or method that returns a promise to be marked async.
   promise-function-async: true
   # Require single or double quotes for string literals.
@@ -391,6 +401,10 @@ rules:
   type-literal-delimiter: true
   # Warn for any two overloads that could be unified into one by using a union or an optional/rest parameter.
   unified-signatures: true
+  # Prevents unnecessary and/or misleading scope bindings on functions.
+  unnecessary-bind: true
+  # Prevents blank constructors, as they are redundant.
+  unnecessary-constructor: true
   # Warn if an explicitly specified type argument is the default for that type parameter.
   use-default-type-parameter: false
   # Enforce use of the `isNaN()` function to check for NaN references instead of a comparison to the `NaN` constant.
@@ -416,6 +430,7 @@ rules:
     - "check-typecast"
     - "check-type-operator"
     - "check-preblock"
+    # - "check-postbrace"
 
 
   # ----------------------------------------------------------------------------------------------------------------------------
@@ -440,7 +455,7 @@ rules:
   # Identifies nested if statements that can be combined into one.
   no-collapsible-if: true
   # Like no-else-return from eslint.
-  no-else-after-return: false
+  no-else-after-return: true
   # Just `return;` instead of `return undefined;` .
   no-return-undefined: true
   # Ban the use of `this` in static methods.
@@ -459,8 +474,6 @@ rules:
   parameter-properties: false
   # Prefer `const enum` where possible.
   prefer-const-enum: false # Babel does not support.
-  # Prefer a `while` loop instead of a `for` loop without initializer and incrementer.
-  prefer-while: true
 
 
   # ----------------------------------------------------------------------------------------------------------------------------
