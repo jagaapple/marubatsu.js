@@ -1,14 +1,23 @@
 // =============================================================================================================================
 // SRC - CHECKERS - WITHIN LENGTH RANGE CHECKER
 // =============================================================================================================================
-import { getLength } from "./shared";
+import { CheckResult, getLength } from "./shared";
 
-export const isWithinLengthRange = (value: any, range: [number | undefined, number | undefined]): boolean => {
+type Result = CheckResult<[number, number]>;
+export const isWithinLengthRange = (value: any, range: [number | undefined, number | undefined]): Result => {
+  const result: Result = {
+    isPassed: false,
+    expected: [range[0] || Number.NEGATIVE_INFINITY, range[1] || Number.POSITIVE_INFINITY],
+    actual: value,
+  };
+
   const lengthOfValue = getLength(value);
-  if (lengthOfValue == undefined) return false;
+  if (lengthOfValue == undefined) return result;
 
   const minimumLength = range[0] || Number.NEGATIVE_INFINITY;
   const maximumLength = range[1] || Number.POSITIVE_INFINITY;
 
-  return lengthOfValue >= minimumLength && lengthOfValue <= maximumLength;
+  result.isPassed = lengthOfValue >= minimumLength && lengthOfValue <= maximumLength;
+
+  return result;
 };

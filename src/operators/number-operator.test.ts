@@ -1,16 +1,27 @@
 // =============================================================================================================================
-// SRC - OPERATORS - NUMBER TEST
+// SRC - OPERATORS - NUMBER OPERATOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { allTypeValues } from "@shared/values.test";
-import { createNumberOperator } from "./number";
+import { createNumberOperator } from "./number-operator";
 
-describe("[ Number ]", function() {
+describe("[ Number Operator ]", function() {
   const targetValue = 123;
   afterEach(function() {
     sinon.restore();
+  });
+
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Name
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("NAME", function() {
+    it('should be "string"', function() {
+      const name = createNumberOperator().name;
+
+      expect(name).to.eq("number");
+    });
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -18,10 +29,10 @@ describe("[ Number ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("TYPE CHECKING", function() {
     it("should check a target value is number", function() {
-      const validators = createNumberOperator()();
+      const validators = createNumberOperator().createValidators();
 
       allTypeValues.forEach((value: any) => {
-        expect(validators.type(value)).to.eq(typeof value === "number");
+        expect(validators.type(value).isPassed).to.eq(typeof value === "number");
       });
     });
   });
@@ -31,10 +42,14 @@ describe("[ Number ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("VALUE RULE", function() {
     context("when an expected value is number,", function() {
-      it("should compare the number with the expected value", function() {
-        const validators = createNumberOperator()({ value: targetValue });
+      it('should call "isEqualToValue" checker,', function() {
+        const isEqualToValue = sinon.spy();
+        const val = 0;
+        const validators = createNumberOperator({ isEqualToValue }).createValidators({ value: val });
 
-        expect(validators.value(targetValue)).to.be.true;
+        validators.value(targetValue);
+
+        expect(isEqualToValue.calledOnceWith(targetValue, val)).to.be.true;
       });
     });
 
@@ -42,7 +57,7 @@ describe("[ Number ]", function() {
       it('should call "isWithinNumberRange" checker,', function() {
         const isWithinNumberRange = sinon.spy();
         const val: [number, number] = [100, 200];
-        const validators = createNumberOperator({ isWithinNumberRange })({ value: val });
+        const validators = createNumberOperator({ isWithinNumberRange }).createValidators({ value: val });
 
         validators.value(targetValue);
 
@@ -58,7 +73,7 @@ describe("[ Number ]", function() {
     it('should call "isWithinNumberRange" checker with an expected maximum value,', function() {
       const isWithinNumberRange = sinon.spy();
       const maximumValue = 200;
-      const validators = createNumberOperator({ isWithinNumberRange })({ maximumValue });
+      const validators = createNumberOperator({ isWithinNumberRange }).createValidators({ maximumValue });
 
       validators.maximumValue(targetValue);
 
@@ -73,7 +88,7 @@ describe("[ Number ]", function() {
     it('should call "isWithinNumberRange" checker with an expected minimum value,', function() {
       const isWithinNumberRange = sinon.spy();
       const minimumValue = 200;
-      const validators = createNumberOperator({ isWithinNumberRange })({ minimumValue });
+      const validators = createNumberOperator({ isWithinNumberRange }).createValidators({ minimumValue });
 
       validators.minimumValue(targetValue);
 
@@ -87,7 +102,7 @@ describe("[ Number ]", function() {
   describe("INTEGER RULE", function() {
     it('should call "isInteger" checker,', function() {
       const isInteger = sinon.spy();
-      const validators = createNumberOperator({ isInteger })({ integer: true });
+      const validators = createNumberOperator({ isInteger }).createValidators({ integer: true });
 
       validators.integer(targetValue);
 
@@ -101,7 +116,7 @@ describe("[ Number ]", function() {
   describe("FLOAT RULE", function() {
     it('should call "isDecimal" checker,', function() {
       const isDecimal = sinon.spy();
-      const validators = createNumberOperator({ isDecimal })({ float: true });
+      const validators = createNumberOperator({ isDecimal }).createValidators({ float: true });
 
       validators.float(targetValue);
 
@@ -115,7 +130,7 @@ describe("[ Number ]", function() {
   describe("POSITIVE RULE", function() {
     it('should call "isPositiveNumber" checker,', function() {
       const isPositiveNumber = sinon.spy();
-      const validators = createNumberOperator({ isPositiveNumber })({ positive: true });
+      const validators = createNumberOperator({ isPositiveNumber }).createValidators({ positive: true });
 
       validators.positive(targetValue);
 
@@ -129,7 +144,7 @@ describe("[ Number ]", function() {
   describe("NEGATIVE RULE", function() {
     it('should call "isNegativeNumber" checker,', function() {
       const isNegativeNumber = sinon.spy();
-      const validators = createNumberOperator({ isNegativeNumber })({ negative: true });
+      const validators = createNumberOperator({ isNegativeNumber }).createValidators({ negative: true });
 
       validators.negative(targetValue);
 
@@ -146,7 +161,7 @@ describe("[ Number ]", function() {
         const hasDigits = sinon.spy();
         const isWithinDigitsRange = sinon.spy();
         const digits = 3;
-        const validators = createNumberOperator({ hasDigits, isWithinDigitsRange })({ digits });
+        const validators = createNumberOperator({ hasDigits, isWithinDigitsRange }).createValidators({ digits });
 
         validators.digits(targetValue);
 
@@ -160,7 +175,7 @@ describe("[ Number ]", function() {
         const hasDigits = sinon.spy();
         const isWithinDigitsRange = sinon.spy();
         const digits: [number, number] = [2, 4];
-        const validators = createNumberOperator({ hasDigits, isWithinDigitsRange })({ digits });
+        const validators = createNumberOperator({ hasDigits, isWithinDigitsRange }).createValidators({ digits });
 
         validators.digits(targetValue);
 
@@ -177,7 +192,7 @@ describe("[ Number ]", function() {
     it('should call "isWithinDigitsRange" checker with an expected maximum number of digits,', function() {
       const isWithinDigitsRange = sinon.spy();
       const maximumDigits = 4;
-      const validators = createNumberOperator({ isWithinDigitsRange })({ maximumDigits });
+      const validators = createNumberOperator({ isWithinDigitsRange }).createValidators({ maximumDigits });
 
       validators.maximumDigits(targetValue);
 
@@ -192,7 +207,7 @@ describe("[ Number ]", function() {
     it('should call "isWithinDigitsRange" checker with an expected minimum number of digits,', function() {
       const isWithinDigitsRange = sinon.spy();
       const minimumDigits = 2;
-      const validators = createNumberOperator({ isWithinDigitsRange })({ minimumDigits });
+      const validators = createNumberOperator({ isWithinDigitsRange }).createValidators({ minimumDigits });
 
       validators.minimumDigits(targetValue);
 

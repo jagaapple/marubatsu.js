@@ -73,8 +73,6 @@ const isValidWebsite = marubatsu()
     - [`digits: [number, number]`](#digits-number-number)
     - [`maximumDigits: number`](#maximumdigits-number)
     - [`minimumDigits: number`](#minimumdigits-number)
-- [Options](#options)
-    - [`checkAll: boolean = false`](#checkall-boolean--false)
 - [Receipes](#receipes)
   - [Share validators in your app](#share-validators-in-your-app)
   - [Migrate new rules to validator](#migrate-new-rules-to-validator)
@@ -122,17 +120,17 @@ The below is simple example to check some values.
 ```ts
 import marubatsu from "marubatsu";
 
-// Check the value is string, starting with "@", and length is between 4 and 20.
+// Checks the value is string, starting with "@", and length is between 4 and 20.
 marubatsu()
   .string({ length: [4, 20], startsWith: "@" })
   .test("@jagaapple"); // true
 
 
-// Share your validator.
+// Shares your validator.
 export const userNameValidator = marubatsu().string({ length: [4, 20], startsWith: "@" });
 
 
-// Combinate some operators.
+// Combinates some operators.
 marubatsu()
   .or(
     (value, validator) => validator().number({ length: 3 }).test(value),
@@ -141,7 +139,7 @@ marubatsu()
   .test(123); // true
 
 
-// Check all elements of array.
+// Checks all elements of array.
 marubatsu()
   .array({
     length: 3,
@@ -150,28 +148,28 @@ marubatsu()
   .test(["#apple", "#orange", "#grape"]); // true
 
 
-// Get validation results.
+// Gets validation results.
 marubatsu()
   .string({ length: [4, 20], startsWith: "@" })
   .validate("@a");
 // {
 //   isPassed: false,
-//   errors: [
+//   error: [
 //     {
-//       rule: "string-length",
+//       ruleName: "string-length",
 //       expected: [4, 20],
-//       messages: "The value must be at least 4 and no more than 20 characters.",
+//       message: "The value should be between 4 and 20 characters in length, but @a.",
 //     },
 //   ],
 // }
 
 
-// Customize validation messages.
+// Customizes validation messages.
 marubatsu({
   subject: "username",
   rules: {
     "string-length": {
-      failedMessage: (value, subject, expected) => `The ${subject} is invalid`,
+      failedMessage: (subject, actual, expected) => `The ${subject} is invalid`,
     },
   },
 })
@@ -179,21 +177,21 @@ marubatsu({
   .validate("@a");
 // {
 //   isPassed: false,
-//   errors: [
+//   error: [
 //     {
-//       rule: "string-length",
+//       ruleName: "string-length",
 //       expected: [4, 20],
-//       messages: "The username is invalid.",
+//       message: "The username is invalid.",
 //     },
 //   ],
 // }
 
-// Create your rules.
+// Creates your rules.
 marubatsu({
   rules: {
     "string-email": {
       checker: (value, tld) => new RegExp(`/^.+@.+\\.${tld}$/`).test(value),
-      failedMessage: (value, subject, expected) => `The ${value} is invalid email address format`,
+      failedMessage: (subject, actual, expected) => `The ${actual} is invalid email address format`,
     },
   },
 })
@@ -216,26 +214,26 @@ marubatsu().string({ length: 3 }).test("1234"); // false
 ```
 
 ### `validate(value: any)`
-Returns failed rules and error messages. To get all error messages, should configure `checkAll` option.
+Returns a failed rule and its error message.
 
 - `value: any` ... The target value
 
 ```ts
-marubatsu().string({ length: [4, 20], startsWith: "@" }).validate("abc");
+const validator = marubatsu().string({ length: [4, 20], startsWith: "@" });
+
+validator.validate("abcde");
 // {
 //   isPassed: false,
-//   errors: [
-//     {
-//       rule: "string-length",
-//       expected: [4, 20],
-//       messages: "The value must be at least 4 and no more than 20 characters.",
-//     },
-//     {
-//       rule: "string-startsWith",
-//       expected: "@",
-//       messages: "The value must be starting with \"@\"",
-//     },
-//   ],
+//   error: {
+//     ruleName: "string-length",
+//     expected: [4, 20],
+//     message: "The value should be between 4 and 20 characters in length, but abc.",
+//   },
+// }
+
+validator.validate("@abcde");
+// {
+//   isPassed: true,
 // }
 ```
 
@@ -344,7 +342,7 @@ validator.test("1234"); // false
 ```
 
 #### `maximumLength: number`
-Checks the string length is not more than a specific length.
+Checks the string length is no more than a specific length.
 
 ```ts
 const validator = marubatsu().string({ maximumLength: 3 });
@@ -355,7 +353,7 @@ validator.test("1234"); // false
 ```
 
 #### `minimumLength: number`
-Checks the string length is not less than a specific length.
+Checks the string length is no less than a specific length.
 
 ```ts
 const validator = marubatsu().string({ minimumLength: 3 });
@@ -590,21 +588,6 @@ validator.test(1234); // true
 ```
 
 
-## Options
-```ts
-marubatsu({ ...options }).present().test("jagaapple");
-```
-
-You can pass options to marubatsu constructor.
-
-#### `checkAll: boolean = false`
-Enables to execute all validations. If you want high-performance, recommended to be `false` .
-
-```ts
-marubatsu({ checkAll: true });
-```
-
-
 ## Receipes
 ### Share validators in your app
 marubatsu does not execute validations until calling some executors.
@@ -646,14 +629,15 @@ validator = validator
   // Be equal to `.string({ length: 3, startsWith: "a" })`
 ```
 
-It is possible to migrate new rules to validator and disable applied rules. To disable applied rules, pass `false` .
+It is possible to migrate new rules to validator and disable applied rules. To disable applied rules, pass `undefined` or
+`null` .
 
 ```ts
 const websiteIdentifierValidator = marubatsu()
-  .string({ length: [4, 255] });
+  .string({ maximumlength: 255, minimumLength: 4 });
 
 const urlValidator = websiteIdentifierValidator
-  .string({ minimumLength: false, startsWith: "https" });
+  .string({ minimumLength: undefined, startsWith: "https" });
   // Disable `minimumLength` and merge `startsWith` rule
 ```
 

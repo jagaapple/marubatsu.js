@@ -1,28 +1,31 @@
 // =============================================================================================================================
-// SRC - OPERATORS - PRESENT
+// SRC - OPERATORS - PRESENT OPERATOR
 // =============================================================================================================================
-import { isBlank } from "@checkers/index";
-import { Validator } from "./shared";
+import { isPresent } from "@checkers/index";
+import { Validators } from "./shared";
 
 const deafultCheckers = {
-  isBlank,
+  isPresent,
 };
 
-export interface Options {}
+export interface Options {
+  present?: unknown; // Defines for messages but not used
+}
 
 type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };
 export const createPresentOperator = (checkers: Partial<DICheckers> = {}) => {
   // tslint:disable:no-shadowed-variable
-  const { isBlank } = { ...deafultCheckers, ...checkers };
+  const { isPresent } = { ...deafultCheckers, ...checkers };
   // tslint:enable:no-shadowed-variable
 
-  return (_: Options = {}) => {
-    const validators: Validator = {
-      type: () => true,
-    };
+  return {
+    name: "present",
+    createValidators: (_: Options = {}) => {
+      const validators: Validators = {};
 
-    validators.present = (value: any) => !isBlank(value);
+      validators.present = isPresent;
 
-    return validators;
+      return validators;
+    },
   };
 };

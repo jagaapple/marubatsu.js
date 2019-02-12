@@ -1,36 +1,36 @@
 // =============================================================================================================================
-// SRC - OPERATORS - EMPTY TEST
+// SRC - OPERATORS - NULLARY OPERATOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { createEmptyOperator } from "./empty";
+import { createNullaryOperator } from "./nullary-operator";
 
-describe("[ Empty ]", function() {
+describe("[ Nullary Operator ]", function() {
   afterEach(function() {
     sinon.restore();
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Type Checking
+  // Name
   // ---------------------------------------------------------------------------------------------------------------------------
-  describe("TYPE CHECKING", function() {
-    it("should return true", function() {
-      const validators = createEmptyOperator()();
+  describe("NAME", function() {
+    it('should be "nullary"', function() {
+      const name = createNullaryOperator().name;
 
-      expect(validators.type(undefined)).to.be.true;
+      expect(name).to.eq("nullary");
     });
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Empty Rule
+  // Nullary Rule
   // ---------------------------------------------------------------------------------------------------------------------------
-  describe("EMPTY RULE", function() {
-    it('should be "isEmpty" checker', function() {
-      const isEmpty = sinon.spy();
-      const validators = createEmptyOperator({ isEmpty })();
+  describe("NULLARY RULE", function() {
+    it('should be "isNullary" checker', function() {
+      const isNullary = sinon.spy();
+      const validators = createNullaryOperator({ isNullary }).createValidators();
 
-      expect(validators.empty).to.eq(isEmpty);
+      expect(validators.nullary).to.eq(isNullary);
     });
   });
 });

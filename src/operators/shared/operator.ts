@@ -1,9 +1,14 @@
 // =============================================================================================================================
 // SRC - OPERATORS - SHARED - OPERATOR
 // =============================================================================================================================
-export type ValidationExecutor = ((value: any) => boolean);
-export interface Validator {
-  type: ValidationExecutor;
+import { CheckResult } from "@checkers/index";
+
+export type ValidationExecutor = ((value: any) => CheckResult<any>);
+export interface Validators {
   [name: string]: ValidationExecutor;
 }
-export type Operator = ((...args: any) => Validator);
+
+export interface Operator {
+  name: string;
+  createValidators: ((...args: any) => Validators);
+}

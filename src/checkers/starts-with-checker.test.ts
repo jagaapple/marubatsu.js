@@ -6,167 +6,243 @@ import { expect } from "chai";
 import { startsWith } from "./starts-with-checker";
 
 describe("[ Starts With Checker ]", function() {
-  context("when a target value is undefined,", function() {
-    it("should return false", function() {
-      expect(startsWith(undefined, "und")).to.be.false;
-      expect(startsWith(undefined, "nul")).to.be.false;
-      expect(startsWith(undefined, "123")).to.be.false;
-    });
-
-    context("an expected value is an empty string,", function() {
-      it("should return false", function() {
-        expect(startsWith(undefined, "")).to.be.false;
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Is Passed
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("IS PASSED ::", function() {
+    context("when a target value is undefined,", function() {
+      it("should be false", function() {
+        expect(startsWith(undefined, "und").isPassed).to.be.false;
+        expect(startsWith(undefined, "nul").isPassed).to.be.false;
+        expect(startsWith(undefined, "123").isPassed).to.be.false;
       });
-    });
-  });
 
-  context("when a target value is null,", function() {
-    it("should return false", function() {
-      expect(startsWith(null, "und")).to.be.false;
-      expect(startsWith(null, "nul")).to.be.false;
-      expect(startsWith(null, "123")).to.be.false;
-    });
-
-    context("an expected value is an empty string,", function() {
-      it("should return false", function() {
-        expect(startsWith(null, "")).to.be.false;
-      });
-    });
-  });
-
-  context("when a target value is number,", function() {
-    it("should return false", function() {
-      expect(startsWith(12345, "123")).to.be.false;
-      expect(startsWith(12345, "num")).to.be.false;
-      expect(startsWith(12345, "abc")).to.be.false;
-    });
-  });
-
-  context("when a target value is string,", function() {
-    context("starting with an expected value,", function() {
-      it("should return true", function() {
-        expect(startsWith("12345", "123")).to.be.true;
-        expect(startsWith("abcde", "abc")).to.be.true;
+      context("an expected value is an empty string,", function() {
+        it("should be false", function() {
+          expect(startsWith(undefined, "").isPassed).to.be.false;
+        });
       });
     });
 
-    context("not starting with an expected value,", function() {
-      it("should return false", function() {
-        expect(startsWith("12345", "str")).to.be.false;
-        expect(startsWith("12345", "abc")).to.be.false;
-        expect(startsWith("12345", "345")).to.be.false;
-        expect(startsWith("abcde", "cde")).to.be.false;
+    context("when a target value is null,", function() {
+      it("should be false", function() {
+        expect(startsWith(null, "und").isPassed).to.be.false;
+        expect(startsWith(null, "nul").isPassed).to.be.false;
+        expect(startsWith(null, "123").isPassed).to.be.false;
+      });
+
+      context("an expected value is an empty string,", function() {
+        it("should be false", function() {
+          expect(startsWith(null, "").isPassed).to.be.false;
+        });
       });
     });
 
-    context("an expected value is an empty string,", function() {
-      it("should return true", function() {
-        expect(startsWith("", "")).to.be.true;
-        expect(startsWith("     ", "")).to.be.true;
-        expect(startsWith("12345", "")).to.be.true;
-        expect(startsWith("abcde", "")).to.be.true;
-      });
-    });
-  });
-
-  context("when a target value is boolean,", function() {
-    it("should return false", function() {
-      expect(startsWith(true, "tru")).to.be.false;
-      expect(startsWith(true, "abc")).to.be.false;
-      expect(startsWith(false, "fal")).to.be.false;
-      expect(startsWith(false, "abc")).to.be.false;
-    });
-
-    context("an expected value is an empty string,", function() {
-      it("should return false", function() {
-        expect(startsWith(true, "")).to.be.false;
-        expect(startsWith(false, "")).to.be.false;
-      });
-    });
-  });
-
-  context("when a target value is array,", function() {
-    context("starting with an expected value at the first element,", function() {
-      it("should return true", function() {
-        expect(startsWith([12345, 23456, 34567], "123")).to.be.true;
-        expect(startsWith(["12345", "23456", "34567"], "123")).to.be.true;
-        expect(startsWith(["abcde", "bcdef", "cdefg"], "abc")).to.be.true;
+    context("when a target value is number,", function() {
+      it("should be false", function() {
+        expect(startsWith(12345, "123").isPassed).to.be.false;
+        expect(startsWith(12345, "num").isPassed).to.be.false;
+        expect(startsWith(12345, "abc").isPassed).to.be.false;
       });
     });
 
-    context("not starting with an expected value at the first element,", function() {
-      it("should return false", function() {
-        expect(startsWith([12345, 23456, 34567], "arr")).to.be.false;
-        expect(startsWith([12345, 23456, 34567], "obj")).to.be.false;
-        expect(startsWith([12345, 23456, 34567], "num")).to.be.false;
-        expect(startsWith([12345, 23456, 34567], "345")).to.be.false;
-        expect(startsWith(["12345", "23456", "34567"], "345")).to.be.false;
-        expect(startsWith(["abcde", "bcdef", "cdefg"], "cde")).to.be.false;
+    context("when a target value is string,", function() {
+      context("starting with an expected value,", function() {
+        it("should be true", function() {
+          expect(startsWith("12345", "123").isPassed).to.be.true;
+          expect(startsWith("abcde", "abc").isPassed).to.be.true;
+        });
+      });
+
+      context("not starting with an expected value,", function() {
+        it("should be false", function() {
+          expect(startsWith("12345", "str").isPassed).to.be.false;
+          expect(startsWith("12345", "abc").isPassed).to.be.false;
+          expect(startsWith("12345", "345").isPassed).to.be.false;
+          expect(startsWith("abcde", "cde").isPassed).to.be.false;
+        });
+      });
+
+      context("an expected value is an empty string,", function() {
+        it("should be true", function() {
+          expect(startsWith("", "").isPassed).to.be.true;
+          expect(startsWith("     ", "").isPassed).to.be.true;
+          expect(startsWith("12345", "").isPassed).to.be.true;
+          expect(startsWith("abcde", "").isPassed).to.be.true;
+        });
       });
     });
 
-    context("an expected value is an empty string,", function() {
-      context("the first element is not number or string,", function() {
-        it("should return false", function() {
-          expect(startsWith([undefined, undefined, undefined], "")).to.be.false;
-          expect(startsWith([null, null, null], "")).to.be.false;
-          expect(startsWith([true, true, true], "")).to.be.false;
-          expect(startsWith([false, false, false], "")).to.be.false;
-          expect(startsWith([[], [], []], "")).to.be.false;
-          expect(startsWith([{}, {}, {}], "")).to.be.false;
+    context("when a target value is boolean,", function() {
+      it("should be false", function() {
+        expect(startsWith(true, "tru").isPassed).to.be.false;
+        expect(startsWith(true, "abc").isPassed).to.be.false;
+        expect(startsWith(false, "fal").isPassed).to.be.false;
+        expect(startsWith(false, "abc").isPassed).to.be.false;
+      });
+
+      context("an expected value is an empty string,", function() {
+        it("should be false", function() {
+          expect(startsWith(true, "").isPassed).to.be.false;
+          expect(startsWith(false, "").isPassed).to.be.false;
+        });
+      });
+    });
+
+    context("when a target value is array,", function() {
+      context("the first element is equal to an expected value,", function() {
+        it("should be true", function() {
+          expect(startsWith([12345, 23456, 34567], "12345").isPassed).to.be.true;
+          expect(startsWith(["12345", "23456", "34567"], "12345").isPassed).to.be.true;
+          expect(startsWith(["abcde", "bcdef", "cdefg"], "abcde").isPassed).to.be.true;
+        });
+      });
+
+      context("the first element is not equal to an expected value,", function() {
+        it("should be false", function() {
+          expect(startsWith([12345, 23456, 34567], "123").isPassed).to.be.false;
+          expect(startsWith([12345, 23456, 34567], "arr").isPassed).to.be.false;
+          expect(startsWith([12345, 23456, 34567], "obj").isPassed).to.be.false;
+          expect(startsWith([12345, 23456, 34567], "num").isPassed).to.be.false;
+          expect(startsWith([12345, 23456, 34567], "345").isPassed).to.be.false;
+          expect(startsWith(["12345", "23456", "34567"], "123").isPassed).to.be.false;
+          expect(startsWith(["12345", "23456", "34567"], "345").isPassed).to.be.false;
+          expect(startsWith(["abcde", "bcdef", "cdefg"], "abc").isPassed).to.be.false;
+          expect(startsWith(["abcde", "bcdef", "cdefg"], "cde").isPassed).to.be.false;
+        });
+      });
+
+      context("an expected value is an empty string,", function() {
+        it("should be false", function() {
+          expect(startsWith([undefined, undefined, undefined], "").isPassed).to.be.false;
+          expect(startsWith([null, null, null], "").isPassed).to.be.false;
+          expect(startsWith([12345, 23456, 34567], "").isPassed).to.be.false;
+          expect(startsWith(["12345", "23456", "34567"], "").isPassed).to.be.false;
+          expect(startsWith([true, true, true], "").isPassed).to.be.false;
+          expect(startsWith([false, false, false], "").isPassed).to.be.false;
+          expect(startsWith([[], [], []], "").isPassed).to.be.false;
+          expect(startsWith([{}, {}, {}], "").isPassed).to.be.false;
 
           const func = () => true;
-          expect(startsWith([func, func, func], "")).to.be.false;
+          expect(startsWith([func, func, func], "").isPassed).to.be.false;
         });
       });
+    });
 
-      context("the first element is number or string,", function() {
-        it("should return true", function() {
-          expect(startsWith([12345, 23456, 34567], "")).to.be.true;
-          expect(startsWith(["12345", "23456", "34567"], "")).to.be.true;
+    context("when a target value is object (pure object/hash/dictionary),", function() {
+      it("should be false", function() {
+        expect(startsWith({}, "obj").isPassed).to.be.false;
+        expect(startsWith({ abcde: undefined }, "und").isPassed).to.be.false;
+        expect(startsWith({ abcde: undefined }, "abc").isPassed).to.be.false;
+        expect(startsWith({ abcde: null }, "nul").isPassed).to.be.false;
+        expect(startsWith({ abcde: 12345 }, "123").isPassed).to.be.false;
+        expect(startsWith({ abcde: true }, "tru").isPassed).to.be.false;
+        expect(startsWith({ abcde: false }, "fals").isPassed).to.be.false;
+        expect(startsWith({ abcde: [] }, "arr").isPassed).to.be.false;
+        expect(startsWith({ abcde: {} }, "obj").isPassed).to.be.false;
+      });
+
+      context("an expected value is an empty string,", function() {
+        it("should be false", function() {
+          expect(startsWith({}, "").isPassed).to.be.false;
+          expect(startsWith({ abcde: undefined }, "").isPassed).to.be.false;
+          expect(startsWith({ abcde: null }, "").isPassed).to.be.false;
+          expect(startsWith({ abcde: 12345 }, "").isPassed).to.be.false;
+          expect(startsWith({ abcde: true }, "").isPassed).to.be.false;
+          expect(startsWith({ abcde: false }, "").isPassed).to.be.false;
+          expect(startsWith({ abcde: [] }, "").isPassed).to.be.false;
+          expect(startsWith({ abcde: {} }, "").isPassed).to.be.false;
+        });
+      });
+    });
+
+    context("when a target value is function,", function() {
+      const func = () => true;
+
+      it("should be false", function() {
+        expect(startsWith(func, "fun").isPassed).to.be.false;
+        expect(startsWith(func, "obj").isPassed).to.be.false;
+      });
+
+      context("an expected value is an empty string,", function() {
+        it("should be false", function() {
+          expect(startsWith(func, "").isPassed).to.be.false;
         });
       });
     });
   });
 
-  context("when a target value is object (pure object/hash/dictionary),", function() {
-    it("should return false", function() {
-      expect(startsWith({}, "obj")).to.be.false;
-      expect(startsWith({ abcde: undefined }, "und")).to.be.false;
-      expect(startsWith({ abcde: undefined }, "abc")).to.be.false;
-      expect(startsWith({ abcde: null }, "nul")).to.be.false;
-      expect(startsWith({ abcde: 12345 }, "123")).to.be.false;
-      expect(startsWith({ abcde: true }, "tru")).to.be.false;
-      expect(startsWith({ abcde: false }, "fals")).to.be.false;
-      expect(startsWith({ abcde: [] }, "arr")).to.be.false;
-      expect(startsWith({ abcde: {} }, "obj")).to.be.false;
-    });
-
-    context("an expected value is an empty string,", function() {
-      it("should return false", function() {
-        expect(startsWith({}, "")).to.be.false;
-        expect(startsWith({ abcde: undefined }, "")).to.be.false;
-        expect(startsWith({ abcde: null }, "")).to.be.false;
-        expect(startsWith({ abcde: 12345 }, "")).to.be.false;
-        expect(startsWith({ abcde: true }, "")).to.be.false;
-        expect(startsWith({ abcde: false }, "")).to.be.false;
-        expect(startsWith({ abcde: [] }, "")).to.be.false;
-        expect(startsWith({ abcde: {} }, "")).to.be.false;
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Expected
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("EXPECTED ::", function() {
+    it("should be an expected value", function() {
+      ["abc", "def", "123", "456"].forEach((expectedValue: string) => {
+        expect(startsWith(expectedValue, expectedValue).expected).to.eq(expectedValue);
       });
     });
   });
 
-  context("when a target value is function,", function() {
-    const func = () => true;
-
-    it("should return false", function() {
-      expect(startsWith(func, "fun")).to.be.false;
-      expect(startsWith(func, "obj")).to.be.false;
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Actual
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("ACTUAL ::", function() {
+    context("when a target value is undefined,", function() {
+      it("should be undefined", function() {
+        expect(startsWith(undefined, "und").actual).to.be.undefined;
+      });
     });
 
-    context("an expected value is an empty string,", function() {
-      it("should return false", function() {
-        expect(startsWith(func, "")).to.be.false;
+    context("when a target value is null,", function() {
+      it("should be null", function() {
+        expect(startsWith(null, "nul").actual).to.be.null;
+      });
+    });
+
+    context("when a target value is number,", function() {
+      const value = 12345;
+
+      it("should be the number", function() {
+        expect(startsWith(value, "123").actual).to.eq(value);
+      });
+    });
+
+    context("when a target value is string,", function() {
+      const value = "abcde";
+
+      it("should be the string", function() {
+        expect(startsWith(value, "abc").actual).to.eq(value);
+      });
+    });
+
+    context("when a target value is boolean,", function() {
+      it("should be the boolean", function() {
+        expect(startsWith(true, "tru").actual).to.be.true;
+        expect(startsWith(false, "fal").actual).to.be.false;
+      });
+    });
+
+    context("when a target value is array,", function() {
+      it("should be the first element", function() {
+        expect(startsWith([12345, 23456, 34567], "123").actual).to.eq(12345);
+        expect(startsWith(["12345", "23456", "34567"], "123").actual).to.eq("12345");
+        expect(startsWith([true, false], "false").actual).to.be.true;
+      });
+    });
+
+    context("when a target value is object (pure object/hash/dictionary),", function() {
+      it("should be the target value", function() {
+        [{}, { a: true }].forEach((value: any) => {
+          expect(startsWith(value, "obj").actual).to.eq(value);
+        });
+      });
+    });
+
+    context("when a target value is function,", function() {
+      const func = () => true;
+
+      it("should be the target value", function() {
+        expect(startsWith(func, "fun").actual).to.eq(func);
       });
     });
   });

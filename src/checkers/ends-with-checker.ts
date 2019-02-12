@@ -1,29 +1,37 @@
 // =============================================================================================================================
 // SRC - CHECKERS - ENDS WITH CHECKER
 // =============================================================================================================================
-export const endsWith = (value: any, expectedValue: string) => {
-  if (value == undefined) return false;
+import { CheckResult } from "./shared";
 
-  let stringValue: string = "";
+type Result = CheckResult<string>;
+export const endsWith = (value: any, expectedValue: string): Result => {
+  const result: Result = {
+    isPassed: false,
+    expected: expectedValue,
+    actual: value,
+  };
+
+  if (value == undefined) return result;
 
   switch (typeof value) {
     case "string":
-      stringValue = value;
+      result.isPassed = value.endsWith(expectedValue);
+      result.actual = value;
 
-      break;
+      return result;
     case "object": {
-      if (!Array.isArray(value)) return false;
+      if (!Array.isArray(value)) return result;
 
       const lastElement = value[value.length - 1];
-      if (typeof lastElement !== "number" && typeof lastElement !== "string") return false;
+      result.actual = lastElement;
+      if (typeof lastElement !== "number" && typeof lastElement !== "string") return result;
 
-      stringValue = lastElement.toString();
+      const stringValue = lastElement.toString();
+      result.isPassed = stringValue === expectedValue;
 
-      break;
+      return result;
     }
     default:
-      return false;
+      return result;
   }
-
-  return stringValue.endsWith(expectedValue);
 };

@@ -1,9 +1,17 @@
 // =============================================================================================================================
 // SRC - CHECKERS - ALPHANUMERIC CHECKER
 // =============================================================================================================================
-export const isAlphanumeric = (value: any) => {
-  let stringValue: string = "";
+import { CheckResult } from "./shared";
 
+type Result = CheckResult<"alphanumeric">;
+export const isAlphanumeric = (value: any): Result => {
+  const result: Result = {
+    isPassed: false,
+    expected: "alphanumeric",
+    actual: value,
+  };
+
+  let stringValue: string = "";
   switch (typeof value) {
     case "number":
       stringValue = value.toString();
@@ -14,8 +22,11 @@ export const isAlphanumeric = (value: any) => {
 
       break;
     default:
-      return false;
+      return result;
   }
 
-  return /^[0-9a-zA-z]*$/.test(stringValue);
+  result.isPassed = /^[0-9a-zA-z]*$/.test(stringValue);
+  result.actual = stringValue;
+
+  return result;
 };

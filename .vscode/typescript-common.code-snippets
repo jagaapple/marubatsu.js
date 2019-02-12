@@ -14,10 +14,15 @@
     "scope": "typescript",
     "body": ["import { $2 } from \"@checkers/${1:index}\";"]
   },
-  "Import modules from @rules": {
-    "prefix": "import rules",
+  "Import modules from @executors": {
+    "prefix": "import executors",
     "scope": "typescript",
-    "body": ["import { $2 } from \"@rules/${1:index}\";"]
+    "body": ["import { $2 } from \"@executors/${1:index}\";"]
+  },
+  "Import modules from @operators": {
+    "prefix": "import operators",
+    "scope": "typescript",
+    "body": ["import { $2 } from \"@operators/${1:index}\";"]
   },
   "Insert variables comment": {
     "prefix": "comment variables",

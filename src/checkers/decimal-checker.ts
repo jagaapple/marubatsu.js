@@ -1,11 +1,22 @@
 // =============================================================================================================================
 // SRC - CHECKERS - DECIMAL CHECKER
 // =============================================================================================================================
-export const isDecimal = (value: any) => {
-  if (typeof value !== "number") return false;
+import { CheckResult } from "./shared";
 
-  if (value === Number.POSITIVE_INFINITY) return false;
-  if (value === Number.NEGATIVE_INFINITY) return false;
+type Result = CheckResult<"decimal">;
+export const isDecimal = (value: any): Result => {
+  const result: Result = {
+    isPassed: false,
+    expected: "decimal",
+    actual: value,
+  };
 
-  return ~~value !== value;
+  if (typeof value !== "number") return result;
+
+  if (value === Number.POSITIVE_INFINITY) return result;
+  if (value === Number.NEGATIVE_INFINITY) return result;
+
+  result.isPassed = ~~value !== value;
+
+  return result;
 };

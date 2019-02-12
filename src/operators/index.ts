@@ -1,20 +1,37 @@
 // =============================================================================================================================
 // SRC - OPERATORS - INDEX
 // =============================================================================================================================
-export { Operator, ValidationExecutor, Validator } from "./shared";
+export { ErrorMessageCreator, ErrorMessageCreators, Operator, ValidationExecutor, Validators } from "./shared";
 
-import { createBlankOperator } from "./blank";
-import { createEmptyOperator } from "./empty";
-import { createNullaryOperator } from "./nullary";
-import { createNumberOperator } from "./number";
-import { createPresentOperator } from "./present";
-import { createStringOperator } from "./string";
+import { createBlankOperator } from "./blank-operator";
+import { createEmptyOperator } from "./empty-operator";
+import { createNullaryOperator } from "./nullary-operator";
+import { createNumberOperator } from "./number-operator";
+import { createPresentOperator } from "./present-operator";
+import { createStringOperator } from "./string-operator";
 
-export const builtInOperators = {
+export const builtInOperatorCreators = {
   blank: createBlankOperator(),
   empty: createEmptyOperator(),
   nullary: createNullaryOperator(),
   number: createNumberOperator(),
   present: createPresentOperator(),
   string: createStringOperator(),
+};
+
+import { ErrorMessageCreators } from "./shared";
+import { errorMessageCreators as blankErrorMessageCreators } from "./blank-messages";
+import { errorMessageCreators as emptyErrorMessageCreators } from "./empty-messages";
+import { errorMessageCreators as nullaryErrorMessageCreators } from "./nullary-messages";
+import { errorMessageCreators as presentErrorMessageCreators } from "./present-messages";
+import { errorMessageCreators as stringErrorMessageCreators } from "./string-messages";
+
+export const builtInOperatorMessageCreators: {
+  [K in keyof typeof builtInOperatorCreators]?: { error: ErrorMessageCreators<any> }
+} = {
+  blank: { error: blankErrorMessageCreators },
+  empty: { error: emptyErrorMessageCreators },
+  nullary: { error: nullaryErrorMessageCreators },
+  present: { error: presentErrorMessageCreators },
+  string: { error: stringErrorMessageCreators },
 };
