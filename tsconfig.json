@@ -18,6 +18,7 @@
       "@shared/*": ["./src/shared/*"],
       "@checkers/*": ["./src/checkers/*"],
       "@executors/*": ["./src/executors/*"],
+      "@modifiers/*": ["./src/modifiers/*"],
       "@operators/*": ["./src/operators/*"]
     },
     "rootDir": "./src",
