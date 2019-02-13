@@ -34,11 +34,11 @@ describe("[ Validate Executor ]", function() {
       });
 
       it("should be true", function() {
-        expect(validate(operatorName, validators, targetValue).isPassed).to.be.true;
+        expect(validate(targetValue, operatorName, validators).isPassed).to.be.true;
       });
 
       it("should call all validation executors", function() {
-        validate(operatorName, validators, targetValue);
+        validate(targetValue, operatorName, validators);
 
         expect(validatorExecutor1.calledOnceWith(targetValue)).to.be.true;
         expect(validatorExecutor2.calledOnceWith(targetValue)).to.be.true;
@@ -56,11 +56,11 @@ describe("[ Validate Executor ]", function() {
       });
 
       it("should be false", function() {
-        expect(validate(operatorName, validators, targetValue).isPassed).to.be.false;
+        expect(validate(targetValue, operatorName, validators).isPassed).to.be.false;
       });
 
       it("should stop to call validation executors when an executor returns false", function() {
-        validate(operatorName, validators, targetValue);
+        validate(targetValue, operatorName, validators);
 
         expect(validatorExecutor1.calledOnceWith(targetValue)).to.be.true;
         expect(validatorExecutor2.calledOnceWith(targetValue)).to.be.true;
@@ -87,7 +87,7 @@ describe("[ Validate Executor ]", function() {
       });
 
       it("should be undefined", function() {
-        const error = validate(operatorName, validators, targetValue).error;
+        const error = validate(targetValue, operatorName, validators).error;
 
         expect(error).to.be.undefined;
       });
@@ -111,13 +111,13 @@ describe("[ Validate Executor ]", function() {
       });
 
       example('"ruleName" property of an error object should be the format <OPERATOR_NAME>-<RULE_NAME>', function() {
-        const error = validate(operatorName, validators, targetValue).error!;
+        const error = validate(targetValue, operatorName, validators).error!;
 
         expect(error.ruleName).to.be.eq(`${operatorName}-${Object.keys(validators)[1]}`);
       });
 
       example('"expected" property of an error object should be "expected" property of the rule throws an error', function() {
-        const error = validate(operatorName, validators, targetValue).error!;
+        const error = validate(targetValue, operatorName, validators).error!;
 
         expect(error.expected).to.be.eq(validatorExecutor2Result.expected);
       });
@@ -128,7 +128,7 @@ describe("[ Validate Executor ]", function() {
         context("the subject is set,", function() {
           example('"message" property of an error object should be an error message created by creators', function() {
             const subject = "dummy subject";
-            const error = validate(operatorName, validators, targetValue, errorMessageCreators, subject).error!;
+            const error = validate(targetValue, operatorName, validators, errorMessageCreators, subject).error!;
 
             expect(error.message).to.have.string("This is dummy message.");
             expect(error.message).to.have.string(`The ${subject} should be ${result.actual}, but ${result.expected}.`);
@@ -137,7 +137,7 @@ describe("[ Validate Executor ]", function() {
 
         context("the subject is not set,", function() {
           example('the subject of "message" property should be "value"', function() {
-            const error = validate(operatorName, validators, targetValue, errorMessageCreators).error!;
+            const error = validate(targetValue, operatorName, validators, errorMessageCreators).error!;
 
             expect(error.message).to.have.string(`The value should be ${result.actual}, but ${result.expected}.`);
           });
@@ -146,7 +146,7 @@ describe("[ Validate Executor ]", function() {
 
       context("error message creators does not include the same rule name property,", function() {
         example('"message" property of an error object should be the default error message', function() {
-          const error = validate(operatorName, validators, targetValue).error!;
+          const error = validate(targetValue, operatorName, validators).error!;
 
           expect(error.message).to.eq("The error message is not set yet.");
         });

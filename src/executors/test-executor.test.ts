@@ -27,11 +27,11 @@ describe("[ Test Executor ]", function() {
     });
 
     it("should return true", function() {
-      expect(test(validators, targetValue)).to.be.true;
+      expect(test(targetValue, validators)).to.be.true;
     });
 
     it("should call all validation executors", function() {
-      test(validators, targetValue);
+      test(targetValue, validators);
 
       expect(validatorExecutor1.calledOnceWith(targetValue)).to.be.true;
       expect(validatorExecutor2.calledOnceWith(targetValue)).to.be.true;
@@ -53,11 +53,11 @@ describe("[ Test Executor ]", function() {
     });
 
     it("should return false", function() {
-      expect(test(validators, targetValue)).to.be.false;
+      expect(test(targetValue, validators)).to.be.false;
     });
 
     it("should stop to call validation executors when an executor returns false", function() {
-      test(validators, targetValue);
+      test(targetValue, validators);
 
       expect(validatorExecutor1.calledOnceWith(targetValue)).to.be.true;
       expect(validatorExecutor2.calledOnceWith(targetValue)).to.be.true;

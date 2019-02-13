@@ -72,7 +72,7 @@ describe("[ Kernel ]", function() {
 
       instance.test(targetValue);
 
-      expect(stub.calledWith(validators, targetValue)).to.be.true;
+      expect(stub.calledWith(targetValue, validators)).to.be.true;
     });
 
     context('when all "test" executors return true,', function() {
@@ -161,7 +161,7 @@ describe("[ Kernel ]", function() {
 
         instance.validate(123);
 
-        expect(stub.calledWith(operatorName, validators, targetValue, operatorMessageCreators[operatorName].error)).to.be.true;
+        expect(stub.calledWith(targetValue, operatorName, validators, operatorMessageCreators[operatorName].error)).to.be.true;
       });
     });
 
@@ -185,7 +185,7 @@ describe("[ Kernel ]", function() {
 
         instance.validate(123);
 
-        expect(stub.calledWith(operatorName, validators, targetValue, undefined)).to.be.true;
+        expect(stub.calledWith(targetValue, operatorName, validators, undefined)).to.be.true;
       });
     });
 

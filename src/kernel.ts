@@ -21,7 +21,7 @@ export class Kernel {
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   test<T>(value: T) {
-    return Object.values(this.validatorsByOperatorName).every((validators: Validators) => testExecutor(validators, value));
+    return Object.values(this.validatorsByOperatorName).every((validators: Validators) => testExecutor(value, validators));
   }
 
   validate<T>(value: T): ValidationResult {
@@ -34,7 +34,7 @@ export class Kernel {
       const messageCreators = builtInOperatorMessageCreators[operatorName as keyof typeof builtInOperatorCreators];
       const errorMessageCreators = messageCreators && messageCreators.error;
 
-      const validatedResult = validateExecutor(operatorName, validators, value, errorMessageCreators);
+      const validatedResult = validateExecutor(value, operatorName, validators, errorMessageCreators);
       if (!validatedResult.isPassed) {
         result = validatedResult;
       }
