@@ -1,11 +1,11 @@
 // =============================================================================================================================
-// SRC - EXECUTORS - TEST TEST
+// SRC - EXECUTORS - TEST EXECUTOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Validators } from "@operators/index";
-import { test } from "./test";
+import { test } from "./test-executor";
 
 describe("[ Test Executor ]", function() {
   const targetValue = 123;

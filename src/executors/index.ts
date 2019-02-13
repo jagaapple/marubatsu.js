@@ -1,5 +1,5 @@
 // =============================================================================================================================
 // SRC - EXECUTORS - INDEX
 // =============================================================================================================================
-export { test } from "./test";
-export { validate, ValidationResult } from "./validate";
+export { test } from "./test-executor";
+export { validate, ValidationResult } from "./validate-executor";

@@ -1,11 +1,11 @@
 // =============================================================================================================================
-// SRC - EXECUTORS - VALIDATE TEST
+// SRC - EXECUTORS - VALIDATE EXECUTOR TEST
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { ErrorMessageCreators, Validators } from "@operators/index";
-import { validate } from "./validate";
+import { validate } from "./validate-executor";
 
 describe("[ Validate Executor ]", function() {
   const example = it;
