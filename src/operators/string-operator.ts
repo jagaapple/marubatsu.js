@@ -28,6 +28,7 @@ const deafultCheckers = {
   isKebabCase,
   isSnakeCase,
   isSpaceCase,
+  isType,
   isWithinLengthRange,
   checkToStartsWith,
   checkToEndsWith,
@@ -48,7 +49,7 @@ export type AlphanumericOptionCaseType =
   | "upper-dot";
 
 export interface Options {
-  type?: unknown; // Defines for messages but not used
+  type?: boolean;
   value?: string;
   length?: number | [number, number];
   maximumLength?: number;
@@ -72,6 +73,7 @@ export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
     isKebabCase,
     isSnakeCase,
     isSpaceCase,
+    isType,
     isWithinLengthRange,
     checkToStartsWith,
     checkToEndsWith,
@@ -86,9 +88,12 @@ export const createStringOperator = (checkers: Partial<DICheckers> = {}) => {
   return {
     name: "string",
     createValidators: (options: Options = {}) => {
-      const validators: Validators = {
-        type: (value: any) => isType(value, "string"),
-      };
+      const validators: Validators = {};
+
+      const type = options.type;
+      if (type) {
+        validators.type = (value: any) => isType(value, "string");
+      }
 
       const val = options.value;
       if (val != undefined) {

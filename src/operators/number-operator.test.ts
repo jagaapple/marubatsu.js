@@ -25,15 +25,16 @@ describe("[ Number Operator ]", function() {
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Type Checking
+  // Type Rule
   // ---------------------------------------------------------------------------------------------------------------------------
-  describe("TYPE CHECKING", function() {
-    it("should check a target value is number", function() {
-      const validators = createNumberOperator().createValidators();
+  describe("TYPE RULE", function() {
+    it('should call "isType" checker,', function() {
+      const isType = sinon.spy();
+      const validators = createNumberOperator({ isType }).createValidators({ type: true });
 
-      allTypeValues.forEach((value: any) => {
-        expect(validators.type(value).isPassed).to.eq(typeof value === "number");
-      });
+      validators.type(targetValue);
+
+      expect(isType.calledOnceWith(targetValue, "number")).to.be.true;
     });
   });
 

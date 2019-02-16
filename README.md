@@ -50,6 +50,7 @@ const isValidWebsite = marubatsu()
   - [`blank()`](#blank)
   - [`present()`](#present)
   - [`string(rules: { [ruleName]: any } = {})`](#stringrules--rulename-any---)
+    - [`type: boolean`](#type-boolean)
     - [`value: string`](#value-string)
     - [`length: number`](#length-number)
     - [`length: [number, number]`](#length-number-number)
@@ -62,6 +63,7 @@ const isValidWebsite = marubatsu()
     - [`includes: string`](#includes-string)
     - [`pattern: RegExp`](#pattern-regexp)
   - [`number(rules: { [ruleName]: any } = {})`](#numberrules--rulename-any---)
+    - [`type: boolean`](#type-boolean-1)
     - [`value: number`](#value-number)
     - [`value: [number, number]`](#value-number-number)
     - [`maximumValue: number`](#maximumvalue-number)
@@ -299,10 +301,13 @@ Checks the value is NOT `null` , `undefined` , an empty string, a string includi
 (pure object/hash/dictionary), or `false` . This operator is equal to `not.blank()`
 
 ### `string(rules: { [ruleName]: any } = {})`
-Checks the value is string type and conforms rules related to string.
+Checks the value conforms rules related to string.
+
+#### `type: boolean`
+Checks the value is string type.
 
 ```ts
-const validator = marubatsu().string();
+const validator = marubatsu().string({ type: true });
 
 validator.test("ok"); // true
 validator.test(123);  // false
@@ -447,10 +452,13 @@ validator.test("example.com");         // false
 ```
 
 ### `number(rules: { [ruleName]: any } = {})`
-Checks the value is string type and conforms rules realted to number.
+Checks the value conforms rules realted to number.
+
+#### `type: boolean`
+Checks the value is string type.
 
 ```ts
-const validator = marubatsu().number();
+const validator = marubatsu().number({ type: true });
 
 validator.test(123);  // true
 validator.test("ok"); // false

@@ -25,15 +25,16 @@ describe("[ String Operator ]", function() {
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Type Checking
+  // Type Rule
   // ---------------------------------------------------------------------------------------------------------------------------
-  describe("TYPE CHECKING", function() {
-    it("should check a target value is string", function() {
-      const validators = createStringOperator().createValidators();
+  describe("TYPE RULE", function() {
+    it('should call "isType" checker,', function() {
+      const isType = sinon.spy();
+      const validators = createStringOperator({ isType }).createValidators({ type: true });
 
-      allTypeValues.forEach((value: any) => {
-        expect(validators.type(value).isPassed).to.eq(typeof value === "string");
-      });
+      validators.type(targetValue);
+
+      expect(isType.calledOnceWith(targetValue, "string")).to.be.true;
     });
   });
 

@@ -27,7 +27,7 @@ const deafultCheckers = {
 };
 
 export interface Options {
-  type?: unknown; // Defines for messages but not used
+  type?: boolean;
   value?: number | [number, number];
   maximumValue?: number;
   minimumValue?: number;
@@ -62,9 +62,12 @@ export const createNumberOperator = (checkers: Partial<DICheckers> = {}) => {
   return {
     name: "number",
     createValidators: (options: Options = {}) => {
-      const validators: Validators = {
-        type: (value: any) => isType(value, "number"),
-      };
+      const validators: Validators = {};
+
+      const type = options.type;
+      if (type) {
+        validators.type = (value: any) => isType(value, "number");
+      }
 
       const val = options.value;
       if (val != undefined) {
