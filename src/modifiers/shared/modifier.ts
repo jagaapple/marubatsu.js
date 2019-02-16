@@ -1,4 +1,6 @@
 // =============================================================================================================================
 // SRC - MODIFIERS - SHARED - MODIFIER
 // =============================================================================================================================
-export type Modifier = (value: any, isPassed: boolean) => boolean;
+import { CheckResult } from "@checkers/index";
+
+export type Modifier = <T>(checkResult: CheckResult<T>) => CheckResult<T>;
