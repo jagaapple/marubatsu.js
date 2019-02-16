@@ -13,6 +13,19 @@ describe("[ String Messages ]", function() {
     const dummySubject = "NUMBER";
     const dummyActual = 123;
 
+    describe("TYPE ::", function() {
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should be number" word', function() {
+          expect(errorMessageCreators.type(dummySubject, dummyActual, undefined)).to.have.string("should be number");
+        });
+      });
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not be number" word', function() {
+          expect(errorMessageCreators.type(dummySubject, dummyActual, undefined, "not")).to.have.string("should not be number");
+        });
+      });
+    });
+
     describe("VALUE ::", function() {
       context("an expected value is number,", function() {
         it('should have "should be <EXPECTED>" word', function() {

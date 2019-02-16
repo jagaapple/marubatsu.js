@@ -6,6 +6,11 @@ import { ErrorMessageCreators, getAdverb } from "./shared";
 import { AlphanumericOptionCaseType, Options as OperatorOptions } from "./string-operator";
 
 export const errorMessageCreators: ErrorMessageCreators<OperatorOptions> = {
+  type: (subject: string, actual: any, _: unknown, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}be string, but "${actual}".`;
+  },
   value: (subject: string, actual: any, expected: string, modifierType?: ModifierType) => {
     const adverb = getAdverb(modifierType);
 

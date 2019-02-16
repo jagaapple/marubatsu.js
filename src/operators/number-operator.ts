@@ -27,6 +27,7 @@ const deafultCheckers = {
 };
 
 export interface Options {
+  type?: unknown; // Defines for messages but not used
   value?: number | [number, number];
   maximumValue?: number;
   minimumValue?: number;

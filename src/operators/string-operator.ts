@@ -48,6 +48,7 @@ export type AlphanumericOptionCaseType =
   | "upper-dot";
 
 export interface Options {
+  type?: unknown; // Defines for messages but not used
   value?: string;
   length?: number | [number, number];
   maximumLength?: number;

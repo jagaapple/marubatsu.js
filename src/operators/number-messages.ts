@@ -6,6 +6,11 @@ import { ErrorMessageCreators, getAdverb } from "./shared";
 import { Options as OperatorOptions } from "./number-operator";
 
 export const errorMessageCreators: ErrorMessageCreators<OperatorOptions> = {
+  type: (subject: string, actual: any, _: unknown, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}be number, but "${actual}".`;
+  },
   value: (subject: string, actual: any, expected: number | [number, number], modifierType?: ModifierType) => {
     const adverb = getAdverb(modifierType);
 
