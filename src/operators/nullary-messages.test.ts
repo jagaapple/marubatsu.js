@@ -15,15 +15,13 @@ describe("[ Nullary Messages ]", function() {
     describe("NULLARY ::", function() {
       context('when "modifierType" is undefined,', function() {
         it('should have "should be null or undefined" word', function() {
-          expect(errorMessageCreators.nullary(dummySubject, undefined, undefined)).to.have.string(
-            "should be null or undefined",
-          );
+          expect(errorMessageCreators.type(dummySubject, undefined, undefined)).to.have.string("should be null or undefined");
         });
       });
 
       context('when "modifierType" is "not",', function() {
         it('should have "should not be null or undefined" word', function() {
-          expect(errorMessageCreators.nullary(dummySubject, undefined, undefined, "not")).to.have.string(
+          expect(errorMessageCreators.type(dummySubject, undefined, undefined, "not")).to.have.string(
             "should not be null or undefined",
           );
         });

@@ -15,13 +15,13 @@ describe("[ Blank Messages ]", function() {
     describe("BLANK ::", function() {
       context('when "modifierType" is undefined,', function() {
         it('should have "should be blank" word', function() {
-          expect(errorMessageCreators.blank(dummySubject, undefined, undefined)).to.have.string("should be blank");
+          expect(errorMessageCreators.type(dummySubject, undefined, undefined)).to.have.string("should be blank");
         });
       });
 
       context('when "modifierType" is "not",', function() {
         it('should have "should not be blank" word', function() {
-          expect(errorMessageCreators.blank(dummySubject, undefined, undefined, "not")).to.have.string("should not be blank");
+          expect(errorMessageCreators.type(dummySubject, undefined, undefined, "not")).to.have.string("should not be blank");
         });
       });
     });
