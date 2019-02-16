@@ -2,6 +2,7 @@
 // SRC - PROXY
 // =============================================================================================================================
 import { builtInOperatorCreators, Operator } from "@operators/index";
+import { builtInModifiers, Modifier } from "@modifiers/index";
 
 export const createProxyKernel = <T extends object>(kernel: T) => {
   type ExecutorWithBuiltInRules = T &
@@ -10,7 +11,8 @@ export const createProxyKernel = <T extends object>(kernel: T) => {
         // tslint:disable-next-line:trailing-comma
         ...parameters: Parameters<(typeof builtInOperatorCreators)[K]["createValidators"]>
       ) => ExecutorWithBuiltInRules
-    };
+    } &
+    { [K in keyof typeof builtInModifiers]: ExecutorWithBuiltInRules };
 
   return new Proxy(kernel, {
     get: (target: T, property: PropertyKey, receiver: any) => {
@@ -28,6 +30,16 @@ export const createProxyKernel = <T extends object>(kernel: T) => {
 
           return receiver;
         };
+      }
+
+      // Calls built-in modifiers.
+      if (Reflect.has(builtInModifiers, property)) {
+        const modifier = Reflect.get(builtInModifiers, property) as Modifier;
+
+        // tslint:disable-next-line:no-string-literal
+        (target as any)["registerModifier"](modifier);
+
+        return receiver;
       }
 
       return;
