@@ -13,8 +13,16 @@ describe("[ Empty Messages ]", function() {
     const dummySubject = "EMPTY";
 
     describe("EMPTY ::", function() {
-      it('should have "should be empty" word', function() {
-        expect(errorMessageCreators.empty(dummySubject, undefined, undefined)).to.have.string("should be empty");
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should be empty" word', function() {
+          expect(errorMessageCreators.empty(dummySubject, undefined, undefined)).to.have.string("should be empty");
+        });
+      });
+
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not be empty" word', function() {
+          expect(errorMessageCreators.empty(dummySubject, undefined, undefined, "not")).to.have.string("should not be empty");
+        });
       });
     });
   });

@@ -14,57 +14,148 @@ describe("[ String Messages ]", function() {
     const dummyActual = "ACTUAL";
 
     describe("VALUE ::", function() {
-      it('should have "should be <EXPECTED>" word', function() {
-        const dummyExpected = "abc";
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should be <EXPECTED>" word', function() {
+          const dummyExpected = "abc";
 
-        expect(errorMessageCreators.value(dummySubject, dummyActual, dummyExpected)).to.have.string(
-          `should be ${dummyExpected}`,
-        );
+          expect(errorMessageCreators.value(dummySubject, dummyActual, dummyExpected)).to.have.string(
+            `should be ${dummyExpected}`,
+          );
+        });
+      });
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not be <EXPECTED>" word', function() {
+          const dummyExpected = "abc";
+
+          expect(errorMessageCreators.value(dummySubject, dummyActual, dummyExpected, "not")).to.have.string(
+            `should not be ${dummyExpected}`,
+          );
+        });
       });
     });
 
     describe("LENGTH ::", function() {
       context("an expected value is number,", function() {
-        it('should not have "between" word', function() {
-          expect(errorMessageCreators.length(dummySubject, dummyActual, 123)).not.to.have.string("between");
+        context('"modifierType" is undefined,', function() {
+          it('should not have "between" word', function() {
+            expect(errorMessageCreators.length(dummySubject, dummyActual, 123)).not.to.have.string("between");
+          });
+
+          it('should have "should be" word', function() {
+            expect(errorMessageCreators.length(dummySubject, dummyActual, 123)).to.have.string("should be");
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should not have "between" word', function() {
+            expect(errorMessageCreators.length(dummySubject, dummyActual, 123, "not")).not.to.have.string("between");
+          });
+
+          it('should have "should not be" word', function() {
+            expect(errorMessageCreators.length(dummySubject, dummyActual, 123, "not")).to.have.string("should not be");
+          });
         });
       });
 
       context("an expected value is array,", function() {
-        it('should have "between" word', function() {
-          expect(errorMessageCreators.length(dummySubject, dummyActual, [1, 2])).to.have.string("between");
+        context('"modifierType" is undefined,', function() {
+          it('should have "between" word', function() {
+            expect(errorMessageCreators.length(dummySubject, dummyActual, [1, 2])).to.have.string("between");
+          });
+
+          it('should have "should be" word', function() {
+            expect(errorMessageCreators.length(dummySubject, dummyActual, [1, 2])).to.have.string("should be");
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "between" word', function() {
+            expect(errorMessageCreators.length(dummySubject, dummyActual, [1, 2], "not")).to.have.string("between");
+          });
+
+          it('should have "should not be" word', function() {
+            expect(errorMessageCreators.length(dummySubject, dummyActual, [1, 2], "not")).to.have.string("should not be");
+          });
         });
       });
     });
 
     describe("MAXIMUM LENGTH ::", function() {
-      it('should have "no more than" word', function() {
-        expect(errorMessageCreators.maximumLength(dummySubject, dummyActual, 123)).to.have.string("no more than");
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should be no more than" word', function() {
+          expect(errorMessageCreators.maximumLength(dummySubject, dummyActual, 123)).to.have.string("should be no more than");
+        });
+      });
+
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not be no more than" word', function() {
+          expect(errorMessageCreators.maximumLength(dummySubject, dummyActual, 123, "not")).to.have.string(
+            "should not be no more than",
+          );
+        });
       });
     });
 
     describe("MINIMUM LENGTH ::", function() {
-      it('should have "at least" word', function() {
-        expect(errorMessageCreators.minimumLength(dummySubject, dummyActual, 123)).to.have.string("at least");
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should be at least" word', function() {
+          expect(errorMessageCreators.minimumLength(dummySubject, dummyActual, 123)).to.have.string("should be at least");
+        });
+      });
+
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not be at least" word', function() {
+          expect(errorMessageCreators.minimumLength(dummySubject, dummyActual, 123, "not")).to.have.string(
+            "should not be at least",
+          );
+        });
       });
     });
 
     describe("STARTS WITH ::", function() {
-      it('should have "start with" word', function() {
-        expect(errorMessageCreators.startsWith(dummySubject, dummyActual, "abc")).to.have.string("start with");
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should start with" word', function() {
+          expect(errorMessageCreators.startsWith(dummySubject, dummyActual, "abc")).to.have.string("should start with");
+        });
+      });
+
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not start with" word', function() {
+          expect(errorMessageCreators.startsWith(dummySubject, dummyActual, "abc", "not")).to.have.string(
+            "should not start with",
+          );
+        });
       });
     });
 
     describe("ENDS WITH ::", function() {
-      it('should have "end with" word', function() {
-        expect(errorMessageCreators.endsWith(dummySubject, dummyActual, "abc")).to.have.string("end with");
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should end with" word', function() {
+          expect(errorMessageCreators.endsWith(dummySubject, dummyActual, "abc")).to.have.string("should end with");
+        });
+      });
+
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not end with" word', function() {
+          expect(errorMessageCreators.endsWith(dummySubject, dummyActual, "abc", "not")).to.have.string("should not end with");
+        });
       });
     });
 
     describe("ALPHANUMERIC ::", function() {
       context("an expected value is true,", function() {
-        it('should have"should be alphanumeric"', function() {
-          expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, true)).to.have.string("should be alphanumeric");
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, true)).to.have.string("should be alphanumeric");
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, true, "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
         });
       });
 
@@ -72,11 +163,43 @@ describe("[ String Messages ]", function() {
         it('should have "lowerCamelCase" word', function() {
           expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-camel")).to.have.string("lowerCamelCase");
         });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-camel")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-camel", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
+        });
       });
 
       context("an expected value is 'upper-camel',", function() {
         it('should have "UpperCamelCase" word', function() {
           expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-camel")).to.have.string("UpperCamelCase");
+        });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-camel")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-camel", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
         });
       });
 
@@ -86,6 +209,22 @@ describe("[ String Messages ]", function() {
             "lower_snake_case",
           );
         });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-snake")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-snake", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
+        });
       });
 
       context("an expected value is 'upper-snake',", function() {
@@ -93,6 +232,22 @@ describe("[ String Messages ]", function() {
           expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-snake")).to.have.string(
             "Upper_Snake_Case",
           );
+        });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-snake")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-snake", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
         });
       });
 
@@ -102,6 +257,22 @@ describe("[ String Messages ]", function() {
             "lower-kebab-case",
           );
         });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-kebab")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-kebab", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
+        });
       });
 
       context("an expected value is 'upper-kebab',", function() {
@@ -109,6 +280,22 @@ describe("[ String Messages ]", function() {
           expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-kebab")).to.have.string(
             "Upper-Kebab-Case",
           );
+        });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-kebab")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-kebab", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
         });
       });
 
@@ -118,6 +305,22 @@ describe("[ String Messages ]", function() {
             "lower space case",
           );
         });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-space")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-space", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
+        });
       });
 
       context("an expected value is 'upper-space',", function() {
@@ -126,11 +329,43 @@ describe("[ String Messages ]", function() {
             "Upper Space Case",
           );
         });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-space")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-space", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
+        });
       });
 
       context("an expected value is 'lower-dot',", function() {
         it('should have "lower.dot.case" word', function() {
           expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-dot")).to.have.string("lower.dot.case");
+        });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-dot")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "lower-dot", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
         });
       });
 
@@ -138,24 +373,66 @@ describe("[ String Messages ]", function() {
         it('should have "Upper.Dot.Case" word', function() {
           expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-dot")).to.have.string("Upper.Dot.Case");
         });
+
+        context('"modifierType" is undefined,', function() {
+          it('should have "should be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-dot")).to.have.string(
+              "should be alphanumeric",
+            );
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it('should have "should not be alphanumeric"', function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "upper-dot", "not")).to.have.string(
+              "should not be alphanumeric",
+            );
+          });
+        });
       });
 
       context("an expected value is unexpected,", function() {
-        it("should be an empty string", function() {
-          expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "abc" as any)).to.be.empty;
+        context('"modifierType" is undefined,', function() {
+          it("should be an empty string", function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "abc" as any)).to.be.empty;
+          });
+        });
+
+        context('"modifierType" is "not",', function() {
+          it("should be an empty string", function() {
+            expect(errorMessageCreators.alphanumeric(dummySubject, dummyActual, "abc" as any, "not")).to.be.empty;
+          });
         });
       });
     });
 
     describe("INCLUDES ::", function() {
-      it('should have "include" word', function() {
-        expect(errorMessageCreators.includes(dummySubject, dummyActual, "abc")).to.have.string("include");
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should include" word', function() {
+          expect(errorMessageCreators.includes(dummySubject, dummyActual, "abc")).to.have.string("should include");
+        });
+      });
+
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not include" word', function() {
+          expect(errorMessageCreators.includes(dummySubject, dummyActual, "abc", "not")).to.have.string("should not include");
+        });
       });
     });
 
     describe("PATTERN ::", function() {
-      it('should have "conform the pattern" word', function() {
-        expect(errorMessageCreators.pattern(dummySubject, dummyActual, /abc/)).to.have.string("conform the pattern");
+      context('when "modifierType" is undefined,', function() {
+        it('should have "should conform the pattern" word', function() {
+          expect(errorMessageCreators.pattern(dummySubject, dummyActual, /abc/)).to.have.string("should conform the pattern");
+        });
+      });
+
+      context('when "modifierType" is "not",', function() {
+        it('should have "should not conform the pattern" word', function() {
+          expect(errorMessageCreators.pattern(dummySubject, dummyActual, /abc/, "not")).to.have.string(
+            "should not conform the pattern",
+          );
+        });
       });
     });
   });
