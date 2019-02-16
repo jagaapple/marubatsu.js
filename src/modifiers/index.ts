@@ -7,3 +7,5 @@ import { not } from "./not-modifier";
 export const builtInModifiers = {
   not,
 };
+
+export type ModifierType = keyof typeof builtInModifiers;
