@@ -1,6 +1,8 @@
 // =============================================================================================================================
 // SRC - EXECUTORS - VALIDATE EXECUTOR
 // =============================================================================================================================
+import { CheckResult } from "@checkers/index";
+import { Modifier } from "@modifiers/index";
 import { ErrorMessageCreator, ErrorMessageCreators, ValidationExecutor, Validators } from "@operators/index";
 import { ValidationError } from "./shared";
 
@@ -12,34 +14,40 @@ export interface ValidationResult {
 const unsetDefaultErrorMessage = "The error message is not set yet.";
 export const validate = (
   value: any,
-  operatorName: string,
   validators: Validators,
+  modifiers: Modifier[] = [],
+  operatorName: string,
   errorMessageCreators: ErrorMessageCreators<any> = {},
   subject: string = "value",
 ): ValidationResult => {
-  const result: ValidationResult = { isPassed: false };
+  const finalResult: ValidationResult = { isPassed: true };
 
-  const isPassed = Object.entries(validators).every((ruleNameAndValidationExecutor: [string, ValidationExecutor]) => {
+  Object.entries(validators).every((ruleNameAndValidationExecutor: [string, ValidationExecutor]) => {
     const ruleName = ruleNameAndValidationExecutor[0];
     const executor = ruleNameAndValidationExecutor[1];
 
-    const executedResult = executor(value);
-    if (!executedResult.isPassed) {
+    const initialResult = executor(value);
+    const result = modifiers.reduceRight(
+      (prevCheckResult: CheckResult<any>, modifier: Modifier) => modifier(prevCheckResult),
+      initialResult,
+    );
+
+    if (!result.isPassed) {
       const errorMessageCreator: ErrorMessageCreator<any> | undefined = errorMessageCreators[ruleName];
-      let errorMessage = errorMessageCreator && errorMessageCreator(subject, executedResult.actual, executedResult.expected);
+      let errorMessage =
+        errorMessageCreator && errorMessageCreator(subject, result.actual, result.expected, result.modifierType);
       errorMessage = errorMessage || unsetDefaultErrorMessage;
 
-      result.error = {
+      finalResult.isPassed = result.isPassed;
+      finalResult.error = {
         ruleName: `${operatorName}-${ruleName}`,
-        expected: executedResult.expected,
+        expected: result.expected,
         message: errorMessage,
       };
     }
 
-    return executedResult.isPassed;
+    return result.isPassed;
   });
 
-  result.isPassed = isPassed;
-
-  return result;
+  return finalResult;
 };
