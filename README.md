@@ -161,6 +161,7 @@ marubatsu()
 //     {
 //       ruleName: "string-length",
 //       expected: [4, 20],
+//       actual: 2,
 //       message: "The value should be between 4 and 20 characters in length, but @a.",
 //     },
 //   ],
@@ -184,6 +185,7 @@ marubatsu({
 //     {
 //       ruleName: "string-length",
 //       expected: [4, 20],
+//       actual: 2,
 //       message: "The username is invalid.",
 //     },
 //   ],
@@ -228,9 +230,10 @@ validator.validate("abcde");
 // {
 //   isPassed: false,
 //   error: {
-//     ruleName: "string-length",
-//     expected: [4, 20],
-//     message: "The value should be between 4 and 20 characters in length, but abc.",
+//     ruleName: "string-startsWith",
+//     expected: "@,
+//     actual: "abcde",
+//     message: "The value should start with @.",
 //   },
 // }
 

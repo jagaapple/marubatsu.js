@@ -122,6 +122,12 @@ describe("[ Validate Executor ]", function() {
         expect(error.expected).to.be.eq(validatorExecutor2Result.expected);
       });
 
+      example('"expected" property of an error object should be "actual" property of the rule throws an error', function() {
+        const error = validate(targetValue, validators, undefined, operatorName).error!;
+
+        expect(error.actual).to.be.eq(validatorExecutor2Result.actual);
+      });
+
       context("error message creators include the same rule name property,", function() {
         const result = validatorExecutor2Result;
 

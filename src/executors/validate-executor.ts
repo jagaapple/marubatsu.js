@@ -42,6 +42,7 @@ export const validate = (
       finalResult.error = {
         ruleName: `${operatorName}-${ruleName}`,
         expected: result.expected,
+        actual: result.actual,
         message: errorMessage,
       };
     }
