@@ -211,7 +211,8 @@ marubatsu({
 **Executors** is to execute validations.
 
 ### `test(value: any)`
-Returns `true` if a value passes all validations, otherwise returns `false` .
+Returns `true` if a value passes all validations, otherwise returns `false` . This executor immediately stops to check rules
+when a validation is failed in order to improve performance.
 
 - `value: any` ... The value
 
@@ -221,7 +222,8 @@ marubatsu().string({ length: 3 }).test("1234"); // false
 ```
 
 ### `validate(value: any)`
-Returns a failed rule and its error message.
+Returns a failed rule and its error message. This executor immediately stops to check rules when a validation is failed in order
+to improve performance, so returns only one error message.
 
 - `value: any` ... The target value
 
