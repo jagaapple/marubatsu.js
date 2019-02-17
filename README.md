@@ -50,6 +50,7 @@ const isValidWebsite = marubatsu()
   - [`blank()`](#blank)
   - [`present()`](#present)
   - [`string(rules: { [ruleName]: any } = {})`](#stringrules--rulename-any---)
+    - [`type: boolean`](#type-boolean)
     - [`value: string`](#value-string)
     - [`length: number`](#length-number)
     - [`length: [number, number]`](#length-number-number)
@@ -62,6 +63,7 @@ const isValidWebsite = marubatsu()
     - [`includes: string`](#includes-string)
     - [`pattern: RegExp`](#pattern-regexp)
   - [`number(rules: { [ruleName]: any } = {})`](#numberrules--rulename-any---)
+    - [`type: boolean`](#type-boolean-1)
     - [`value: number`](#value-number)
     - [`value: [number, number]`](#value-number-number)
     - [`maximumValue: number`](#maximumvalue-number)
@@ -74,6 +76,8 @@ const isValidWebsite = marubatsu()
     - [`digits: [number, number]`](#digits-number-number)
     - [`maximumDigits: number`](#maximumdigits-number)
     - [`minimumDigits: number`](#minimumdigits-number)
+- [Modifiers](#modifiers)
+  - [`not`](#not)
 - [Receipes](#receipes)
   - [Share validators in your app](#share-validators-in-your-app)
   - [Migrate new rules to validator](#migrate-new-rules-to-validator)
@@ -159,6 +163,7 @@ marubatsu()
 //     {
 //       ruleName: "string-length",
 //       expected: [4, 20],
+//       actual: 2,
 //       message: "The value should be between 4 and 20 characters in length, but @a.",
 //     },
 //   ],
@@ -182,6 +187,7 @@ marubatsu({
 //     {
 //       ruleName: "string-length",
 //       expected: [4, 20],
+//       actual: 2,
 //       message: "The username is invalid.",
 //     },
 //   ],
@@ -205,7 +211,8 @@ marubatsu({
 **Executors** is to execute validations.
 
 ### `test(value: any)`
-Returns `true` if a value passes all validations, otherwise returns `false` .
+Returns `true` if a value passes all validations, otherwise returns `false` . This executor immediately stops to check rules
+when a validation is failed in order to improve performance.
 
 - `value: any` ... The value
 
@@ -215,7 +222,8 @@ marubatsu().string({ length: 3 }).test("1234"); // false
 ```
 
 ### `validate(value: any)`
-Returns a failed rule and its error message.
+Returns a failed rule and its error message. This executor immediately stops to check rules when a validation is failed in order
+to improve performance, so returns only one error message.
 
 - `value: any` ... The target value
 
@@ -226,9 +234,10 @@ validator.validate("abcde");
 // {
 //   isPassed: false,
 //   error: {
-//     ruleName: "string-length",
-//     expected: [4, 20],
-//     message: "The value should be between 4 and 20 characters in length, but abc.",
+//     ruleName: "string-startsWith",
+//     expected: "@,
+//     actual: "abcde",
+//     message: "The value should start with @.",
 //   },
 // }
 
@@ -299,10 +308,13 @@ Checks the value is NOT `null` , `undefined` , an empty string, a string includi
 (pure object/hash/dictionary), or `false` . This operator is equal to `not.blank()`
 
 ### `string(rules: { [ruleName]: any } = {})`
-Checks the value is string type and conforms rules related to string.
+Checks the value conforms rules related to string.
+
+#### `type: boolean`
+Checks the value is string type.
 
 ```ts
-const validator = marubatsu().string();
+const validator = marubatsu().string({ type: true });
 
 validator.test("ok"); // true
 validator.test(123);  // false
@@ -447,10 +459,13 @@ validator.test("example.com");         // false
 ```
 
 ### `number(rules: { [ruleName]: any } = {})`
-Checks the value is string type and conforms rules realted to number.
+Checks the value conforms rules realted to number.
+
+#### `type: boolean`
+Checks the value is string type.
 
 ```ts
-const validator = marubatsu().number();
+const validator = marubatsu().number({ type: true });
 
 validator.test(123);  // true
 validator.test("ok"); // false
@@ -586,6 +601,21 @@ const validator = marubatsu().number({ minimumDigits: 3 });
 validator.test(12);   // false
 validator.test(123);  // true
 validator.test(1234); // true
+```
+
+
+## Modifiers
+### `not`
+Inverts specified rules.
+
+```ts
+const validator = marubatsu()
+  .string({ endsWith: ".com" })
+  .not.string({ startsWith: "https://" });
+
+validator.test("https://example.com"); // true
+validator.test("http://example.com");  // false
+validator.test("https://example.jp");  // false
 ```
 
 

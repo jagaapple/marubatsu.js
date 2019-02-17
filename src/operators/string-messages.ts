@@ -1,29 +1,62 @@
 // =============================================================================================================================
 // SRC - OPERATORS - STRING MESSAGES
 // =============================================================================================================================
-import { ErrorMessageCreators } from "./shared";
+import { ModifierType } from "@modifiers/index";
+import { ErrorMessageCreators, getAdverb } from "./shared";
 import { AlphanumericOptionCaseType, Options as OperatorOptions } from "./string-operator";
 
 export const errorMessageCreators: ErrorMessageCreators<OperatorOptions> = {
-  value: (subject: string, actual: any, expected: string) => `The ${subject} should be ${expected}, but "${actual}".`,
-  length: (subject: string, actual: any, expected: number | [number, number]) => {
-    if (typeof expected === "number") return `The ${subject} should be ${expected} characters in length, but ${actual}.`;
+  type: (subject: string, actual: any, _: unknown, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}be string, but "${actual}".`;
+  },
+  value: (subject: string, actual: any, expected: string, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}be ${expected}, but "${actual}".`;
+  },
+  length: (subject: string, actual: any, expected: number | [number, number], modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    if (typeof expected === "number") {
+      return `The ${subject} should ${adverb}be ${expected} characters in length, but ${actual}.`;
+    }
 
     const minimumLength = expected[0];
     const maximumLength = expected[1];
 
-    return `The ${subject} should be between ${minimumLength} and ${maximumLength} characters in length, but ${actual}.`;
+    // tslint:disable-next-line:max-line-length
+    return `The ${subject} should ${adverb}be between ${minimumLength} and ${maximumLength} characters in length, but ${actual}.`;
   },
-  maximumLength: (subject: string, actual: any, expected: number) =>
-    `The ${subject} should be no more than ${expected} characters in length, but ${actual}.`,
-  minimumLength: (subject: string, actual: any, expected: number) =>
-    `The ${subject} should be at least ${expected} characters in length, but ${actual}.`,
-  startsWith: (subject: string, _: unknown, expected: string) => `The ${subject} should start with ${expected}.`,
-  endsWith: (subject: string, _: unknown, expected: string) => `The ${subject} should end with ${expected}.`,
-  alphanumeric: (subject: string, _: unknown, expected: boolean | AlphanumericOptionCaseType) => {
-    if (typeof expected === "boolean") return `The ${subject} should be alphanumeric.`;
+  maximumLength: (subject: string, actual: any, expected: number, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
 
-    const messages = [`The ${subject} should be alphanumeric and`];
+    return `The ${subject} should ${adverb}be no more than ${expected} characters in length, but ${actual}.`;
+  },
+  minimumLength: (subject: string, actual: any, expected: number, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}be at least ${expected} characters in length, but ${actual}.`;
+  },
+  startsWith: (subject: string, _: unknown, expected: string, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}start with ${expected}.`;
+  },
+  endsWith: (subject: string, _: unknown, expected: string, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}end with ${expected}.`;
+  },
+  alphanumeric: (subject: string, _: unknown, expected: boolean | AlphanumericOptionCaseType, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    if (typeof expected === "boolean") {
+      return `The ${subject} should ${adverb}be alphanumeric.`;
+    }
+
+    const messages = [`The ${subject} should ${adverb}be alphanumeric and`];
     switch (expected) {
       case "lower-camel":
         messages.push("follow lowerCamelCase style");
@@ -71,6 +104,14 @@ export const errorMessageCreators: ErrorMessageCreators<OperatorOptions> = {
 
     return messages.join(" ") + ".";
   },
-  includes: (subject: string, _: unknown, expected: string) => `The ${subject} should include "${expected}".`,
-  pattern: (subject: string, _: unknown, expected: RegExp) => `The ${subject} should conform the pattern ${expected}.`,
+  includes: (subject: string, _: unknown, expected: string, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}include "${expected}".`;
+  },
+  pattern: (subject: string, _: unknown, expected: RegExp, modifierType?: ModifierType) => {
+    const adverb = getAdverb(modifierType);
+
+    return `The ${subject} should ${adverb}conform the pattern ${expected}.`;
+  },
 };

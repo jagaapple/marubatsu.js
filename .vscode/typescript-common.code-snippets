@@ -19,6 +19,11 @@
     "scope": "typescript",
     "body": ["import { $2 } from \"@executors/${1:index}\";"]
   },
+  "Import modules from @modifiers": {
+    "prefix": "import modifiers",
+    "scope": "typescript",
+    "body": ["import { $2 } from \"@modifiers/${1:index}\";"]
+  },
   "Import modules from @operators": {
     "prefix": "import operators",
     "scope": "typescript",

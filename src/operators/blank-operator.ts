@@ -9,7 +9,7 @@ const deafultCheckers = {
 };
 
 export interface Options {
-  blank?: unknown; // Defines for messages but not used
+  type?: unknown; // Defines for messages but not used
 }
 
 type DICheckers = { [K in keyof typeof deafultCheckers]: typeof deafultCheckers[K] };

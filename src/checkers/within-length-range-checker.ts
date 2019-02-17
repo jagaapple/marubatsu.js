@@ -8,7 +8,7 @@ export const isWithinLengthRange = (value: any, range: [number | undefined, numb
   const result: Result = {
     isPassed: false,
     expected: [range[0] || Number.NEGATIVE_INFINITY, range[1] || Number.POSITIVE_INFINITY],
-    actual: value,
+    actual: "invalid-value",
   };
 
   const lengthOfValue = getLength(value);
@@ -18,6 +18,7 @@ export const isWithinLengthRange = (value: any, range: [number | undefined, numb
   const maximumLength = range[1] || Number.POSITIVE_INFINITY;
 
   result.isPassed = lengthOfValue >= minimumLength && lengthOfValue <= maximumLength;
+  result.actual = lengthOfValue;
 
   return result;
 };

@@ -1,6 +1,13 @@
 // =============================================================================================================================
-// SRC - OPERATORS - SHARED - INDEX
+// SRC - OPERATORS - SHARED - ADVERB GETTER
 // =============================================================================================================================
-export { getAdverb } from "./adverb-getter";
-export { ErrorMessageCreator, ErrorMessageCreators } from "./error-message-creator";
-export { Operator, ValidationExecutor, Validators } from "./operator";
+import { ModifierType } from "@modifiers/index";
+
+export const getAdverb = (type?: ModifierType) => {
+  switch (type) {
+    case "not":
+      return "not ";
+    default:
+      return "";
+  }
+};

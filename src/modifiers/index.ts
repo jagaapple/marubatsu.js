@@ -1,7 +1,11 @@
 // =============================================================================================================================
-// SRC - EXECUTORS - TEST
+// SRC - MODIFIERS - INDEX
 // =============================================================================================================================
-import { ValidationExecutor, Validators } from "@operators/index";
+export { Modifier } from "./shared";
 
-export const test = (validators: Validators, value: any) =>
-  Object.values(validators).every((executor: ValidationExecutor) => executor(value).isPassed);
+import { not } from "./not-modifier";
+export const builtInModifiers = {
+  not,
+};
+
+export type ModifierType = keyof typeof builtInModifiers;

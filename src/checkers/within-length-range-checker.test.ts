@@ -3,7 +3,6 @@
 // =============================================================================================================================
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
-import { allTypeValues } from "@shared/values.test";
 import { isWithinLengthRange } from "./within-length-range-checker";
 
 describe("[ Within Length Range Checker ]", function() {
@@ -257,12 +256,66 @@ describe("[ Within Length Range Checker ]", function() {
   // Actual
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("ACTUAL ::", function() {
-    it("should be a target value", function() {
-      allTypeValues.forEach((value: any) => {
-        expect(isWithinLengthRange(value, [100, 200]).actual).to.eq(value);
-        expect(isWithinLengthRange(value, [100, undefined]).actual).to.eq(value);
-        expect(isWithinLengthRange(value, [undefined, 200]).actual).to.eq(value);
-        expect(isWithinLengthRange(value, [undefined, undefined]).actual).to.eq(value);
+    context("when a target value is undefined,", function() {
+      it('should be "invalid-value"', function() {
+        expect(isWithinLengthRange(undefined, [3, 5]).actual).to.eq("invalid-value");
+      });
+    });
+
+    context("when a target value is null,", function() {
+      it('should be "invalid-value"', function() {
+        expect(isWithinLengthRange(null, [3, 5]).actual).to.eq("invalid-value");
+      });
+    });
+
+    context("when a target value is number,", function() {
+      it("should be length of the number", function() {
+        expect(isWithinLengthRange(0, [3, 5]).actual).to.eq(1);
+        expect(isWithinLengthRange(345, [3, 5]).actual).to.eq(3);
+      });
+    });
+
+    context("when a target value is string,", function() {
+      it("should be be length of the string", function() {
+        expect(isWithinLengthRange("", [3, 5]).actual).to.eq(0);
+        expect(isWithinLengthRange(" ", [3, 5]).actual).to.eq(1);
+        expect(isWithinLengthRange("0", [3, 5]).actual).to.eq(1);
+        expect(isWithinLengthRange("345", [3, 5]).actual).to.eq(3);
+      });
+    });
+
+    context("when a target value is boolean,", function() {
+      it('should be "invalid-value"', function() {
+        expect(isWithinLengthRange(true, [3, 5]).actual).to.eq("invalid-value");
+        expect(isWithinLengthRange(false, [3, 5]).actual).to.eq("invalid-value");
+      });
+    });
+
+    context("when a target value is array,", function() {
+      it("should be count of elements", function() {
+        expect(isWithinLengthRange([], [3, 5]).actual).to.eq(0);
+        expect(isWithinLengthRange([undefined], [3, 5]).actual).to.eq(1);
+        expect(isWithinLengthRange([null], [3, 5]).actual).to.eq(1);
+        expect(isWithinLengthRange([3, 4, 5], [3, 5]).actual).to.eq(3);
+        expect(isWithinLengthRange(["", ""], [3, 5]).actual).to.eq(2);
+        expect(isWithinLengthRange(["3", "4", "5"], [3, 5]).actual).to.eq(3);
+      });
+    });
+
+    context("when a target value is object (pure object/hash/dictionary),", function() {
+      it("should be count of key and values", function() {
+        expect(isWithinLengthRange({}, [3, 5]).actual).to.eq(0);
+        expect(isWithinLengthRange({ a: undefined }, [3, 5]).actual).to.eq(1);
+        expect(isWithinLengthRange({ a: null }, [3, 5]).actual).to.eq(1);
+        expect(isWithinLengthRange({ a: 3, b: 4, c: 5 }, [3, 5]).actual).to.eq(3);
+        expect(isWithinLengthRange({ a: "", b: "" }, [3, 5]).actual).to.eq(2);
+        expect(isWithinLengthRange({ a: "3", b: "4", c: "5" }, [3, 5]).actual).to.eq(3);
+      });
+    });
+
+    context("when a target value is function,", function() {
+      it('should be "invalid-value"', function() {
+        expect(isWithinLengthRange(() => true, [3, 5]).actual).to.eq("invalid-value");
       });
     });
   });

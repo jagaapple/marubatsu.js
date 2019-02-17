@@ -4,7 +4,6 @@
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { allTypeValues } from "@shared/values.test";
 import { createStringOperator } from "./string-operator";
 
 describe("[ String Operator ]", function() {
@@ -25,14 +24,35 @@ describe("[ String Operator ]", function() {
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Type Checking
+  // Type Rule
   // ---------------------------------------------------------------------------------------------------------------------------
-  describe("TYPE CHECKING", function() {
-    it("should check a target value is string", function() {
-      const validators = createStringOperator().createValidators();
+  describe("TYPE RULE", function() {
+    context("when option is unset,", function() {
+      it('should not create "type" rule', function() {
+        const isType = sinon.spy();
+        const validators = createStringOperator({ isType }).createValidators();
 
-      allTypeValues.forEach((value: any) => {
-        expect(validators.type(value).isPassed).to.eq(typeof value === "string");
+        expect(validators.type).to.be.undefined;
+      });
+    });
+
+    context("when option is true,", function() {
+      it('should call "isType" checker,', function() {
+        const isType = sinon.spy();
+        const validators = createStringOperator({ isType }).createValidators({ type: true });
+
+        validators.type(targetValue);
+
+        expect(isType.calledOnceWith(targetValue, "string")).to.be.true;
+      });
+    });
+
+    context("when option is false,", function() {
+      it('should not create "type" rule', function() {
+        const isType = sinon.spy();
+        const validators = createStringOperator({ isType }).createValidators({ type: false });
+
+        expect(validators.type).to.be.undefined;
       });
     });
   });

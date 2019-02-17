@@ -1,6 +1,6 @@
 // =============================================================================================================================
-// SRC - OPERATORS - SHARED - INDEX
+// SRC - MODIFIERS - SHARED - MODIFIER
 // =============================================================================================================================
-export { getAdverb } from "./adverb-getter";
-export { ErrorMessageCreator, ErrorMessageCreators } from "./error-message-creator";
-export { Operator, ValidationExecutor, Validators } from "./operator";
+import { CheckResult } from "@checkers/index";
+
+export type Modifier = <T>(checkResult: CheckResult<T>) => CheckResult<T>;
