@@ -6,6 +6,6 @@ import { Modifier } from "./shared";
 
 export const not: Modifier = <T>(checkResult: CheckResult<T>) => ({
   ...checkResult,
-  modifierType: "not",
   isPassed: !checkResult.isPassed,
+  modifierType: "not",
 });
