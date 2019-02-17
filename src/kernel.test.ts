@@ -51,6 +51,55 @@ describe("[ Kernel ]", function() {
   });
 
   // ---------------------------------------------------------------------------------------------------------------------------
+  // REGITER MODIFIER (PRIVATE API)
+  // ---------------------------------------------------------------------------------------------------------------------------
+  describe("REGISTER MODIFIER (PRIVATE API) ::", function() {
+    const validators = {
+      dummyValidator1: (value: any) => ({ isPassed: true, expected: 1, actual: value }),
+    };
+
+    it("should register to managed modifiers at the number count of validators index", function() {
+      const modifiersByOperatorIndex = (instance as any).modifiersByOperatorIndex;
+
+      const modifier0 = sinon.stub().returns({ isPassed: true, modifierType: "modifier0", expected: 0, catual: 0 });
+      (instance as any).registerModifier(modifier0);
+      expect(modifiersByOperatorIndex.length).to.eq(1);
+      expect(modifiersByOperatorIndex[0].length).to.eq(1);
+      expect(modifiersByOperatorIndex[0][0]).to.eql(modifier0);
+
+      const modifier1 = sinon.stub().returns({ isPassed: true, modifierType: "modifier1", expected: 1, catual: 1 });
+      const modifier2 = sinon.stub().returns({ isPassed: true, modifierType: "modifier2", expected: 2, catual: 2 });
+      const modifier3 = sinon.stub().returns({ isPassed: true, modifierType: "modifier3", expected: 3, catual: 3 });
+      (instance as any).registerOperator(operatorName, validators);
+      (instance as any).registerModifier(modifier1);
+      (instance as any).registerModifier(modifier2);
+      (instance as any).registerModifier(modifier3);
+      expect(modifiersByOperatorIndex.length).to.eq(2);
+      expect(modifiersByOperatorIndex[1].length).to.eq(3);
+      expect(modifiersByOperatorIndex[1][0]).to.eql(modifier1);
+      expect(modifiersByOperatorIndex[1][1]).to.eql(modifier2);
+      expect(modifiersByOperatorIndex[1][2]).to.eql(modifier3);
+    });
+
+    context("when register modifiers already registered", function() {
+      it("should push the modifiers", function() {
+        const modifiersByOperatorIndex = (instance as any).modifiersByOperatorIndex;
+
+        const modifier = sinon.stub().returns({ isPassed: true, modifierType: "modifier", expected: 0, catual: 0 });
+        (instance as any).registerModifier(modifier);
+        (instance as any).registerModifier(modifier);
+        (instance as any).registerModifier(modifier);
+
+        expect(modifiersByOperatorIndex.length).to.eq(1);
+        expect(modifiersByOperatorIndex[0].length).to.eq(3);
+        expect(modifiersByOperatorIndex[0][0]).to.eql(modifier);
+        expect(modifiersByOperatorIndex[0][1]).to.eql(modifier);
+        expect(modifiersByOperatorIndex[0][2]).to.eql(modifier);
+      });
+    });
+  });
+
+  // ---------------------------------------------------------------------------------------------------------------------------
   // TEST
   // ---------------------------------------------------------------------------------------------------------------------------
   describe("TEST ::", function() {
@@ -161,7 +210,9 @@ describe("[ Kernel ]", function() {
 
         instance.validate(123);
 
-        expect(stub.calledWith(targetValue, operatorName, validators, operatorMessageCreators[operatorName].error)).to.be.true;
+        expect(
+          stub.calledWith(targetValue, validators, undefined, operatorName, operatorMessageCreators[operatorName].error),
+        ).to.be.true;
       });
     });
 
@@ -185,7 +236,7 @@ describe("[ Kernel ]", function() {
 
         instance.validate(123);
 
-        expect(stub.calledWith(targetValue, operatorName, validators, undefined)).to.be.true;
+        expect(stub.calledWith(targetValue, validators, undefined, operatorName, undefined)).to.be.true;
       });
     });
 

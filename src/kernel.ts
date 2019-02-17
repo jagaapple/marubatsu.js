@@ -3,6 +3,7 @@
 // =============================================================================================================================
 import { builtInOperatorCreators, builtInOperatorMessageCreators, Validators } from "@operators/index";
 import { test as testExecutor, validate as validateExecutor, ValidationResult } from "@executors/index";
+import { Modifier } from "@modifiers/index";
 
 interface ValidatorsByOperatorName {
   [operatorName: string]: Validators;
@@ -14,6 +15,7 @@ export class Kernel {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Private Variables
   private readonly validatorsByOperatorName: ValidatorsByOperatorName = {};
+  private readonly modifiersByOperatorIndex: Modifier[][] = [];
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Functions
@@ -21,28 +23,37 @@ export class Kernel {
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   test<T>(value: T) {
-    return Object.values(this.validatorsByOperatorName).every((validators: Validators) => testExecutor(value, validators));
+    return Object.values(this.validatorsByOperatorName).every((validators: Validators, index: number) =>
+      testExecutor(value, validators, this.modifiersByOperatorIndex[index]),
+    );
   }
 
   validate<T>(value: T): ValidationResult {
-    let result: ValidationResult = { isPassed: true };
+    let finalResult: ValidationResult = { isPassed: true };
 
-    Object.entries(this.validatorsByOperatorName).every((operatorNameAndValidators: [string, Validators]) => {
+    Object.entries(this.validatorsByOperatorName).every((operatorNameAndValidators: [string, Validators], index: number) => {
       const operatorName = operatorNameAndValidators[0];
       const validators = operatorNameAndValidators[1];
 
       const messageCreators = builtInOperatorMessageCreators[operatorName as keyof typeof builtInOperatorCreators];
       const errorMessageCreators = messageCreators && messageCreators.error;
 
-      const validatedResult = validateExecutor(value, operatorName, validators, errorMessageCreators);
-      if (!validatedResult.isPassed) {
-        result = validatedResult;
+      const result = validateExecutor(
+        value,
+        validators,
+        this.modifiersByOperatorIndex[index],
+        operatorName,
+        errorMessageCreators,
+      );
+
+      if (!result.isPassed) {
+        finalResult = result;
       }
 
-      return validatedResult.isPassed;
+      return result.isPassed;
     });
 
-    return result;
+    return finalResult;
   }
 
   // Protected Functions
@@ -55,5 +66,12 @@ export class Kernel {
       ...prevValidatorsByOperatorName,
       ...validators,
     };
+  }
+
+  protected registerModifier(modifier: Modifier) {
+    const nextOperatorIndex = Object.values(this.validatorsByOperatorName).length;
+
+    this.modifiersByOperatorIndex[nextOperatorIndex] = this.modifiersByOperatorIndex[nextOperatorIndex] || [];
+    this.modifiersByOperatorIndex[nextOperatorIndex].push(modifier);
   }
 }
