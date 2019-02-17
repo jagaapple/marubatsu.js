@@ -76,6 +76,8 @@ const isValidWebsite = marubatsu()
     - [`digits: [number, number]`](#digits-number-number)
     - [`maximumDigits: number`](#maximumdigits-number)
     - [`minimumDigits: number`](#minimumdigits-number)
+- [Modifiers](#modifiers)
+  - [`not`](#not)
 - [Receipes](#receipes)
   - [Share validators in your app](#share-validators-in-your-app)
   - [Migrate new rules to validator](#migrate-new-rules-to-validator)
@@ -597,6 +599,21 @@ const validator = marubatsu().number({ minimumDigits: 3 });
 validator.test(12);   // false
 validator.test(123);  // true
 validator.test(1234); // true
+```
+
+
+## Modifiers
+### `not`
+Inverts specified rules.
+
+```ts
+const validator = marubatsu()
+  .string({ endsWith: ".com" })
+  .not.string({ startsWith: "https://" });
+
+validator.test("https://example.com"); // true
+validator.test("http://example.com");  // false
+validator.test("https://example.jp");  // false
 ```
 
 
