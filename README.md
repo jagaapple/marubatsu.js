@@ -79,8 +79,8 @@ const isValidWebsite = marubatsu()
 - [Modifiers](#modifiers)
   - [`not`](#not)
 - [Receipes](#receipes)
-  - [Share validators in your app](#share-validators-in-your-app)
-  - [Migrate new rules to validator](#migrate-new-rules-to-validator)
+  - [Shares validators in your app](#shares-validators-in-your-app)
+  - [Migrates new rules to validator](#migrates-new-rules-to-validator)
 - [Contributing to marubatsu](#contributing-to-marubatsu)
 - [License](#license)
 
@@ -125,7 +125,7 @@ The below is simple example to check some values.
 ```ts
 import marubatsu from "marubatsu";
 
-// Checks the value is string, starting with "@", and length is between 4 and 20.
+// Checks the value is starting with "@", and length is between 4 and 20.
 marubatsu()
   .string({ length: [4, 20], startsWith: "@" })
   .test("@jagaapple"); // true
@@ -620,7 +620,7 @@ validator.test("https://example.jp");  // false
 
 
 ## Receipes
-### Share validators in your app
+### Shares validators in your app
 marubatsu does not execute validations until calling some executors.
 
 ```ts
@@ -650,7 +650,7 @@ const signIn = (accountName: string) => {
 }
 ```
 
-### Migrate new rules to validator
+### Migrates new rules to validator
 ```ts
 let validator = marubatsu()
   .string({ length: 3 });
