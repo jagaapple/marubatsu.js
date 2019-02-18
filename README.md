@@ -43,7 +43,7 @@ const isValidWebsite = marubatsu()
 - [Basic Usage](#basic-usage)
 - [Executors](#executors)
   - [`test(value: any)`](#testvalue-any)
-  - [`validate(value: any)`](#validatevalue-any)
+  - [`validate(value: any, subject?: string = "value")`](#validatevalue-any-subject-string--value)
 - [Operators](#operators)
   - [`nullary()`](#nullary)
   - [`empty()`](#empty)
@@ -172,7 +172,6 @@ marubatsu()
 
 // Customizes validation messages.
 marubatsu({
-  subject: "username",
   rules: {
     "string-length": {
       failedMessage: (subject, actual, expected) => `The ${subject} is invalid`,
@@ -180,7 +179,7 @@ marubatsu({
   },
 })
   .string({ length: [4, 20], startsWith: "@" })
-  .validate("@a");
+  .validate("@a", "username");
 // {
 //   isPassed: false,
 //   error: [
@@ -221,23 +220,24 @@ marubatsu().string({ length: 3 }).test("123");  // true
 marubatsu().string({ length: 3 }).test("1234"); // false
 ```
 
-### `validate(value: any)`
+### `validate(value: any, subject?: string = "value")`
 Returns a failed rule and its error message. This executor immediately stops to check rules when a validation is failed in order
 to improve performance, so returns only one error message.
 
 - `value: any` ... The target value
+- `subject?: string = "value"` ... The name of the target value
 
 ```ts
 const validator = marubatsu().string({ length: [4, 20], startsWith: "@" });
 
-validator.validate("abcde");
+validator.validate("abcde", "username");
 // {
 //   isPassed: false,
 //   error: {
 //     ruleName: "string-startsWith",
 //     expected: "@,
 //     actual: "abcde",
-//     message: "The value should start with @.",
+//     message: "The username should start with @.",
 //   },
 // }
 
