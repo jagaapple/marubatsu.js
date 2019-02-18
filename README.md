@@ -43,7 +43,7 @@ const isValidWebsite = marubatsu()
 - [Basic Usage](#basic-usage)
 - [Executors](#executors)
   - [`test(value: any)`](#testvalue-any)
-  - [`validate(value: any)`](#validatevalue-any)
+  - [`validate(value: any, subject?: string = "value")`](#validatevalue-any-subject-string--value)
 - [Operators](#operators)
   - [`nullary()`](#nullary)
   - [`empty()`](#empty)
@@ -79,8 +79,8 @@ const isValidWebsite = marubatsu()
 - [Modifiers](#modifiers)
   - [`not`](#not)
 - [Receipes](#receipes)
-  - [Share validators in your app](#share-validators-in-your-app)
-  - [Migrate new rules to validator](#migrate-new-rules-to-validator)
+  - [Shares validators in your app](#shares-validators-in-your-app)
+  - [Migrates new rules to validator](#migrates-new-rules-to-validator)
 - [Contributing to marubatsu](#contributing-to-marubatsu)
 - [License](#license)
 
@@ -125,7 +125,7 @@ The below is simple example to check some values.
 ```ts
 import marubatsu from "marubatsu";
 
-// Checks the value is string, starting with "@", and length is between 4 and 20.
+// Checks the value is starting with "@", and length is between 4 and 20.
 marubatsu()
   .string({ length: [4, 20], startsWith: "@" })
   .test("@jagaapple"); // true
@@ -172,7 +172,6 @@ marubatsu()
 
 // Customizes validation messages.
 marubatsu({
-  subject: "username",
   rules: {
     "string-length": {
       failedMessage: (subject, actual, expected) => `The ${subject} is invalid`,
@@ -180,7 +179,7 @@ marubatsu({
   },
 })
   .string({ length: [4, 20], startsWith: "@" })
-  .validate("@a");
+  .validate("@a", "username");
 // {
 //   isPassed: false,
 //   error: [
@@ -221,23 +220,24 @@ marubatsu().string({ length: 3 }).test("123");  // true
 marubatsu().string({ length: 3 }).test("1234"); // false
 ```
 
-### `validate(value: any)`
+### `validate(value: any, subject?: string = "value")`
 Returns a failed rule and its error message. This executor immediately stops to check rules when a validation is failed in order
 to improve performance, so returns only one error message.
 
 - `value: any` ... The target value
+- `subject?: string = "value"` ... The name of the target value
 
 ```ts
 const validator = marubatsu().string({ length: [4, 20], startsWith: "@" });
 
-validator.validate("abcde");
+validator.validate("abcde", "username");
 // {
 //   isPassed: false,
 //   error: {
 //     ruleName: "string-startsWith",
 //     expected: "@,
 //     actual: "abcde",
-//     message: "The value should start with @.",
+//     message: "The username should start with @.",
 //   },
 // }
 
@@ -620,7 +620,7 @@ validator.test("https://example.jp");  // false
 
 
 ## Receipes
-### Share validators in your app
+### Shares validators in your app
 marubatsu does not execute validations until calling some executors.
 
 ```ts
@@ -650,7 +650,7 @@ const signIn = (accountName: string) => {
 }
 ```
 
-### Migrate new rules to validator
+### Migrates new rules to validator
 ```ts
 let validator = marubatsu()
   .string({ length: 3 });
