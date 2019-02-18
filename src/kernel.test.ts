@@ -208,7 +208,7 @@ describe("[ Kernel ]", function() {
         const stub = sinon.stub(executors, "validate").returns({ isPassed: true });
         const targetValue = 123;
 
-        instance.validate(123);
+        instance.validate(targetValue);
 
         expect(
           stub.calledWith(targetValue, validators, undefined, operatorName, operatorMessageCreators[operatorName].error),
@@ -234,7 +234,7 @@ describe("[ Kernel ]", function() {
         const stub = sinon.stub(executors, "validate").returns({ isPassed: true });
         const targetValue = 123;
 
-        instance.validate(123);
+        instance.validate(targetValue);
 
         expect(stub.calledWith(targetValue, validators, undefined, operatorName, undefined)).to.be.true;
       });
@@ -299,6 +299,20 @@ describe("[ Kernel ]", function() {
 
       example('a returned object\'s "error" is the error object of the first executor returned value', function() {
         expect(instance.validate(123).error).to.eql(firstErrorObject);
+      });
+    });
+
+    context('when specifying "subject",', function() {
+      it('should call "validate" executor with the subject', function() {
+        (instance as any).registerOperator(operatorName, validators);
+
+        const stub = sinon.stub(executors, "validate").returns({ isPassed: true });
+        const subject = "username";
+        const targetValue = 123;
+
+        instance.validate(targetValue, subject);
+
+        expect(stub.calledWith(targetValue, validators, undefined, operatorName, undefined, subject)).to.be.true;
       });
     });
   });
