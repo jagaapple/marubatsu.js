@@ -1,32 +1,18 @@
 // =============================================================================================================================
-// SRC - CHECKERS - PRESENT CHECKER
+// SRC - CHECKERS - PRESENT
 // =============================================================================================================================
 import { CheckResult } from "./shared";
-import { nullary } from "./nullary";
-import { empty } from "./empty";
+import { blank } from "./blank";
 
 type Result = CheckResult<"present">;
-export const isPresent = (value: any): Result => {
+export const present = (targetValue: any): Result => {
   const result: Result = {
     isPassed: false,
     expected: "present",
-    actual: value,
+    actual: targetValue,
   };
 
-  let trimmedValue = value;
-  switch (typeof value) {
-    case "string":
-      trimmedValue = value.trim();
-
-      break;
-    case "boolean":
-      result.isPassed = value;
-
-      return result;
-    default:
-  }
-
-  result.isPassed = !(nullary(trimmedValue).isPassed || empty(trimmedValue).isPassed);
+  result.isPassed = !blank(targetValue).isPassed;
 
   return result;
 };

@@ -18,7 +18,7 @@ export { isKebabCase } from "./kebab-case";
 export { isNegativeNumber } from "./negative-number";
 export { nullary as isNullary } from "./nullary";
 export { isPositiveNumber } from "./positive-number";
-export { isPresent } from "./present";
+export { present as isPresent } from "./present";
 export { isConformingRegExp } from "./regexp";
 export { isSnakeCase } from "./snake-case";
 export { isSpaceCase } from "./space-case";
