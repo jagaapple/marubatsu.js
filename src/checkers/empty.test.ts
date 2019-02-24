@@ -4,7 +4,7 @@
 // tslint:disable:only-arrow-functions no-unused-expression no-null-keyword
 import { expect } from "chai";
 import { allTypeValues } from "@shared/values.test";
-import { isEmpty } from "./empty";
+import { empty } from "./empty";
 
 describe("[ Empty Checker ]", function() {
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -13,94 +13,81 @@ describe("[ Empty Checker ]", function() {
   describe("IS PASSED ::", function() {
     context("when a target value is undefined,", function() {
       it("should be false", function() {
-        expect(isEmpty(undefined).isPassed).to.be.false;
+        expect(empty(undefined).isPassed).to.be.false;
       });
     });
 
     context("when a target value is null,", function() {
       it("should be false", function() {
-        expect(isEmpty(null).isPassed).to.be.false;
+        expect(empty(null).isPassed).to.be.false;
       });
     });
 
     context("when a target value is number,", function() {
-      context("zero,", function() {
-        it("should be false", function() {
-          expect(isEmpty(0).isPassed).to.be.false;
-        });
-      });
-
-      context("a positive number,", function() {
-        it("should be false", function() {
-          expect(isEmpty(1).isPassed).to.be.false;
-        });
-      });
-
-      context("a negative number,", function() {
-        it("should be false", function() {
-          expect(isEmpty(-1).isPassed).to.be.false;
-        });
+      it("should be false", function() {
+        expect(empty(0).isPassed).to.be.false;
+        expect(empty(123).isPassed).to.be.false;
+        expect(empty(-123).isPassed).to.be.false;
+        expect(empty(123.123).isPassed).to.be.false;
+        expect(empty(-123.123).isPassed).to.be.false;
+        expect(empty(Number.POSITIVE_INFINITY).isPassed).to.be.false;
+        expect(empty(Number.NEGATIVE_INFINITY).isPassed).to.be.false;
       });
     });
 
     context("when a target value is string,", function() {
       context("an empty string,", function() {
         it("should be true", function() {
-          expect(isEmpty("").isPassed).to.be.true;
+          expect(empty("").isPassed).to.be.true;
         });
       });
 
       context("a string which has only spaces,", function() {
         it("should be false", function() {
-          expect(isEmpty(" ").isPassed).to.be.false;
-          expect(isEmpty("  ").isPassed).to.be.false;
-          expect(isEmpty("   ").isPassed).to.be.false;
+          expect(empty(" ").isPassed).to.be.false;
+          expect(empty("  ").isPassed).to.be.false;
+          expect(empty("   ").isPassed).to.be.false;
         });
       });
 
       context("an ordinary string,", function() {
         it("should be false", function() {
-          expect(isEmpty("a").isPassed).to.be.false;
+          expect(empty("abc").isPassed).to.be.false;
         });
       });
     });
 
     context("when a target value is boolean,", function() {
-      context("true,", function() {
-        it("should be false", function() {
-          expect(isEmpty(true).isPassed).to.be.false;
-        });
-      });
-
-      context("false,", function() {
-        it("should be false", function() {
-          expect(isEmpty(false).isPassed).to.be.false;
-        });
+      it("should be false", function() {
+        expect(empty(true).isPassed).to.be.false;
+        expect(empty(false).isPassed).to.be.false;
       });
     });
 
     context("when a target value is array,", function() {
       context("an empty array,", function() {
         it("should be true", function() {
-          expect(isEmpty([]).isPassed).to.be.true;
+          expect(empty([]).isPassed).to.be.true;
         });
       });
 
       context("an array which has only undefined,", function() {
         it("should be false", function() {
-          expect(isEmpty([undefined, undefined]).isPassed).to.be.false;
+          expect(empty([undefined, undefined]).isPassed).to.be.false;
         });
       });
 
       context("an array which has only null,", function() {
         it("should be false", function() {
-          expect(isEmpty([null, null]).isPassed).to.be.false;
+          expect(empty([null, null]).isPassed).to.be.false;
         });
       });
 
       context("an ordinary array,", function() {
         it("should be false", function() {
-          expect(isEmpty([1, 2, 3]).isPassed).to.be.false;
+          expect(empty([1, 2, 3]).isPassed).to.be.false;
+          expect(empty(["", "", ""]).isPassed).to.be.false;
+          expect(empty(["a", "b", "c"]).isPassed).to.be.false;
         });
       });
     });
@@ -108,26 +95,36 @@ describe("[ Empty Checker ]", function() {
     context("when a target value is object (pure object/hash/dictionary),", function() {
       context("an empty object,", function() {
         it("should be true", function() {
-          expect(isEmpty({}).isPassed).to.be.true;
+          expect(empty({}).isPassed).to.be.true;
         });
       });
 
       context("an object which has only undefined as value,", function() {
         it("should be false", function() {
-          expect(isEmpty({ a: undefined, b: undefined }).isPassed).to.be.false;
+          expect(empty({ a: undefined, b: undefined }).isPassed).to.be.false;
         });
       });
 
       context("an object which has only null as value,", function() {
         it("should be false", function() {
-          expect(isEmpty({ a: null, b: null }).isPassed).to.be.false;
+          expect(empty({ a: null, b: null }).isPassed).to.be.false;
+        });
+      });
+
+      context("an ordinary object,", function() {
+        it("should be false", function() {
+          expect(empty({ a: 1, b: 2, c: 3 }).isPassed).to.be.false;
+          expect(empty({ a: "", b: "", c: "" }).isPassed).to.be.false;
+          expect(empty({ a: "a", b: "b", c: "c" }).isPassed).to.be.false;
         });
       });
     });
 
     context("when a target value is function,", function() {
       it("should be false", function() {
-        expect(isEmpty(() => true).isPassed).to.be.false;
+        expect(empty(() => undefined).isPassed).to.be.false;
+        expect(empty(() => null).isPassed).to.be.false;
+        expect(empty(() => false).isPassed).to.be.false;
       });
     });
   });
@@ -138,7 +135,7 @@ describe("[ Empty Checker ]", function() {
   describe("ACTUAL ::", function() {
     it("should be a target value", function() {
       allTypeValues.forEach((value: any) => {
-        expect(isEmpty(value).actual).to.eq(value);
+        expect(empty(value).actual).to.eq(value);
       });
     });
   });

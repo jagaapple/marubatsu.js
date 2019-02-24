@@ -1,33 +1,32 @@
 // =============================================================================================================================
-// SRC - CHECKERS - EMPTY CHECKER
+// SRC - CHECKERS - EMPTY
 // =============================================================================================================================
-import { CheckResult } from "./shared";
+import { CheckResult, getType } from "./shared";
 
 type Result = CheckResult<"empty">;
-export const isEmpty = (value: any): Result => {
+export const empty = (targetValue: any): Result => {
   const result: Result = {
     isPassed: false,
     expected: "empty",
-    actual: value,
+    actual: targetValue,
   };
 
-  if (value == undefined) return result;
-
-  let valueLength: number = 0;
-  switch (typeof value) {
+  let lengthOfValue: number = 0;
+  switch (getType(targetValue)) {
     case "string":
-      valueLength = value.length;
+      lengthOfValue = targetValue.length;
 
       break;
+    case "array":
     case "object":
-      valueLength = Object.keys(value).length;
+      lengthOfValue = Object.keys(targetValue).length;
 
       break;
     default:
       return result;
   }
 
-  result.isPassed = valueLength === 0;
+  result.isPassed = lengthOfValue === 0;
 
   return result;
 };

@@ -3,7 +3,7 @@
 // =============================================================================================================================
 import { CheckResult } from "./shared";
 import { nullary } from "./nullary";
-import { isEmpty } from "./empty";
+import { empty } from "./empty";
 
 type Result = CheckResult<"present">;
 export const isPresent = (value: any): Result => {
@@ -26,7 +26,7 @@ export const isPresent = (value: any): Result => {
     default:
   }
 
-  result.isPassed = !(nullary(trimmedValue).isPassed || isEmpty(trimmedValue).isPassed);
+  result.isPassed = !(nullary(trimmedValue).isPassed || empty(trimmedValue).isPassed);
 
   return result;
 };

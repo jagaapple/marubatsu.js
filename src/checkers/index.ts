@@ -7,7 +7,7 @@ export { isBlank } from "./blank";
 export { isCamelCase } from "./camel-case";
 export { isDecimal } from "./decimal";
 export { isDotCase } from "./dot-case";
-export { isEmpty } from "./empty";
+export { empty as isEmpty } from "./empty";
 export { endsWith } from "./ends-with";
 export { hasDigits } from "./equal-digits";
 export { isEqualToLength } from "./equal-length";
