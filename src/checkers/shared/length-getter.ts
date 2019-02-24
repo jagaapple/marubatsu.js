@@ -6,10 +6,10 @@ import { getType } from "./type-getter";
 export const getLength = (targetValue: any) => {
   switch (getType(targetValue)) {
     case "number":
-      if (targetValue === Number.POSITIVE_INFINITY) return Number.POSITIVE_INFINITY;
-      if (targetValue === Number.NEGATIVE_INFINITY) return Number.NEGATIVE_INFINITY;
+      if (targetValue === Number.POSITIVE_INFINITY) return targetValue;
+      if (targetValue === Number.NEGATIVE_INFINITY) return targetValue;
 
-      return `${targetValue}`.replace(/\-|\./g, "").length;
+      return `${targetValue}`.replace(/[\-\.]/g, "").length;
     case "string":
       return targetValue.length;
     case "array":
