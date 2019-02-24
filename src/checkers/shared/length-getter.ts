@@ -1,10 +1,10 @@
 // =============================================================================================================================
 // SRC - CHECKERS - SHARED - LENGTH GETTER
 // =============================================================================================================================
-import { getType } from "./type-getter";
-
 export const getLength = (targetValue: any) => {
-  switch (getType(targetValue)) {
+  if (targetValue == undefined) return 0;
+
+  switch (typeof targetValue) {
     case "number":
       if (targetValue === Number.POSITIVE_INFINITY) return targetValue;
       if (targetValue === Number.NEGATIVE_INFINITY) return targetValue;
@@ -12,7 +12,6 @@ export const getLength = (targetValue: any) => {
       return `${targetValue}`.replace(/[\-\.]/g, "").length;
     case "string":
       return targetValue.length;
-    case "array":
     case "object":
       return Object.keys(targetValue).length;
     default:

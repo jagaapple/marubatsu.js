@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - STARTS WITH
 // =============================================================================================================================
-import { CheckResult, getType } from "./shared";
+import { CheckResult } from "./shared";
 
 type Result = CheckResult<string>;
 export const startsWith = (targetValue: any, expectedValue: string): Result => {
@@ -11,7 +11,7 @@ export const startsWith = (targetValue: any, expectedValue: string): Result => {
     actual: targetValue,
   };
 
-  switch (getType(targetValue)) {
+  switch (typeof targetValue) {
     case "number":
       if (targetValue === Number.POSITIVE_INFINITY) return result;
       if (targetValue === Number.NEGATIVE_INFINITY) return result;
@@ -23,12 +23,13 @@ export const startsWith = (targetValue: any, expectedValue: string): Result => {
       result.isPassed = targetValue.startsWith(expectedValue);
 
       return result;
-    case "array": {
+    case "object": {
+      if (!Array.isArray(targetValue)) return result;
+
       const firstElement = targetValue[0];
       result.actual = firstElement;
 
-      const type = getType(firstElement);
-      if (type !== "number" && type !== "string") return result;
+      if (typeof firstElement !== "number" && typeof firstElement !== "string") return result;
 
       result.isPassed = `${firstElement}` === expectedValue;
 

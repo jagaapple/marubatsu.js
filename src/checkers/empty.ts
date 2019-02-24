@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - EMPTY
 // =============================================================================================================================
-import { CheckResult, getType } from "./shared";
+import { CheckResult } from "./shared";
 
 type Result = CheckResult<"empty">;
 export const empty = (targetValue: any): Result => {
@@ -11,13 +11,14 @@ export const empty = (targetValue: any): Result => {
     actual: targetValue,
   };
 
+  if (targetValue == undefined) return result;
+
   let lengthOfValue: number = 0;
-  switch (getType(targetValue)) {
+  switch (typeof targetValue) {
     case "string":
       lengthOfValue = targetValue.length;
 
       break;
-    case "array":
     case "object":
       lengthOfValue = Object.keys(targetValue).length;
 

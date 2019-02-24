@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - ENDS WITH
 // =============================================================================================================================
-import { CheckResult, getType } from "./shared";
+import { CheckResult } from "./shared";
 
 type Result = CheckResult<string>;
 export const endsWith = (targetValue: any, expectedValue: string): Result => {
@@ -11,7 +11,7 @@ export const endsWith = (targetValue: any, expectedValue: string): Result => {
     actual: targetValue,
   };
 
-  switch (getType(targetValue)) {
+  switch (typeof targetValue) {
     case "number":
       if (targetValue === Number.POSITIVE_INFINITY) return result;
       if (targetValue === Number.NEGATIVE_INFINITY) return result;
@@ -23,12 +23,13 @@ export const endsWith = (targetValue: any, expectedValue: string): Result => {
       result.isPassed = targetValue.endsWith(expectedValue);
 
       return result;
-    case "array": {
+    case "object": {
+      if (!Array.isArray(targetValue)) return result;
+
       const lastElement = targetValue[targetValue.length - 1];
       result.actual = lastElement;
 
-      const type = getType(lastElement);
-      if (type !== "number" && type !== "string") return result;
+      if (typeof lastElement !== "number" && typeof lastElement !== "string") return result;
 
       result.isPassed = `${lastElement}` === expectedValue;
 

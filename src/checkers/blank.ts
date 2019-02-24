@@ -1,7 +1,7 @@
 // =============================================================================================================================
 // SRC - CHECKERS - BLANK
 // =============================================================================================================================
-import { CheckResult, getType } from "./shared";
+import { CheckResult } from "./shared";
 import { nullary } from "./nullary";
 import { empty } from "./empty";
 
@@ -14,7 +14,7 @@ export const blank = (targetValue: any): Result => {
   };
 
   let trimmedValue = targetValue;
-  switch (getType(targetValue)) {
+  switch (typeof targetValue) {
     case "string":
       trimmedValue = targetValue.trim();
 
