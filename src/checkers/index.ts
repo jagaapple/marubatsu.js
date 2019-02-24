@@ -3,7 +3,7 @@
 // =============================================================================================================================
 export { CheckResult } from "./shared";
 export { isAlphanumeric } from "./alphanumeric";
-export { isBlank } from "./blank";
+export { blank as isBlank } from "./blank";
 export { isCamelCase } from "./camel-case";
 export { isDecimal } from "./decimal";
 export { isDotCase } from "./dot-case";

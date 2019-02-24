@@ -1,26 +1,26 @@
 // =============================================================================================================================
-// SRC - CHECKERS - BLANK CHECKER
+// SRC - CHECKERS - BLANK
 // =============================================================================================================================
-import { CheckResult } from "./shared";
+import { CheckResult, getType } from "./shared";
 import { nullary } from "./nullary";
 import { empty } from "./empty";
 
 type Result = CheckResult<"blank">;
-export const isBlank = (value: any): Result => {
+export const blank = (targetValue: any): Result => {
   const result: Result = {
     isPassed: false,
     expected: "blank",
-    actual: value,
+    actual: targetValue,
   };
 
-  let trimmedValue = value;
-  switch (typeof value) {
+  let trimmedValue = targetValue;
+  switch (getType(targetValue)) {
     case "string":
-      trimmedValue = value.trim();
+      trimmedValue = targetValue.trim();
 
       break;
     case "boolean":
-      result.isPassed = !value;
+      result.isPassed = !targetValue;
 
       return result;
     default:
