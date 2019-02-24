@@ -1,40 +1,48 @@
 // =============================================================================================================================
-// SRC - CHECKERS - INCLUDES CHECKER
+// SRC - CHECKERS - INCLUDES
 // =============================================================================================================================
 import { CheckResult } from "./shared";
 
 type Result = CheckResult<string>;
-export const includes = (value: any, expectedValue: string): Result => {
+export const includes = (targetValue: any, expectedValue: string): Result => {
   const result: Result = {
     isPassed: false,
     expected: expectedValue,
-    actual: value,
+    actual: targetValue,
   };
 
-  if (value == undefined) return result;
+  if (targetValue == undefined) return result;
 
-  let checkableValue: string | any[] = "";
-  switch (typeof value) {
+  switch (typeof targetValue) {
+    case "number":
+      if (targetValue === Number.POSITIVE_INFINITY) return result;
+      if (targetValue === Number.NEGATIVE_INFINITY) return result;
+
+      result.actual = `${targetValue}`;
+      result.isPassed = `${targetValue}`.includes(expectedValue);
+
+      return result;
     case "string":
-      checkableValue = value;
+      result.isPassed = targetValue.includes(expectedValue);
 
-      break;
-    case "object":
-      if (!Array.isArray(value)) return result;
+      return result;
+    case "object": {
+      if (!Array.isArray(targetValue)) return result;
 
-      // Convert all elements in array to string.
-      checkableValue = value.map((element: any) => {
-        if (typeof element !== "number" && typeof element !== "string") return element;
+      result.isPassed = targetValue
+        .map((element: any) => {
+          // Converts all elements in array to string.
+          if (typeof element !== "number" && typeof element !== "string") return element;
+          if (element === Number.POSITIVE_INFINITY) return element;
+          if (element === Number.NEGATIVE_INFINITY) return element;
 
-        return element.toString();
-      });
+          return `${element}`;
+        })
+        .includes(expectedValue);
 
-      break;
+      return result;
+    }
     default:
       return result;
   }
-
-  result.isPassed = checkableValue.includes(expectedValue);
-
-  return result;
 };
