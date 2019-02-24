@@ -1,11 +1,11 @@
 // =============================================================================================================================
-// SRC - MODIFIERS - INDEX
+// SRC - MODIFIERS - NOT
 // =============================================================================================================================
-export { Modifier } from "./shared";
+import { CheckResult } from "@checkers/index";
+import { Modifier } from "./shared";
 
-import { not } from "./not";
-export const builtInModifiers = {
-  not,
-};
-
-export type ModifierType = keyof typeof builtInModifiers;
+export const not: Modifier = <T>(checkResult: CheckResult<T>) => ({
+  ...checkResult,
+  isPassed: !checkResult.isPassed,
+  modifierType: "not",
+});

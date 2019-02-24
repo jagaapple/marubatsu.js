@@ -3,7 +3,7 @@
 // =============================================================================================================================
 import { ModifierType } from "@modifiers/index";
 import { ErrorMessageCreators, getAdverb } from "./shared";
-import { Options as OperatorOptions } from "./nullary-operator";
+import { Options as OperatorOptions } from "./nullary";
 
 export const errorMessageCreators: ErrorMessageCreators<OperatorOptions> = {
   type: (subject: string, _: unknown, __: unknown, modifierType?: ModifierType) => {

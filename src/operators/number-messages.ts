@@ -3,7 +3,7 @@
 // =============================================================================================================================
 import { ModifierType } from "@modifiers/index";
 import { ErrorMessageCreators, getAdverb } from "./shared";
-import { Options as OperatorOptions } from "./number-operator";
+import { Options as OperatorOptions } from "./number";
 
 export const errorMessageCreators: ErrorMessageCreators<OperatorOptions> = {
   type: (subject: string, actual: any, _: unknown, modifierType?: ModifierType) => {
