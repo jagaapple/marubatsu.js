@@ -16,7 +16,7 @@ export { includes } from "./includes";
 export { isInteger } from "./integer";
 export { isKebabCase } from "./kebab-case";
 export { isNegativeNumber } from "./negative-number";
-export { isNullary } from "./nullary";
+export { nullary as isNullary } from "./nullary";
 export { isPositiveNumber } from "./positive-number";
 export { isPresent } from "./present";
 export { isConformingRegExp } from "./regexp";

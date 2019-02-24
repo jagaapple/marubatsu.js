@@ -2,7 +2,7 @@
 // SRC - CHECKERS - PRESENT CHECKER
 // =============================================================================================================================
 import { CheckResult } from "./shared";
-import { isNullary } from "./nullary";
+import { nullary } from "./nullary";
 import { isEmpty } from "./empty";
 
 type Result = CheckResult<"present">;
@@ -26,7 +26,7 @@ export const isPresent = (value: any): Result => {
     default:
   }
 
-  result.isPassed = !(isNullary(trimmedValue).isPassed || isEmpty(trimmedValue).isPassed);
+  result.isPassed = !(nullary(trimmedValue).isPassed || isEmpty(trimmedValue).isPassed);
 
   return result;
 };

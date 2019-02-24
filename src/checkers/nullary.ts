@@ -1,17 +1,15 @@
 // =============================================================================================================================
-// SRC - CHECKERS - NULLARY CHECKER
+// SRC - CHECKERS - NULLARY
 // =============================================================================================================================
-import { CheckResult } from "./shared";
+import { CheckResult, getType } from "./shared";
 
 type Result = CheckResult<"nullary">;
-export const isNullary = (value: any): Result => {
-  const result: Result = {
-    isPassed: false,
+export const nullary = (targetValue: any): Result => {
+  const type = getType(targetValue);
+
+  return {
+    isPassed: type === "undefined" || type === "null",
     expected: "nullary",
-    actual: value,
+    actual: targetValue,
   };
-
-  result.isPassed = value == undefined;
-
-  return result;
 };

@@ -2,7 +2,7 @@
 // SRC - CHECKERS - BLANK CHECKER
 // =============================================================================================================================
 import { CheckResult } from "./shared";
-import { isNullary } from "./nullary";
+import { nullary } from "./nullary";
 import { isEmpty } from "./empty";
 
 type Result = CheckResult<"blank">;
@@ -26,7 +26,7 @@ export const isBlank = (value: any): Result => {
     default:
   }
 
-  result.isPassed = isNullary(trimmedValue).isPassed || isEmpty(trimmedValue).isPassed;
+  result.isPassed = nullary(trimmedValue).isPassed || isEmpty(trimmedValue).isPassed;
 
   return result;
 };
