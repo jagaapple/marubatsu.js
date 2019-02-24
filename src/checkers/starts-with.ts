@@ -1,33 +1,36 @@
 // =============================================================================================================================
-// SRC - CHECKERS - STARTS WITH CHECKER
+// SRC - CHECKERS - STARTS WITH
 // =============================================================================================================================
-import { CheckResult } from "./shared";
+import { CheckResult, getType } from "./shared";
 
 type Result = CheckResult<string>;
-export const startsWith = (value: any, expectedValue: string): Result => {
+export const startsWith = (targetValue: any, expectedValue: string): Result => {
   const result: Result = {
     isPassed: false,
     expected: expectedValue,
-    actual: value,
+    actual: targetValue,
   };
 
-  if (value == undefined) return result;
+  switch (getType(targetValue)) {
+    case "number":
+      if (targetValue === Number.POSITIVE_INFINITY) return result;
+      if (targetValue === Number.NEGATIVE_INFINITY) return result;
 
-  switch (typeof value) {
-    case "string":
-      result.isPassed = value.startsWith(expectedValue);
-      result.actual = value;
+      result.isPassed = `${targetValue}`.startsWith(expectedValue);
 
       return result;
-    case "object": {
-      if (!Array.isArray(value)) return result;
+    case "string":
+      result.isPassed = targetValue.startsWith(expectedValue);
 
-      const firstElement = value[0];
+      return result;
+    case "array": {
+      const firstElement = targetValue[0];
       result.actual = firstElement;
-      if (typeof firstElement !== "number" && typeof firstElement !== "string") return result;
 
-      const stringValue = firstElement.toString();
-      result.isPassed = stringValue === expectedValue;
+      const type = getType(firstElement);
+      if (type !== "number" && type !== "string") return result;
+
+      result.isPassed = `${firstElement}` === expectedValue;
 
       return result;
     }

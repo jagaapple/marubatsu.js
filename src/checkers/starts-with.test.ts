@@ -39,10 +39,44 @@ describe("[ Starts With Checker ]", function() {
     });
 
     context("when a target value is number,", function() {
-      it("should be false", function() {
-        expect(startsWith(12345, "123").isPassed).to.be.false;
-        expect(startsWith(12345, "num").isPassed).to.be.false;
-        expect(startsWith(12345, "abc").isPassed).to.be.false;
+      context("starting with an expected value,", function() {
+        context("not infinity,", function() {
+          it("should be true", function() {
+            expect(startsWith(0, "0").isPassed).to.be.true;
+            expect(startsWith(12345, "123").isPassed).to.be.true;
+            expect(startsWith(-12345, "-123").isPassed).to.be.true;
+            expect(startsWith(123.45, "123.4").isPassed).to.be.true;
+            expect(startsWith(-123.45, "-123.4").isPassed).to.be.true;
+          });
+        });
+
+        context("infinity,", function() {
+          it("should be false", function() {
+            expect(startsWith(Number.POSITIVE_INFINITY, "0").isPassed).to.be.false;
+            expect(startsWith(Number.POSITIVE_INFINITY, "Infinity").isPassed).to.be.false;
+            expect(startsWith(Number.NEGATIVE_INFINITY, "0").isPassed).to.be.false;
+            expect(startsWith(Number.NEGATIVE_INFINITY, "-Infinity").isPassed).to.be.false;
+          });
+        });
+      });
+
+      context("not starting with an expected value,", function() {
+        it("should be false", function() {
+          expect(startsWith(12345, "345").isPassed).to.be.false;
+          expect(startsWith(12345, "num").isPassed).to.be.false;
+          expect(startsWith(12345, "str").isPassed).to.be.false;
+          expect(startsWith(12345, "abc").isPassed).to.be.false;
+        });
+      });
+
+      context("an expected value is an empty string,", function() {
+        it("should be true", function() {
+          expect(startsWith(0, "").isPassed).to.be.true;
+          expect(startsWith(12345, "").isPassed).to.be.true;
+          expect(startsWith(-12345, "").isPassed).to.be.true;
+          expect(startsWith(123.45, "").isPassed).to.be.true;
+          expect(startsWith(-123.45, "").isPassed).to.be.true;
+        });
       });
     });
 
@@ -56,10 +90,10 @@ describe("[ Starts With Checker ]", function() {
 
       context("not starting with an expected value,", function() {
         it("should be false", function() {
+          expect(startsWith("12345", "345").isPassed).to.be.false;
+          expect(startsWith("12345", "num").isPassed).to.be.false;
           expect(startsWith("12345", "str").isPassed).to.be.false;
           expect(startsWith("12345", "abc").isPassed).to.be.false;
-          expect(startsWith("12345", "345").isPassed).to.be.false;
-          expect(startsWith("abcde", "cde").isPassed).to.be.false;
         });
       });
 
@@ -100,15 +134,22 @@ describe("[ Starts With Checker ]", function() {
 
       context("the first element is not equal to an expected value,", function() {
         it("should be false", function() {
-          expect(startsWith([12345, 23456, 34567], "123").isPassed).to.be.false;
           expect(startsWith([12345, 23456, 34567], "arr").isPassed).to.be.false;
           expect(startsWith([12345, 23456, 34567], "obj").isPassed).to.be.false;
           expect(startsWith([12345, 23456, 34567], "num").isPassed).to.be.false;
           expect(startsWith([12345, 23456, 34567], "345").isPassed).to.be.false;
-          expect(startsWith(["12345", "23456", "34567"], "123").isPassed).to.be.false;
-          expect(startsWith(["12345", "23456", "34567"], "345").isPassed).to.be.false;
-          expect(startsWith(["abcde", "bcdef", "cdefg"], "abc").isPassed).to.be.false;
+          expect(startsWith(["12345", "23456", "34567"], "arr").isPassed).to.be.false;
+          expect(startsWith(["12345", "23456", "34567"], "obj").isPassed).to.be.false;
+          expect(startsWith(["12345", "23456", "34567"], "str").isPassed).to.be.false;
           expect(startsWith(["abcde", "bcdef", "cdefg"], "cde").isPassed).to.be.false;
+        });
+      });
+
+      context("the first element starts with an expected value,", function() {
+        it("should be false", function() {
+          expect(startsWith([12345, 23456, 34567], "123").isPassed).to.be.false;
+          expect(startsWith(["12345", "23456", "34567"], "123").isPassed).to.be.false;
+          expect(startsWith(["abcde", "bcdef", "cdefg"], "abc").isPassed).to.be.false;
         });
       });
 
@@ -200,18 +241,18 @@ describe("[ Starts With Checker ]", function() {
     });
 
     context("when a target value is number,", function() {
-      const value = 12345;
-
       it("should be the number", function() {
-        expect(startsWith(value, "123").actual).to.eq(value);
+        [12345, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY].forEach((targetValue: number) => {
+          expect(startsWith(targetValue, "123").actual).to.eq(targetValue);
+        });
       });
     });
 
     context("when a target value is string,", function() {
-      const value = "abcde";
+      const targetValue = "abcde";
 
       it("should be the string", function() {
-        expect(startsWith(value, "abc").actual).to.eq(value);
+        expect(startsWith(targetValue, "abc").actual).to.eq(targetValue);
       });
     });
 

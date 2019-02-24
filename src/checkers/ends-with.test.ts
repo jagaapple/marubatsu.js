@@ -39,10 +39,44 @@ describe("[ Ends With Checker ]", function() {
     });
 
     context("when a target value is number,", function() {
-      it("should be false", function() {
-        expect(endsWith(12345, "345").isPassed).to.be.false;
-        expect(endsWith(12345, "ber").isPassed).to.be.false;
-        expect(endsWith(12345, "cde").isPassed).to.be.false;
+      context("ends with an expected value,", function() {
+        context("not infinity,", function() {
+          it("should be true", function() {
+            expect(endsWith(0, "0").isPassed).to.be.true;
+            expect(endsWith(12345, "345").isPassed).to.be.true;
+            expect(endsWith(-12345, "345").isPassed).to.be.true;
+            expect(endsWith(123.45, "3.45").isPassed).to.be.true;
+            expect(endsWith(-123.45, "3.45").isPassed).to.be.true;
+          });
+        });
+
+        context("infinity,", function() {
+          it("should be false", function() {
+            expect(endsWith(Number.POSITIVE_INFINITY, "0").isPassed).to.be.false;
+            expect(endsWith(Number.POSITIVE_INFINITY, "Infinity").isPassed).to.be.false;
+            expect(endsWith(Number.NEGATIVE_INFINITY, "0").isPassed).to.be.false;
+            expect(endsWith(Number.NEGATIVE_INFINITY, "-Infinity").isPassed).to.be.false;
+          });
+        });
+      });
+
+      context("not starting with an expected value,", function() {
+        it("should be false", function() {
+          expect(endsWith(12345, "123").isPassed).to.be.false;
+          expect(endsWith(12345, "ber").isPassed).to.be.false;
+          expect(endsWith(12345, "ing").isPassed).to.be.false;
+          expect(endsWith(12345, "def").isPassed).to.be.false;
+        });
+      });
+
+      context("an expected value is an empty string,", function() {
+        it("should be true", function() {
+          expect(endsWith(0, "").isPassed).to.be.true;
+          expect(endsWith(12345, "").isPassed).to.be.true;
+          expect(endsWith(-12345, "").isPassed).to.be.true;
+          expect(endsWith(123.45, "").isPassed).to.be.true;
+          expect(endsWith(-123.45, "").isPassed).to.be.true;
+        });
       });
     });
 
@@ -56,10 +90,10 @@ describe("[ Ends With Checker ]", function() {
 
       context("not ending with an expected value,", function() {
         it("should be false", function() {
+          expect(endsWith("12345", "123").isPassed).to.be.false;
+          expect(endsWith("12345", "ber").isPassed).to.be.false;
           expect(endsWith("12345", "ing").isPassed).to.be.false;
           expect(endsWith("12345", "cde").isPassed).to.be.false;
-          expect(endsWith("12345", "123").isPassed).to.be.false;
-          expect(endsWith("abcde", "abc").isPassed).to.be.false;
         });
       });
 
@@ -100,15 +134,22 @@ describe("[ Ends With Checker ]", function() {
 
       context("the last element is not equal to an expected value,", function() {
         it("should be false", function() {
-          expect(endsWith([12345, 23456, 34567], "567").isPassed).to.be.false;
           expect(endsWith([12345, 23456, 34567], "ray").isPassed).to.be.false;
           expect(endsWith([12345, 23456, 34567], "ect").isPassed).to.be.false;
           expect(endsWith([12345, 23456, 34567], "ber").isPassed).to.be.false;
           expect(endsWith([12345, 23456, 34567], "123").isPassed).to.be.false;
+          expect(endsWith(["12345", "23456", "34567"], "ray").isPassed).to.be.false;
+          expect(endsWith(["12345", "23456", "34567"], "ect").isPassed).to.be.false;
+          expect(endsWith(["abcde", "bcdef", "cdefg"], "ing").isPassed).to.be.false;
+          expect(endsWith(["abcde", "bcdef", "cdefg"], "cde").isPassed).to.be.false;
+        });
+      });
+
+      context("the last element ends with an expected value,", function() {
+        it("should be false", function() {
+          expect(endsWith([12345, 23456, 34567], "567").isPassed).to.be.false;
           expect(endsWith(["12345", "23456", "34567"], "567").isPassed).to.be.false;
-          expect(endsWith(["12345", "23456", "34567"], "123").isPassed).to.be.false;
           expect(endsWith(["abcde", "bcdef", "cdefg"], "efg").isPassed).to.be.false;
-          expect(endsWith(["abcde", "bcdef", "cdefg"], "abc").isPassed).to.be.false;
         });
       });
 
@@ -200,18 +241,18 @@ describe("[ Ends With Checker ]", function() {
     });
 
     context("when a target value is number,", function() {
-      const value = 12345;
-
       it("should be the number", function() {
-        expect(endsWith(value, "123").actual).to.eq(value);
+        [12345, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY].forEach((targetValue: number) => {
+          expect(endsWith(targetValue, "123").actual).to.eq(targetValue);
+        });
       });
     });
 
     context("when a target value is string,", function() {
-      const value = "abcde";
+      const targetValue = "abcde";
 
       it("should be the string", function() {
-        expect(endsWith(value, "abc").actual).to.eq(value);
+        expect(endsWith(targetValue, "abc").actual).to.eq(targetValue);
       });
     });
 

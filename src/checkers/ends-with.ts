@@ -1,33 +1,36 @@
 // =============================================================================================================================
-// SRC - CHECKERS - ENDS WITH CHECKER
+// SRC - CHECKERS - ENDS WITH
 // =============================================================================================================================
-import { CheckResult } from "./shared";
+import { CheckResult, getType } from "./shared";
 
 type Result = CheckResult<string>;
-export const endsWith = (value: any, expectedValue: string): Result => {
+export const endsWith = (targetValue: any, expectedValue: string): Result => {
   const result: Result = {
     isPassed: false,
     expected: expectedValue,
-    actual: value,
+    actual: targetValue,
   };
 
-  if (value == undefined) return result;
+  switch (getType(targetValue)) {
+    case "number":
+      if (targetValue === Number.POSITIVE_INFINITY) return result;
+      if (targetValue === Number.NEGATIVE_INFINITY) return result;
 
-  switch (typeof value) {
-    case "string":
-      result.isPassed = value.endsWith(expectedValue);
-      result.actual = value;
+      result.isPassed = `${targetValue}`.endsWith(expectedValue);
 
       return result;
-    case "object": {
-      if (!Array.isArray(value)) return result;
+    case "string":
+      result.isPassed = targetValue.endsWith(expectedValue);
 
-      const lastElement = value[value.length - 1];
+      return result;
+    case "array": {
+      const lastElement = targetValue[targetValue.length - 1];
       result.actual = lastElement;
-      if (typeof lastElement !== "number" && typeof lastElement !== "string") return result;
 
-      const stringValue = lastElement.toString();
-      result.isPassed = stringValue === expectedValue;
+      const type = getType(lastElement);
+      if (type !== "number" && type !== "string") return result;
+
+      result.isPassed = `${lastElement}` === expectedValue;
 
       return result;
     }
