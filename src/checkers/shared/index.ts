@@ -3,3 +3,4 @@
 // =============================================================================================================================
 export { CheckResult } from "./checker";
 export { getLength } from "./length-getter";
+export { getType } from "./type-getter";
