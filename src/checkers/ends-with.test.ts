@@ -272,7 +272,7 @@ describe("[ Ends With Checker ]", function() {
     });
 
     context("when a target value is object (pure object/hash/dictionary),", function() {
-      it("should be the target value", function() {
+      it("should be the object", function() {
         [{}, { a: true }].forEach((value: any) => {
           expect(endsWith(value, "obj").actual).to.eq(value);
         });
@@ -282,7 +282,7 @@ describe("[ Ends With Checker ]", function() {
     context("when a target value is function,", function() {
       const func = () => true;
 
-      it("should be the target value", function() {
+      it("should be the function", function() {
         expect(endsWith(func, "fun").actual).to.eq(func);
       });
     });
