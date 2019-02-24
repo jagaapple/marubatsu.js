@@ -22,9 +22,9 @@ export { isConformingRegExp } from "./regexp";
 export { isSnakeCase } from "./snake-case";
 export { isSpaceCase } from "./space-case";
 export { startsWith } from "./starts-with";
-export { isType } from "./type";
 export { isWithinNumberRange } from "./within-number-range";
 
+export const isType: any = {};
 export const hasDigits: any = {};
 export const isWithinDigitsRange: any = {};
 export const isWithinLengthRange: any = {};
