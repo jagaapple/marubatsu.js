@@ -41,8 +41,8 @@ describe("[ Length Checker ]", function() {
       });
     });
 
-    context("when an expected length is array,", function() {
-      const expectedLength: [number, number] = [3, 5];
+    context("when an expected length is range object,", function() {
+      const expectedLength = { minimum: 3, maximum: 5 };
 
       context('the returned value of "getLength" function is within the expected length rarnge,', function() {
         it("should be true", function() {
@@ -80,7 +80,7 @@ describe("[ Length Checker ]", function() {
       const expectedLength1 = 123;
       expect(length(targetValue, expectedLength1).expected).to.eq(expectedLength1);
 
-      const expectedLength2: [number, number] = [3, 5];
+      const expectedLength2 = { minimum: 3, maximum: 5 };
       expect(length(targetValue, expectedLength2).expected).to.eq(expectedLength2);
     });
   });
@@ -96,7 +96,7 @@ describe("[ Length Checker ]", function() {
       const expectedLength1 = 123;
       expect(length(targetValue, expectedLength1).actual).to.eq(returnedValue);
 
-      const expectedLength2: [number, number] = [3, 5];
+      const expectedLength2 = { minimum: 3, maximum: 5 };
       expect(length(targetValue, expectedLength2).actual).to.eq(returnedValue);
     });
   });

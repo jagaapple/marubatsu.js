@@ -3,13 +3,18 @@
 // =============================================================================================================================
 import { CheckResult, getLength } from "./shared";
 
-type Result = CheckResult<number | [number, number], number>;
-export const length = (targetValue: any, expectedLength: number | [number, number]): Result => {
+interface Range {
+  minimum: number;
+  maximum: number;
+}
+
+type Result = CheckResult<number | Range, number>;
+export const length = (targetValue: any, expectedLength: number | Range): Result => {
   const lengthOfValue = getLength(targetValue);
 
-  if (Array.isArray(expectedLength)) {
-    const minimumLength = expectedLength[0];
-    const maximumLength = expectedLength[1];
+  if (typeof expectedLength === "object") {
+    const minimumLength = expectedLength.minimum;
+    const maximumLength = expectedLength.maximum;
 
     return {
       isPassed: lengthOfValue >= minimumLength && lengthOfValue <= maximumLength,
