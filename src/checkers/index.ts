@@ -18,7 +18,7 @@ export { isNegativeNumber } from "./negative-number";
 export { nullary as isNullary } from "./nullary";
 export { isPositiveNumber } from "./positive-number";
 export { present as isPresent } from "./present";
-export { isConformingRegExp } from "./regexp";
+export { pattern as isConformingRegExp } from "./pattern";
 export { isSnakeCase } from "./snake-case";
 export { isSpaceCase } from "./space-case";
 export { startsWith } from "./starts-with";

@@ -1,7 +1,8 @@
 // =============================================================================================================================
-// SRC - CHECKERS - SHARED - INDEX
+// SRC - CHECKERS - SHARED - ALPHANUMERIC CHECKER
 // =============================================================================================================================
-export { checkAlphanumeric } from "./alphanumeric-checker";
-export { CheckResult } from "./checker";
-export { getLength } from "./length-getter";
-export { getType, ValueType } from "./type-getter";
+export const checkAlphanumeric = (value: any) => {
+  if (typeof value !== "number" && typeof value !== "string") return false;
+
+  return /^[0-9a-zA-z]*$/.test(`{value}`);
+};
